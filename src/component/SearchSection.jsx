@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
-import { Input } from '../../component'
+import { Input } from './Input'
 
 const SearchSection = () => {
   return (

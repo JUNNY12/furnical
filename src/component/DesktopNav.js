@@ -12,8 +12,8 @@ const DesktopNav = () => {
 
       <div className="leftFlex">
        <div>
-        <Link>Sign up</Link>
-        <Link>Login</Link>
+        <Link to='register'>Register</Link>
+        <Link to='/account'>Login</Link>
        </div>
 
         <div className="leftNav">
@@ -37,6 +37,11 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 
+a{
+  text-decoration:none;
+  margin-right:${({theme}) => theme.margin.sm};
+  color:${({theme}) => theme.colors.white};
+}
 .flex{
 display:flex;
 align-items:center;

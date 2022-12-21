@@ -7,6 +7,7 @@ import
     WishList,
     Shop 
 } from "../pages";
+import Auth from "../pages/authpage/Auth";
 
 export function Routes (){
     return useRoutes([
@@ -14,14 +15,16 @@ export function Routes (){
             path:'/',
             element:<Home />
         },
+      
         {
-            path:'/login',
-            element:<SignIn />
-        },
-        {
-            path:'/register',
-            element:<SignUp />
-        },
+            path: '/account',
+            element: <Auth />,
+            children:[
+              {element:<SignIn />, index:true},
+              {path: 'register', element: <SignUp />},
+            ]
+          },
+      
         {
             path:'/shop',
             element:<Shop />

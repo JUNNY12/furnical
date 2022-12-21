@@ -11,13 +11,13 @@ const SecondNav = () => {
             <NavLink to='/' className={({isActive}) => isActive? 'active' : undefined} end >Home</NavLink>
           </li>
           <li>
-            <NavLink to='/login'>My account</NavLink>
+            <NavLink to='/account' className={({isActive}) => isActive? 'active' : undefined} end >My account</NavLink>
           </li>
           <li>
-            <NavLink to='/shop'>Shop</NavLink>
+            <NavLink to='/shop'  className={({isActive}) => isActive? 'active' : undefined} end >Shop</NavLink>
           </li>
           <li>
-            <NavLink to='/wishlist'>WishList</NavLink>
+            <NavLink to='/wishlist'  className={({isActive}) => isActive? 'active' : undefined} end >WishList</NavLink>
           </li>
         </ul>
       </div>

@@ -1,10 +1,12 @@
 import styled from "styled-components"
 import ProductCard from "./ProductCard"
 import { Link } from "react-router-dom"
+import AllProductHeader from "./AllProductHeader"
 
 const AllProduct = () => {
   return (
    <Container>
+       <AllProductHeader />
      <Section>
         <ProductCard />
         <ProductCard />

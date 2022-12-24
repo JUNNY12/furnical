@@ -2,13 +2,8 @@ export const theme = {
     colors: {
       primary: '#ff7f50',
       white: '#ffffff',
-      blackOne: '#000000',
-      blackTwo: '#1d1d1d',
-      black300: '#282828',
-      gray500: '#e0e0e0',
-      gray400: '#BDBDBD',
-      gray300: '#828282',
-      faintBlue: '#E9FBFB',
+      gray:'#f5f5f5',
+      lightPrimary:"#db9277"
     },
     fonts: ['sans-serif', 'inter', 'productSans', 'Poppins'],
     fontSizes: {

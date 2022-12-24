@@ -1,4 +1,5 @@
-import img from '../assets/product1.jfif'
+import img from '../assets/images/product1.jfif'
+
 
 export {
     img

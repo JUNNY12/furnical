@@ -2,6 +2,7 @@ import styled from "styled-components"
 import ProductCard from "./ProductCard"
 import { Link } from "react-router-dom"
 import AllProductHeader from "./AllProductHeader"
+import { devices } from "../../config/mediaquery"
 
 const AllProduct = () => {
   return (
@@ -27,7 +28,7 @@ const AllProduct = () => {
 }
 
 const Container = styled.section`
-padding-bottom:${({theme}) => theme.padding.lg};
+padding-bottom:5rem;
 
 `
 const Button = styled.button`
@@ -46,6 +47,21 @@ grid-template-columns:1fr 1fr 1fr 1fr;
 gap:2rem;
 margin:${({theme}) => theme.margin.lg};
 padding:${({theme}) => theme.padding.lg};
+
+@media all and ${devices.laptop}{
+  grid-template-columns:1fr 1fr 1fr;
+  margin:${({theme}) => theme.margin.md};
+  padding:${({theme}) => theme.padding.md};
+  gap:1.5rem;
+
+@media all and ${devices.tablet}{
+  grid-template-columns:1fr 1fr;
+}
+@media all and (max-width:550px){
+  grid-template-columns:1fr;
+  margin:${({theme}) => theme.margin.md};
+  padding:${({theme}) => theme.padding.md};
+}
 `
 
 export default AllProduct

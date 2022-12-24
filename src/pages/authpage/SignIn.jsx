@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { Input } from "../../component"
 import { Button } from "../../component"
 import { Link } from "react-router-dom"
+import { devices } from "../../config/mediaquery"
 
 
 
@@ -12,7 +13,7 @@ const SignIn = () => {
       <Section>
       
         <div className="form">
-         <h1>Login</h1>
+         <h1>Login to your Account</h1>
           <form>
             <div>
               <LoginInput 
@@ -34,7 +35,7 @@ const SignIn = () => {
 
             <div>
               <span>Don't have an account? </span>
-              <Link to='register'> Register</Link>
+              <Link to='/auth/register'> Register</Link>
             </div>
 
             <div className="forgetPassword">Forget Password</div>
@@ -79,7 +80,11 @@ text-indent:10px;
 border:none;
 border-bottom:1.5px solid gray;
 background:transparent;
-cursor:pointer:
+cursor:pointer;
+background:transparent;
+@media all and ${devices.mobileM}{
+  width:280px;
+}
 
 `
 
@@ -89,5 +94,8 @@ background-color:${({theme}) => theme.colors.primary};
 height:35px;
 color:${({theme}) => theme.colors.white};
 font-weight:600;
+@media all and ${devices.mobileM}{
+  width:280px;
+}
 `
 export default SignIn

@@ -1,6 +1,9 @@
 import React from 'react' 
 import { Card } from '../../component'
 import { img } from '../../assets'
+import {MdFavorite} from "react-icons/md"
+import {AiFillEye} from "react-icons/ai"
+import { Rate } from '../../component'
 
 
 const ProductCard = () => {
@@ -10,6 +13,7 @@ const ProductCard = () => {
         <div className='cardBody'>
              <div className='name'>Chinese chair</div>
              <div className='rate'>
+                 <span className='rating'><Rate rating={4} /></span>
                  <span>(0)</span>
             </div>
             <div className='price'>
@@ -20,8 +24,8 @@ const ProductCard = () => {
         </div>
         
         <div className='preview'>
-            <div>view</div>
-            <div>Favorite</div>
+            <div className='view'><AiFillEye /></div>
+            <div className='favorite'><MdFavorite /></div>
         </div>
     
     </Card>

@@ -1,27 +1,55 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+import {AiOutlineMail} from "react-icons/ai"
+import {BiPhoneCall} from "react-icons/bi"
+import {MdFavorite} from "react-icons/md"
+import {AiOutlineShoppingCart} from "react-icons/ai"
+import CartModal from "./CartModal"
 
-const DesktopNav = () => {
+
+const DesktopNav = ({showCart, setShowCart}) => {
+
+
+
   return (
     <Header>
       <div className="flex">
-          <div className="info">info@gmail.com</div>
-          <div className="info">09032869229</div>
-          <div className="info">07068775422</div>
+          <a href="mailto:juwonemmanuel22@gmail.com">
+             <div className="info"><AiOutlineMail /></div>
+          </a>
+          <a href="tel:+2349032869229">
+            <div className="info"><BiPhoneCall /></div>
+          </a>
       </div>
 
       <div className="leftFlex">
        <div>
-        <Link to='register'>Register</Link>
-        <Link to='/account'>Login</Link>
+        <Link to='/auth/register'>Register</Link>
+        <Link to='/auth/login'>Login</Link>
        </div>
 
         <div className="leftNav">
-          <span className="span">Fav</span>
-          <span className="span">cart icon</span>
-          <span className="span">Cart : #0 : 00</span>
+          <Link to={`/wishlist`}>
+            <span className="span">
+              <MdFavorite />
+              <span className="notify">2</span>  
+            </span>
+          </Link>
+          <span onClick={() => setShowCart(true)} style={{cursor:'pointer'}}>
+            <span className="span">
+              <AiOutlineShoppingCart />
+              <span className="notify">3</span>    
+            </span>
+          </span>
+          <span className="span">Cart : #80,000 : 00</span>
         </div>
       </div>
+       {
+         showCart && 
+         <CartModal 
+         setShowCart={setShowCart}
+         />
+       }
     </Header>
   )
 }
@@ -29,7 +57,7 @@ const DesktopNav = () => {
 export default DesktopNav
 
 
-const Header = styled.header`
+const Header = styled.div`
 background-color:${({theme}) => theme.colors.primary};
 padding:${({theme}) => theme.padding.sm} ${({theme}) => theme.padding.xmd} ${({theme}) => theme.padding.sm}  ${({theme}) => theme.padding.xmd};
 color:${({theme}) => theme.colors.white};
@@ -39,8 +67,9 @@ align-items:center;
 
 a{
   text-decoration:none;
-  margin-right:${({theme}) => theme.margin.sm};
+  margin-right:${({theme}) => theme.margin.md};
   color:${({theme}) => theme.colors.white};
+  font-weight:bold;
 }
 .flex{
 display:flex;
@@ -48,7 +77,9 @@ align-items:center;
 }
 
 .info{
-  margin-right:${({theme}) => theme.margin.sm};
+  margin-right:${({theme}) => theme.margin.lg};
+  cursor:pointer;
+  font-size:2rem;
 }
 
 .leftNav{
@@ -63,6 +94,22 @@ align-items:center;
 }
 
 .span{
-  margin-right:${({theme}) => theme.margin.sm};
+  margin-right:${({theme}) => theme.margin.lg};
+  font-size:1.3rem;
+  position:relative;
+  display:inline-block;
+}
+.notify{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:1em;
+  height:1em;
+  background-color:${({theme}) => theme.colors.primary};
+  border-radius:50%;
+  position:absolute;
+  top:-0.3rem;
+  font-size:0.8rem;
+  padding:0.2rem;
 }
 `

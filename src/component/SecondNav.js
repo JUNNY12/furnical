@@ -1,22 +1,50 @@
 import styled from "styled-components"
 import { NavLink } from "react-router-dom"
+import {AiOutlineMenu} from "react-icons/ai"
+import { useState } from "react"
 
 const SecondNav = () => {
+
+  const [show, setShow] = useState(false)
+  const handleShow = () => {
+    setShow(prev => !prev)
+  }
   return (
     <Nav>
-      <div className="category">All Categories</div>
+      <div className="container">
+       <div 
+       className="category"
+       onClick={handleShow}
+       >
+          <div><AiOutlineMenu /></div>
+          <h1>All category</h1>
+       </div>
+      {
+        show &&
+        <div className="categoryList">
+          <ul>
+            <li>Chairs</li>
+            <li>Tables</li>
+            <li>Beds</li>
+            <li>Kitchen</li>
+            <li>Boards</li>
+          </ul>
+        </div>
+      }
+        
+      </div>
       <div>
-        <ul>
-          <li>
+        <ul className="navList">
+          <li className="navLink">
             <NavLink to='/' className={({isActive}) => isActive? 'active' : undefined} end >Home</NavLink>
           </li>
-          <li>
-            <NavLink to='/account' className={({isActive}) => isActive? 'active' : undefined} end >My account</NavLink>
+          <li className="navLink">
+            <NavLink to='/auth/login' className={({isActive}) => isActive? 'active' : undefined} end >My account</NavLink>
           </li>
-          <li>
+          <li className="navLink">
             <NavLink to='/shop'  className={({isActive}) => isActive? 'active' : undefined} end >Shop</NavLink>
           </li>
-          <li>
+          <li className="navLink">
             <NavLink to='/wishlist'  className={({isActive}) => isActive? 'active' : undefined} end >WishList</NavLink>
           </li>
         </ul>
@@ -54,10 +82,30 @@ a:hover{
   padding:${({theme}) => theme.padding.sm};
 }
 
+.container{
+  position:relative;
+}
+
+.categoryList{
+  position:absolute;
+  background-color:${({theme}) => theme.colors.white};
+  width:250px;
+  padding:${({theme}) => theme.padding.sm};
+  z-index:1;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.categoryList>ul{
+  list-style-type:none;
+}
+
+.categoryList>ul>li{
+  margin-bottom:${({theme}) => theme.margin.md};
+  font-weight:550;
+}
 .category{
   background-color:${({theme}) => theme.colors.primary};
-  padding:${({theme}) => theme.padding.md};
-  width:200px;
+  padding:${({theme}) => theme.padding.sm};
   text-align:center;
   cursor:pointer;
   color:${({theme}) => theme.colors.white};
@@ -65,17 +113,20 @@ a:hover{
   border-top-right-radius:8px ;
   font-weight:600;
   font-size:1.3rem;
-
+  display:flex;
+  height:45px;
+  width:250px;
+  align-items:center;
+  column-gap:1rem;
 }
 
-ul{
+.navList{
   display:flex;
 }
 
-li{
+.navLink{
   list-style-type:none;
   margin-right:${({theme}) => theme.margin.lg};
-  width:7rem;
 }
 `
 export default SecondNav

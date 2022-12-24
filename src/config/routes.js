@@ -5,7 +5,8 @@ import
     SignIn,
     SignUp,
     WishList,
-    Shop 
+    Shop ,
+    Cart
 } from "../pages";
 import Auth from "../pages/authpage/Auth";
 
@@ -17,10 +18,10 @@ export function Routes (){
         },
       
         {
-            path: '/account',
+            path: '/auth',
             element: <Auth />,
             children:[
-              {element:<SignIn />, index:true},
+              {path:'login', element:<SignIn />},
               {path: 'register', element: <SignUp />},
             ]
           },
@@ -34,5 +35,9 @@ export function Routes (){
             element:<WishList />
         },
 
+        {
+            path:'/cart',
+            element:<Cart />
+        },
     ])
 }

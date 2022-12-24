@@ -10,6 +10,11 @@ border-radius:8px;
 cursor:pointer;
 transition:0.3s linear;
 position:relative;
+box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+:hover .preview{
+    display:flex;
+    transition:1s linear;
+} 
 
 .img{
     width:100%;
@@ -27,6 +32,9 @@ position:relative;
 }
 .rate{
     margin-top:${({theme}) => theme.margin.sm};
+    display:inline-flex;
+    align-items:center;
+    column-gap:0.5rem;
 }
 
 .price{
@@ -35,6 +43,14 @@ position:relative;
     color:${({theme}) => theme.colors.primary};
 }
 
+.rating{
+    display:inline-flex;
+}
+.view,
+.favorite{
+    font-size:2rem;
+    color:${({theme}) => theme.colors.white};
+}
 .addCart{
     margin-top:${({theme}) => theme.margin.sm};
     outline:none;
@@ -51,10 +67,10 @@ position:relative;
     position:absolute;
     left:50%;
     top:50%;
-    background:${({theme}) => theme.colors.white};
-    display:flex;
     gap:1rem;
     padding:${({theme}) => theme.padding.sm};
     transform:translate(-50% , -50%);
+    display:none;
+    transition:1s linear;
 }
 `

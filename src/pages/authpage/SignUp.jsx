@@ -3,6 +3,7 @@ import { SharedLayout } from '../../component'
 import styled from "styled-components"
 import { Input, Button } from '../../component'
 import { Link } from 'react-router-dom'
+import { devices } from '../../config/mediaquery'
 
 const SignUp = () => {
   return (
@@ -10,7 +11,7 @@ const SignUp = () => {
       <Section>
       
       <div className="form">
-       <h1>Register</h1>
+       <h1>Register an Account</h1>
         <form>
           <div>
             <RegisterInput 
@@ -32,7 +33,7 @@ const SignUp = () => {
 
           <div>
             <span>Already have an account? </span>
-            <Link to='/account'> Login</Link>
+            <Link to='/auth/login'> Login</Link>
           </div>
         </form>
         
@@ -74,7 +75,10 @@ text-indent:10px;
 border:none;
 border-bottom:1.5px solid gray;
 background:transparent;
-cursor:pointer:
+cursor:pointer;
+@media all and ${devices.mobileM}{
+  width:280px;
+}
 
 `
 
@@ -84,5 +88,8 @@ background-color:${({theme}) => theme.colors.primary};
 height:35px;
 color:${({theme}) => theme.colors.white};
 font-weight:600;
+@media all and ${devices.mobileM}{
+  width:280px;
+}
 `
 export default SignUp

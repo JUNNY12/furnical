@@ -3,20 +3,28 @@ import ProductCard from "./ProductCard"
 import { Link } from "react-router-dom"
 import AllProductHeader from "./AllProductHeader"
 import { devices } from "../../config/mediaquery"
+import data from "../../component/Data"
 
 const AllProduct = () => {
   return (
    <Container>
        <AllProductHeader />
      <Section>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {
+          data.map(({id, name, image, rate, price}) => {
+            console.log(name)
+            return (
+              <ProductCard
+                key={id}
+                id ={id}
+                name={name}
+                image={image}
+                rate={rate}
+                price={price}
+              />
+            )
+          })
+        }
      </Section>
      <div style={{textAlign:'center'}} >
          <Link to={`/shop`}>

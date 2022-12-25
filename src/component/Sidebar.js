@@ -85,6 +85,7 @@ z-index:2;
 background:${({theme}) => theme.colors.white};
 width:300px;
 padding:${({theme}) => theme.padding.lg};
+transition: transform 6s ease,-webkit-transform 4s ease;
 
 @media all and ${devices.mobileL}{
     width:200px;

@@ -2,7 +2,7 @@ import ProductCard from "./ProductCard"
 import styled from "styled-components"
 import { devices } from "../../config/mediaquery"
 import Sort from "./Sort"
-
+import data from "../../component/Data"
 
 
 
@@ -11,14 +11,21 @@ const Products = () => {
      <Container>
        <Sort />
        <Section>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+       {
+          data.map(({id, name, image, rate, price}) => {
+            console.log(name)
+            return (
+              <ProductCard
+                key={id}
+                id ={id}
+                name={name}
+                image={image}
+                rate={rate}
+                price={price}
+              />
+            )
+          })
+        }
        </Section>
      </Container>
     )

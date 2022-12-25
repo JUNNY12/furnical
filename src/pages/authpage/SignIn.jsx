@@ -53,6 +53,7 @@ const Section = styled.section`
 
 h1{
   text-align:center;
+  margin-top:2rem;
 }
 
 a{
@@ -65,7 +66,6 @@ form{
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  row-gap:1.5rem;
 }
 
 .forgetPassword{
@@ -81,6 +81,7 @@ border:none;
 border-bottom:1.5px solid gray;
 background:transparent;
 cursor:pointer;
+margin-top:2rem;
 background:transparent;
 @media all and ${devices.mobileM}{
   width:280px;
@@ -93,6 +94,8 @@ width:300px;
 background-color:${({theme}) => theme.colors.primary};
 height:35px;
 color:${({theme}) => theme.colors.white};
+margin-top:2rem;
+margin-bottom:1rem;
 font-weight:600;
 @media all and ${devices.mobileM}{
   width:280px;

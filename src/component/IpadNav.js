@@ -5,11 +5,13 @@ import {CgProfile} from "react-icons/cg"
 import {ImCancelCircle} from "react-icons/im"
 import Sidebar from './Sidebar'
 import CartModal from './CartModal'
+import SearchSection from './SearchSection'
+import { useState } from 'react'
 
 
 const IpadNav = ({showSideBar, setShowSideBar, showCart, setShowCart}) => {
 
- 
+ const [showSearch, setShowSearch] = useState(false)
   return (
     <Nav>
         <div className='logo'>Furnical</div>
@@ -18,7 +20,7 @@ const IpadNav = ({showSideBar, setShowSideBar, showCart, setShowCart}) => {
                 {!showSideBar && <span onClick={() => setShowSideBar(true)}><AiOutlineMenu /></span> }
                {showSideBar &&  <span onClick={() => setShowSideBar(false)}><ImCancelCircle /></span>}
             </div>
-            <div className='icon'><AiOutlineSearch /></div>
+            <div className='icon'  onClick ={() => setShowSearch(true)}><AiOutlineSearch /></div>
             <div className='icon'><CgProfile /></div>
             <div className='icon' onClick={() => setShowCart(true)}><AiOutlineShoppingCart/></div>
         </div>
@@ -33,6 +35,18 @@ const IpadNav = ({showSideBar, setShowSideBar, showCart, setShowCart}) => {
             showCart &&
             <CartModal setShowCart={setShowCart} />
         }
+        {
+        showSearch &&
+        <div className='search'>
+            <SearchSection />
+            <div 
+            className='remove'
+            onClick ={() => setShowSearch(false)}
+            >
+                <ImCancelCircle />
+            </div>
+        </div>
+        }
     </Nav>
   )
 }
@@ -43,6 +57,23 @@ const Nav = styled.nav`
 display:flex;
 align-items:center;
 justify-content:space-between;
+
+.remove{
+    position:absolute;
+    top:1em;
+    right:1em;
+    font-size:1.5rem;
+    cursor:pointer;
+}
+.search{
+    position:absolute;
+    top:30%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background:${({theme}) => theme.colors.white};
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+    transition: transform 6s ease,-webkit-transform 4s ease;
+}
 
 .logo{
     color:${({theme}) => theme.colors.primary};

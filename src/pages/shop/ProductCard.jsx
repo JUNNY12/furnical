@@ -4,26 +4,29 @@ import { img } from '../../assets'
 import {MdFavorite} from "react-icons/md"
 import {AiFillEye} from "react-icons/ai"
 import { Rate } from '../../component'
+import { useNavigate } from 'react-router-dom'
 
-const ProductCard = () => {
+const ProductCard = ({id, name, image, rate, price}) => {
+  const navigate = useNavigate()
+  const {purchased, rating} = rate
   return (
     <Card>
-        <img src={img} alt="img" className='img' />
+        <img src={image} alt="img" className='img' />
         <div className='cardBody'>
-             <div className='name'>Chinese chair</div>
+             <div className='name'>{name}</div>
              <div className='rate'>
-                 <span className='rating'><Rate rating={5} /></span>
-                 <span>(0)</span>
+                 <span className='rating'><Rate rating={rating} /></span>
+                 <span>({purchased})</span>
             </div>
             <div className='price'>
                 <span>#</span>
-                <span>200,000</span>
+                <span>{price}</span>
             </div>
             <button className='addCart'>Add To Cart</button>
         </div>
         
         <div className='preview'>
-            <div className='view'><AiFillEye /></div>
+            <div className='view' onClick={() => navigate(`/shop/item/${id}`)}><AiFillEye /></div>
             <div className='favorite'><MdFavorite /></div>
         </div>
     

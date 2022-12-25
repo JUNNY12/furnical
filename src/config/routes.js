@@ -6,7 +6,14 @@ import
     SignUp,
     WishList,
     Shop ,
-    Cart
+    Cart,
+    Product,
+    ShopLayout,
+    AccountLayout,
+    Dashboard,
+    Details,
+    Address,
+    Orders
 } from "../pages";
 import Auth from "../pages/authpage/Auth";
 
@@ -25,10 +32,24 @@ export function Routes (){
               {path: 'register', element: <SignUp />},
             ]
           },
+          {
+            path: '/account',
+            element: <AccountLayout />,
+            children:[
+              {path:'dashboard', element:<Dashboard/>},
+              {path: 'details', element: <Details />},
+              {path: 'address', element: <Address />},
+              {path: 'orders', element: <Orders />},
+            ]
+          },
       
         {
             path:'/shop',
-            element:<Shop />
+            element:<ShopLayout />,
+            children:[
+                {index:true, element:<Shop />},
+                {path:'item/:id' , element:<Product/>}
+            ]
         },
         {
             path:'/wishlist',

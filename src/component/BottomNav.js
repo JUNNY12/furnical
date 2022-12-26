@@ -39,7 +39,6 @@ width:100%;
 left:0;
 padding:${({theme}) => theme.padding.md};
 
-
 .btIcon{
 font-size:1.3rem;
 }

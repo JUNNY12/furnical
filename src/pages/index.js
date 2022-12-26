@@ -11,7 +11,9 @@ import Address from "./account/Address";
 import Dashboard from "./account/Dashboard"
 import Orders from "./account/Orders";
 import Details from "./account/Details"
-
+import BillingAddress from "./account/BillingAddress";
+import ShippingAddress from "./account/ShippingAddress";
+import AddressLayout from "./account/AddressLayout";
 export {
     Home,
     SignIn,
@@ -25,5 +27,8 @@ export {
     Details,
     Orders,
     Dashboard,
-    Address
+    Address,
+    BillingAddress,
+    ShippingAddress,
+    AddressLayout
 }

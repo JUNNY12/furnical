@@ -13,7 +13,10 @@ import
     Dashboard,
     Details,
     Address,
-    Orders
+    Orders,
+    ShippingAddress,
+    BillingAddress,
+    AddressLayout,
 } from "../pages";
 import Auth from "../pages/authpage/Auth";
 
@@ -38,7 +41,13 @@ export function Routes (){
             children:[
               {path:'dashboard', element:<Dashboard/>},
               {path: 'details', element: <Details />},
-              {path: 'address', element: <Address />},
+              {path: 'address', element:<AddressLayout />,
+                children:[
+                    {index:true, element:<Address />},
+                    {path: 'edit-billing', element:<BillingAddress />},
+                    {path: 'edit-shipping', element: <ShippingAddress />}
+                ]
+             },
               {path: 'orders', element: <Orders />},
             ]
           },

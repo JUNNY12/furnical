@@ -18,7 +18,7 @@ const AccountLayout = () => {
                         <NavLink to={`details`} className={({isActive}) => isActive? 'activeLink' : undefined} end>
                             <div className='sideLink'>Account Details</div>
                         </NavLink>
-                    <NavLink to={`address`} className={({isActive}) => isActive? 'activeLink' : undefined} end>
+                    <NavLink to={`address`} className={({isActive}) => isActive? 'activeLink' : undefined} >
                         <div className='sideLink'>Address</div>
                     </NavLink>
                     <NavLink to={`orders`} className={({isActive}) => isActive? 'activeLink' : undefined} end>
@@ -37,7 +37,7 @@ const AccountLayout = () => {
 
 const Container = styled.div`
 display:flex;
-column-gap:5rem;
+column-gap:2.5rem;
 padding:${({theme}) => theme.padding.lg};
 background:${({theme}) => theme.colors.white};
 @media all and ${devices.tablet}{

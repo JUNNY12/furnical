@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import { devices } from "../../config/mediaquery"
+import {GrNext, GrPrevious} from "react-icons/gr"
+
 
 
 const AllProductHeader = () => {
@@ -9,8 +11,8 @@ const AllProductHeader = () => {
         <h4>All Categories</h4>
 
         <div className="navigate">
-            <span className="span">prev</span>
-            <span className="span">Next</span>
+            <span className="span"><GrPrevious /></span>
+            <span className="span"><GrNext /></span>
         </div>
     </Section>
   )

@@ -1,7 +1,6 @@
 import ProductCard from "./ProductCard"
 import styled from "styled-components"
 import { devices } from "../../config/mediaquery"
-import Sort from "./Sort"
 import data from "../../component/Data"
 
 
@@ -9,7 +8,6 @@ import data from "../../component/Data"
 const Products = () => {
     return (
      <Container>
-       <Sort />
        <Section>
        {
           data.map(({id, name, image, rate, price}) => {
@@ -55,7 +53,7 @@ const Products = () => {
     grid-template-columns:1fr 1fr 1fr;
     margin:${({theme}) => theme.margin.md};
     padding:${({theme}) => theme.padding.md};
-    gap:1.5rem;
+    gap:1rem;
   
   @media all and ${devices.tablet}{
     grid-template-columns:1fr 1fr;

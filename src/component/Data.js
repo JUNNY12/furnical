@@ -6,6 +6,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,
@@ -16,6 +17,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,
@@ -27,6 +29,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,
@@ -37,6 +40,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,
@@ -46,6 +50,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,
@@ -56,6 +61,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,
@@ -67,6 +73,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,
@@ -78,6 +85,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,
@@ -89,6 +97,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,
@@ -100,6 +109,7 @@ const data = [
     image:img,
     name:"best Japanese chair",
     price:20000,
+    description:' Lorem ipsum dolor sit amet consectetur adipisicing elit.Provident, quaerat architecto.',
     rate:{
         purchased:12,
         rating:4,

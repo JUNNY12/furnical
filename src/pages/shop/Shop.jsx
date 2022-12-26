@@ -4,8 +4,14 @@ import { SharedLayout } from '../../component'
 import Header from "./Header"
 import Products from './Products'
 import { devices } from '../../config/mediaquery'
+import ListProduct from './ListProduct'
+import Sort from './Sort'
+import { useState } from 'react'
+import useWidth from '../../hooks/useWidth'
 
 const Shop = () => {
+  const [list , setList] = useState(false)
+  const width = useWidth()
   return (
     <SharedLayout>
 
@@ -13,7 +19,20 @@ const Shop = () => {
         <Header />
       </Section>
       <Container>
-        <Products />
+        <Sort 
+        list={list}
+        setList={setList}
+        />
+        {
+          !list && 
+          <Products />
+        }
+        {
+          width >= 990 ?
+          list && 
+          <ListProduct />
+          : <Products />
+        }
       </Container>
 
     </SharedLayout>
@@ -32,7 +51,6 @@ padding:${({theme}) => theme.padding.lg};
 `
 
 const Section = styled.section`
-margin:${({theme}) => theme.margin.lg};
 padding:${({theme}) => theme.padding.lg};
 `
 export default Shop

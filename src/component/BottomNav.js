@@ -2,6 +2,7 @@ import styled from "styled-components"
 import {AiFillHome, AiOutlineShoppingCart} from "react-icons/ai"
 import {MdFavorite} from "react-icons/md"
 import {VscAccount} from "react-icons/vsc"
+import { devices } from "../config/mediaquery"
 const BottomNav = () => {
   return (
     <Container>
@@ -31,7 +32,6 @@ bottom:0;
 display:flex;
 justify-content:center;
 align-items:center;
-column-gap:15%;
 background:${({theme}) => theme.colors.white};
 z-index:1;
 border:1px solid ${({theme}) => theme.colors.gray};
@@ -41,6 +41,16 @@ padding:${({theme}) => theme.padding.md};
 
 .btIcon{
 font-size:1.3rem;
+margin-right:3rem;
+
+@media all and ${devices.tablet}{
+    margin-right:6rem; 
+}
+
+@media all and (max-width:600px){
+    margin-right:3rem; 
+}
+
 }
 
 .btCart,

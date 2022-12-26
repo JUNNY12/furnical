@@ -1,10 +1,11 @@
 import styled from 'styled-components'
+import { devices } from '../config/mediaquery'
 
 
 export const Card = styled.div`
 background-color:${({theme}) => theme.colors.white};
 object-fit:cover;
-height:320px;
+height:330px;
 padding:${({theme}) => theme.padding.lg};
 border-radius:8px;
 cursor:pointer;
@@ -15,6 +16,10 @@ box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
     display:flex;
     transition:1s linear;
 } 
+
+@media all and (max-width:520px){
+    padding:0.8rem;
+}
 
 .img{
     width:100%;

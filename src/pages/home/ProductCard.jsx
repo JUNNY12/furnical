@@ -1,6 +1,5 @@
 import React from 'react' 
 import { Card } from '../../component'
-import { img } from '../../assets'
 import {MdFavorite} from "react-icons/md"
 import {AiFillEye} from "react-icons/ai"
 import { Rate } from '../../component'

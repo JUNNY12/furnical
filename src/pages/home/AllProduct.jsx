@@ -36,7 +36,7 @@ const AllProduct = () => {
 }
 
 const Container = styled.section`
-padding-bottom:5rem;
+padding-bottom:4rem;
 
 `
 const Button = styled.button`

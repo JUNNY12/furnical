@@ -5,7 +5,7 @@ import { devices } from '../config/mediaquery'
 export const Card = styled.div`
 background-color:${({theme}) => theme.colors.white};
 object-fit:cover;
-height:330px;
+height:350px;
 padding:${({theme}) => theme.padding.lg};
 border-radius:8px;
 cursor:pointer;

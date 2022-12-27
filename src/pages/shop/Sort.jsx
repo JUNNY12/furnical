@@ -7,12 +7,16 @@ import useWidth from '../../hooks/useWidth'
 
 const Sort = ({list, setList}) => {
   const width = useWidth()
+  const disabled = width >= 990
   return (
     <Section>
       <div>
-        <span onClick={() => setList(false)}><BsFillGrid3X3GapFill /></span>
+        <span
+        disabled={disabled}
+        className={!disabled ? "disabled" : ''}
+        onClick={() => setList(false)}><BsFillGrid3X3GapFill /></span>
        {
-         width>= 990 
+         width >= 990 
          &&
          <span onClick={() => setList(true)}><CiBoxList /></span>
        }
@@ -36,6 +40,9 @@ justify-content:space-between;
 align-items:center;
 padding:0 ${({theme}) => theme.margin.lg}  0 ${({theme}) => theme.margin.lg};
 
+.disabled{
+  color:gray;
+}
 span{
   margin-right:2rem;
   font-size:1.3rem;

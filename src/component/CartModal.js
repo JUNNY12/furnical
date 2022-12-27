@@ -76,7 +76,7 @@ color:black;
 padding:${({theme}) => theme.padding.xmd};
 box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 border-radius:4px;
-
+z-index:4;
 .cartImage{
     width:60px;
     height:60px;

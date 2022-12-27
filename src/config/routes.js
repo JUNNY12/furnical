@@ -1,21 +1,21 @@
 import { useRoutes } from "react-router-dom";
 import 
 {
-    Home,
-    SignIn,
-    SignUp,
-    WishList,
-    Shop ,
-    Cart,
-    Product,
+    HomePage,
+    SignInPage,
+    SignUpPage,
+    WishListPage,
+    ShopPage,
+    CartPage,
+    ProductPage,
     ShopLayout,
     AccountLayout,
-    Dashboard,
-    Details,
-    Address,
-    Orders,
-    ShippingAddress,
-    BillingAddress,
+    DashboardPage,
+    DetailsPage,
+    AddressPage,
+    OrdersPage,
+    ShippingAddressPage,
+    BillingAddressPage,
     AddressLayout,
 } from "../pages";
 import Auth from "../pages/authpage/Auth";
@@ -24,31 +24,31 @@ export function Routes (){
     return useRoutes([
         {
             path:'/',
-            element:<Home />
+            element:<HomePage />
         },
       
         {
             path: '/auth',
             element: <Auth />,
             children:[
-              {path:'login', element:<SignIn />},
-              {path: 'register', element: <SignUp />},
+              {path:'login', element:<SignInPage />},
+              {path: 'register', element: <SignUpPage />},
             ]
           },
           {
             path: '/account',
             element: <AccountLayout />,
             children:[
-              {path:'dashboard', element:<Dashboard/>},
-              {path: 'details', element: <Details />},
+              {path:'dashboard', element:<DashboardPage />},
+              {path: 'details', element: <DetailsPage />},
               {path: 'address', element:<AddressLayout />,
                 children:[
-                    {index:true, element:<Address />},
-                    {path: 'edit-billing', element:<BillingAddress />},
-                    {path: 'edit-shipping', element: <ShippingAddress />}
+                    {index:true, element:<AddressPage />},
+                    {path: 'edit-billing', element:<BillingAddressPage />},
+                    {path: 'edit-shipping', element: <ShippingAddressPage />}
                 ]
              },
-              {path: 'orders', element: <Orders />},
+              {path: 'orders', element: <OrdersPage />},
             ]
           },
       
@@ -56,18 +56,18 @@ export function Routes (){
             path:'/shop',
             element:<ShopLayout />,
             children:[
-                {index:true, element:<Shop />},
-                {path:'item/:id' , element:<Product/>}
+                {index:true, element:<ShopPage />},
+                {path:'item' , element:<ProductPage/>}
             ]
         },
         {
             path:'/wishlist',
-            element:<WishList />
+            element:<WishListPage />
         },
 
         {
             path:'/cart',
-            element:<Cart />
+            element:<CartPage />
         },
     ])
 }

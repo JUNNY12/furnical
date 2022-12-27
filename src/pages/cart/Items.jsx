@@ -45,7 +45,7 @@ const Items = () => {
             </div>
             <div className='name col-2'>Japanese free chair</div>
             <div className='quantity col-3'>
-                <span className='decrease'><AiOutlinePlus /></span>
+                <span className='increase'><AiOutlinePlus /></span>
                 <span className='qty'>2</span>
                 <span className='decrease'><AiOutlineMinus /></span>
             </div>

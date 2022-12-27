@@ -28,7 +28,7 @@ const Shop = () => {
           <Products />
         }
         {
-          width >= 990 ?
+          !width <= 990 ?
           list && 
           <ListProduct />
           : <Products />
@@ -42,6 +42,7 @@ const Shop = () => {
 const Container= styled.div`
 background:${({theme}) => theme.colors.white};
 padding:${({theme}) => theme.padding.lg};
+padding-bottom:4rem;
 @media all and ${devices.laptop}{
   padding:${({theme}) => theme.padding.md};
 

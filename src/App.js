@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Routes, theme } from "./config";
 import { Suspense } from "react";
 import Loader from "./component/Loader";
-import Provider from "@reduxjs/toolkit"
+import { Provider } from "react-redux";
 import { store } from "./state/store";
 
 function App() {

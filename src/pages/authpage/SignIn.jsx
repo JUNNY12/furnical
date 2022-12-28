@@ -2,32 +2,66 @@ import { SharedLayout } from "../../component"
 import styled from "styled-components"
 import { Input } from "../../component"
 import { Button } from "../../component"
-import { Link } from "react-router-dom"
+import { Link , useNavigate} from "react-router-dom"
 import { devices } from "../../config/mediaquery"
+import { useForm } from "../../hooks"
+import { useLoginMutation } from "../../services/auth"
+import {useEffect} from "react"
 
 
 
 const SignIn = () => {
+
+  const [loginUser, {isLoading, data, error, isError, isSuccess}] = useLoginMutation()
+  const navigate = useNavigate()
+  const {formData, handleInputChange} = useForm(
+    {
+      email:'',
+      password:'',
+    }
+  )
+
+  const {identifier, password} = formData
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await loginUser(
+      {
+      identifier,
+      password
+     }
+    )
+  }
+
+  useEffect(() => {
+    if(isSuccess){
+      navigate('/account/dashboard')
+    }
+  },[isSuccess, navigate])
   return (
     <SharedLayout>
       <Section>
       
         <div className="form">
          <h1>Login to your Account</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <LoginInput 
-              name='username'
-              placeholder="Type your username"
-              type='text'
+              name='identifier'
+              type='email'
+              placeholder="Type your email"
+              value={identifier}
+              onChange={handleInputChange}
               />
             </div>
 
             <div>
               <LoginInput 
-              name='username'
+              name='password'
               type='password'
-              placeholder="Type your username"
+              placeholder="Type your password"
+              value={password}
+              onChange={handleInputChange}
               />
             </div>
 

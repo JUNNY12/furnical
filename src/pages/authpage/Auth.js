@@ -1,7 +1,10 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
-const Auth = () => {
+const Auth = ({}) => {
+  // if(userAuth){
+  //   return <Navigate to ={`/`} />
+  // }
   return (
     <div>
         <Outlet />

@@ -2,10 +2,27 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { SharedLayout } from '../../component'
 import styled from "styled-components"
-import { NavLink } from 'react-router-dom'
+import { NavLink , Navigate} from 'react-router-dom'
 import { devices } from '../../config/mediaquery'
+import { logout } from '../../state/slice/authSlice'
+import { useDispatch } from 'react-redux'
 
-const AccountLayout = () => {
+const AccountLayout = ({isAuth}) => {
+
+    const dispatch = useDispatch()
+
+    const redirect = () => {
+        <Navigate to={'/auth/login'} />
+    }
+    const handleLogout = () => {
+        dispatch(logout())
+        redirect()
+    } 
+
+    if (!isAuth){
+        return  <Navigate to={'/auth/login'} />
+    }
+  
   return (
     <SharedLayout>
        <div>
@@ -24,13 +41,13 @@ const AccountLayout = () => {
                     <NavLink to={`orders`} className={({isActive}) => isActive? 'activeLink' : undefined} end>
                         <div className='sideLink'>Orders</div>
                     </NavLink>
-                        <div className='sideLink'>Logout</div>
+                        <div className='sideLink logout' onClick={handleLogout}>Logout</div>
                     </div>
-
+                
                     <Outlet />
+        
             </Container>
        </div>
-       
     </SharedLayout>
   )
 }
@@ -58,6 +75,10 @@ a{
     text-decoration:none;
     color:black;
   
+}
+
+.logout{
+    cursor:pointer;
 }
 
 .activeLink{

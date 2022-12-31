@@ -2,8 +2,10 @@ import styled from "styled-components"
 import { NavLink } from "react-router-dom"
 import {AiOutlineMenu} from "react-icons/ai"
 import { useState } from "react"
+import { useSelector } from "react-redux"
 
 const SecondNav = () => {
+  const userAuth = useSelector((state) => state.auth.user)
 
   const [show, setShow] = useState(false)
   const handleShow = () => {
@@ -38,9 +40,16 @@ const SecondNav = () => {
           <li className="navLink">
             <NavLink to='/' className={({isActive}) => isActive? 'active' : undefined} end >Home</NavLink>
           </li>
-          <li className="navLink">
-            <NavLink to='/auth/login' className={({isActive}) => isActive? 'active' : undefined} end >My account</NavLink>
-          </li>
+          {
+            userAuth ?
+            <li className="navLink">
+              <NavLink to='/account/dashboard' className={({isActive}) => isActive? 'active' : undefined} end >My account</NavLink>
+            </li>
+            :
+            <li className="navLink">
+              <NavLink to='/auth/login' className={({isActive}) => isActive? 'active' : undefined} end >My account</NavLink>
+           </li>
+          }
           <li className="navLink">
             <NavLink to='/shop'  className={({isActive}) => isActive? 'active' : undefined} end >Shop</NavLink>
           </li>

@@ -60,12 +60,16 @@ box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
     margin-top:${({theme}) => theme.margin.sm};
     outline:none;
     border:none;
-    width:100%;
+    width:90%;
     color:${({theme}) => theme.colors.white};
     padding:${({theme}) => theme.padding.sm};
     background:${({theme}) => theme.colors.primary};
     font-weight:bold;
     cursor:pointer;
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translate(-50%,-50%);
 }
 
 .preview{

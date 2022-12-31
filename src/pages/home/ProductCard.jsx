@@ -5,15 +5,14 @@ import {AiFillEye} from "react-icons/ai"
 import { Rate } from '../../component'
 import { useNavigate } from 'react-router-dom'
 
+const ProductCard = ({slug, productName, rating, purchased, description,price,url}) => {
 
-const ProductCard = ({id, name, image, price, rate}) => {
-  const {purchased, rating} = rate
   const navigate = useNavigate()
   return (
     <Card>
-        <img src={image} alt="img" className='img' />
+        <img src={url} alt="img" className='img' />
         <div className='cardBody'>
-             <div className='name'>{name}</div>
+             <div className='name'>{productName}</div>
              <div className='rate'>
                  <span className='rating'><Rate rating={rating} /></span>
                  <span>({purchased})</span>
@@ -26,7 +25,7 @@ const ProductCard = ({id, name, image, price, rate}) => {
         </div>
         
         <div className='preview'>
-            <div className='view' onClick={() =>navigate(`/shop/item/${id}`)}><AiFillEye /></div>
+            <div className='view' onClick={() =>navigate(`/shop/item/${slug}`)}><AiFillEye /></div>
             <div className='favorite'><MdFavorite /></div>
         </div>
     

@@ -4,6 +4,7 @@ import {auth} from "../../services/auth"
 const initialState = {
     token: localStorage.getItem("furnical-token") ? localStorage.getItem("furnical-token") : null,
     user: localStorage.getItem("furnical-user") ? JSON.parse(localStorage.getItem("furnical-user")) : null,
+    isAuthenticated:localStorage.getItem("furnical-token") ? true : false 
 }
 
 const authSlice = createSlice({

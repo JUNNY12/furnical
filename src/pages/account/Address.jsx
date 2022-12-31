@@ -48,17 +48,26 @@ const Container = styled.div`
   display:flex;
   align-items:center;
   column-gap:5rem;
+  @media all and (max-width:768px){
+    flex-wrap:wrap;
+    justify-content:center;
+  }
 }
 .flexAddress{
   display:flex;
   column-gap:3rem;
   align-items:center;
+  
 }
 .header{
   font-size:1.2rem;
 }
 .col{
   width:50%;
+  margin-bottom:1rem;
+  @media all and (max-width:768px){
+    width:100%;
+  }
 }
 `
 

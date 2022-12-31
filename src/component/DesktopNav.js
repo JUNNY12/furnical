@@ -1,15 +1,25 @@
-import { Link } from "react-router-dom"
+import { Link , Navigate} from "react-router-dom"
 import styled from "styled-components"
 import {AiOutlineMail} from "react-icons/ai"
 import {BiPhoneCall} from "react-icons/bi"
 import {MdFavorite} from "react-icons/md"
 import {AiOutlineShoppingCart} from "react-icons/ai"
 import CartModal from "./CartModal"
-
+import { useSelector } from "react-redux"
+import { logout } from "../state/slice/authSlice"
+import { useDispatch } from "react-redux"
 
 const DesktopNav = ({showCart, setShowCart}) => {
-
-
+  const userAuth = useSelector((state) => state.auth.user)
+  const dispatch= useDispatch()
+  
+  const redirect = () => {
+    <Navigate to={'/auth/login'} />
+  }
+  const handleLogout = () => {
+      dispatch(logout())
+      redirect()
+  } 
 
   return (
     <Header>
@@ -23,10 +33,19 @@ const DesktopNav = ({showCart, setShowCart}) => {
       </div>
 
       <div className="leftFlex">
-       <div>
-        <Link to='/auth/register'>Register</Link>
-        <Link to='/auth/login'>Login</Link>
-       </div>
+       { !userAuth ? 
+        <div>
+          <Link to='/auth/register'>Register</Link>
+          <Link to='/auth/login'>Login</Link>
+         </div>
+         :
+         <div className="welcome">
+           <span> Welcome </span>
+           <span> {userAuth?.username} !!!</span>
+
+           <span className="logout" onClick={handleLogout}>Logout</span>
+         </div>
+       }
 
         <div className="leftNav">
           <Link to={`/wishlist`}>
@@ -64,6 +83,14 @@ color:${({theme}) => theme.colors.white};
 display:flex;
 justify-content:space-between;
 align-items:center;
+
+.logout{
+  margin-left:1.3rem;
+  cursor:pointer;
+}
+.welcome{
+  font-weight:500;
+}
 
 a{
   text-decoration:none;

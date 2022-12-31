@@ -1,35 +1,39 @@
 import styled from "styled-components"
 import { useParams } from "react-router-dom"
-import data from "../../component/Data"
 import { Rate, SharedLayout } from "../../component"
 import { img } from "../../assets"
 import {AiOutlinePlus, AiOutlineMinus} from "react-icons/ai"
 import { devices } from '../../config/mediaquery'
+import { useGetProductsQuery } from "../../services/product"
+import {CircleLoader} from "react-spinners"
 
 const Product = () => {
-  const {item} = useParams()
+  const {slug} = useParams()
+  const {data} = useGetProductsQuery()
 
-  const product = data.find((singleItem) => {
+  const products = data?.data?.find((product) => {
     return (
-      singleItem.id === Number(item)
+      product.attributes.slug === slug
     )
   })
-
+  const {productName ,rating, purchased, price, description} = products.attributes
+  const {url} = products.attributes.image.data.attributes
+            
   return (
     <SharedLayout>
       <Container>
         <div className="flexProd">
           <div className="singleImg">
-            <img src={img} />
+            <img src={url} />
           </div>
 
           <div>
-            <h2>Chinese Good chair</h2>
-            <div className="rating"><Rate rating={3} /></div>
+            <h2>{productName}</h2>
+            <div className="rating"><Rate rating={rating} /></div>
 
             <div className="price">
               <span>#</span>
-              <span>30000</span>
+              <span>{price}</span>
             </div>
 
             <div className="status">In stock</div>
@@ -45,8 +49,7 @@ const Product = () => {
             </div>
             
             <div className="desc">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-              Tempore illo laudantium atque laborum perspiciatis hic ad
+              {description}
             </div>
             <div className="category">
               <span> Category: </span>

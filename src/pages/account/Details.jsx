@@ -1,8 +1,24 @@
 import React from 'react'
 import { Input } from '../../component'
 import styled from "styled-components"
+import { useSelector } from 'react-redux'
+import { useForm } from '../../hooks'
 
 const Details = () => {
+
+  const userIdentity = useSelector((state) => state.auth.user)
+  const {username, email} = userIdentity
+  
+  const {formData, handleInputChange} = useForm(
+    {
+      firstName:'',
+      lastName:'',
+      displayName:'' || username,
+      emailText:'' || email
+    }
+  )
+  const {firstName, lastName, displayName, emailText} = formData
+
   return (
     <Container>
       <form>
@@ -10,25 +26,39 @@ const Details = () => {
           <div>
             <label>First name</label> <br/>
             <GroupInput 
+            name='firstName'
+            onChange={handleInputChange}
+            value={firstName}
+            type="text"
             />
           </div>
           <div>
             <label>Last name</label> <br />
             <GroupInput 
+            name='lastName'
+            onChange={handleInputChange}
+            value={lastName}
+            type="text"
             />
           </div>
         </div>
         <div className='displayName'>
           <label>Display name</label> <br />
           <Inputs 
-          
+          name='displayName'
+          onChange={handleInputChange}
+          value={displayName}
+          type="text"
           />
         </div>
 
         <div className='email'>
           <label>Email Address</label> <br />
           <Inputs 
-          
+          name='email'
+          onChange={handleInputChange}
+          value={emailText}
+          type="email"
           />
         </div> 
 

@@ -3,29 +3,45 @@ import ProductCard from "./ProductCard"
 import { Link } from "react-router-dom"
 import AllProductHeader from "./AllProductHeader"
 import { devices } from "../../config/mediaquery"
-import data from "../../component/Data"
+import { useGetProductsQuery } from "../../services/product"
+import {CircleLoader} from "react-spinners"
 
 const AllProduct = () => {
+
+  const {data ,isSuccess, isLoading} = useGetProductsQuery()
+
   return (
    <Container>
        <AllProductHeader />
      <Section>
         {
-          data.map(({id, name, image, rate, price}) => {
-            console.log(name)
+          isSuccess && data?.data?.map((product) => {
+            console.log(product)
+            console.log(product.attributes.image.data)
+            const {slug} = product.attributes
+            const {id} = product
+            const {productName ,rating, purchased, price, description} = product.attributes
+            const {url} = product.attributes.image.data.attributes
+            
             return (
               <ProductCard
                 key={id}
-                id ={id}
-                name={name}
-                image={image}
-                rate={rate}
+                id={id}
+                productName={productName}
+                rating={rating}
+                purchased={purchased}
+                description={description}
                 price={price}
+                url={url}
+                slug={slug}
               />
             )
           })
         }
      </Section>
+     {
+        isLoading && <div className="loader"> <CircleLoader color="#db9277" size={150} /></div>
+      }
      <div style={{textAlign:'center'}} >
          <Link to={`/shop`}>
              <Button>View All</Button>
@@ -38,7 +54,15 @@ const AllProduct = () => {
 const Container = styled.section`
 padding-bottom:4rem;
 
+.loader{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
 `
+
+
 const Button = styled.button`
 outline:none;
 border:none;

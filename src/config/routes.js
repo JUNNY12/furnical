@@ -19,8 +19,12 @@ import
     AddressLayout,
 } from "../pages";
 import Auth from "../pages/authpage/Auth";
+import { useSelector } from 'react-redux'
 
 export function Routes (){
+    const isAuth = useSelector((state) => state.auth.isAuthenticated)
+    const userAuth = useSelector((state) => state.auth.user)
+
     return useRoutes([
         {
             path:'/',
@@ -29,7 +33,7 @@ export function Routes (){
       
         {
             path: '/auth',
-            element: <Auth />,
+            element: <Auth isAuth={isAuth} />,
             children:[
               {path:'login', element:<SignInPage />},
               {path: 'register', element: <SignUpPage />},
@@ -37,7 +41,7 @@ export function Routes (){
           },
           {
             path: '/account',
-            element: <AccountLayout />,
+            element: <AccountLayout userAuth={userAuth} />,
             children:[
               {path:'dashboard', element:<DashboardPage />},
               {path: 'details', element: <DetailsPage />},
@@ -57,7 +61,7 @@ export function Routes (){
             element:<ShopLayout />,
             children:[
                 {index:true, element:<ShopPage />},
-                {path:'item' , element:<ProductPage/>}
+                {path:'item/:slug' , element:<ProductPage/>}
             ]
         },
         {

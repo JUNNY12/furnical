@@ -3,23 +3,45 @@ import {AiFillHome, AiOutlineShoppingCart} from "react-icons/ai"
 import {MdFavorite} from "react-icons/md"
 import {VscAccount} from "react-icons/vsc"
 import { devices } from "../config/mediaquery"
+import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+
 const BottomNav = () => {
+
+    const userAuth = useSelector((state) => state.auth.user)
   return (
     <Container>
         <div className="btIcon">
-            <AiFillHome />
+           <Link to={`/`}>
+                <AiFillHome />
+           </Link>
         </div>
         <div className="btIcon btCart">
-            <AiOutlineShoppingCart/>
+          <Link to={`/cart`}>
+             <AiOutlineShoppingCart/>
             <div className="btNotify">2</div>
+          </Link>
         </div>
         <div className="btIcon btFav">
-            <MdFavorite />
-            <div className="btNotify">3</div>
+           <Link to={`/wishlist`}>
+                <MdFavorite />
+                <div className="btNotify">3</div>
+           </Link>
         </div>
-        <div className="btIcon">
-            <VscAccount />
-        </div>
+        {
+            !userAuth?
+            <Link to={`/auth/login`}>
+                <div className="btIcon">
+                    <VscAccount />
+                </div>
+            </Link>
+            :
+            <Link to={`/account/dashboard`}>
+                <div className="btIcon">
+                    <VscAccount />
+                </div>
+            </Link>
+        }
         
     </Container>
   )
@@ -38,7 +60,9 @@ border:1px solid ${({theme}) => theme.colors.gray};
 width:100%;
 left:0;
 padding:${({theme}) => theme.padding.md};
-
+a{
+    color:black;
+}
 .btIcon{
 font-size:1.3rem;
 margin-right:3rem;

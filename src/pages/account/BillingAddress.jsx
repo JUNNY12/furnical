@@ -1,8 +1,36 @@
 import React from 'react'
 import styled from "styled-components"
 import { Input } from '../../component'
+import { useSelector } from 'react-redux'
+import { useForm } from '../../hooks'
 
 const BillingAddress = () => {
+
+    const userIdentity = useSelector((state) => state.auth.user)
+    const {email} = userIdentity
+    
+    const {formData, handleInputChange} = useForm(
+      {
+        firstName:'',
+        lastName:'',
+        companyName:'',
+        emailText:'' || email,
+        streetAddress:'',
+        city:'',
+        state:'',
+      }
+    )
+    const {
+        firstName,
+        lastName,
+        displayName,
+        emailText, 
+        companyName,
+        city,
+        state,
+        streetAddress,
+        phone,
+     } = formData
   return (
     <Container>
         <h2>Billing Address</h2>
@@ -10,30 +38,57 @@ const BillingAddress = () => {
             <div className='groupInput'>
                 <div>
                     <label>First name</label> <br/>
-                    <GroupInput />
+                    <GroupInput
+                    name='firstName'
+                    onChange={handleInputChange}
+                    value={firstName}
+                    type="text" />
                 </div>
 
                 <div>
                     <label>Last name</label> <br/>
-                    <GroupInput />
+                    <GroupInput 
+                    name='lastName'
+                    onChange={handleInputChange}
+                    value={lastName}
+                    type="text"/>
                 </div>
 
             </div>
             <div>
                 <label>Comapny name (optional)</label> <br/>
-               <Inputs />
+               <Inputs 
+               name='companyName'
+               onChange={handleInputChange}
+               value={companyName}
+               type="text"
+               />
             </div>
             <div>
                 <label>Street address</label> <br/>
-               <Inputs />
+               <Inputs
+               name='streetAddress'
+               onChange={handleInputChange}
+               value={streetAddress}
+               type="text" />
             </div>
             <div>
                 <label>City / Town</label> <br/>
-               <Inputs />
+               <Inputs
+               name='city'
+               onChange={handleInputChange}
+               value={city}
+               type="text"
+               />
             </div>
             <div>
                 <label>State</label> <br/>
-                <select>
+                <select
+                name='state'
+                onChange={handleInputChange}
+                value={state}
+                type="text"
+                >
                     <option>Choose</option>
                     <option>Lagos</option>
                     <option>Fct</option>
@@ -41,11 +96,21 @@ const BillingAddress = () => {
             </div>
             <div>
                 <label>Phone</label> <br/>
-               <Inputs />
+               <Inputs
+               name='phone'
+               onChange={handleInputChange}
+               value={phone}
+               type="tel"
+               />
             </div>
             <div>
                 <label>Email Address</label> <br/>
-               <Inputs />
+               <Inputs
+               name='emailText'
+               onChange={handleInputChange}
+               value={emailText}
+               type="email"
+               />
             </div>
             <button className='saveBtn'>Save Address</button>
         </form>

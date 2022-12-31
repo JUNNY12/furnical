@@ -7,22 +7,25 @@ import { devices } from "../../config/mediaquery"
 import { useForm } from "../../hooks"
 import { useLoginMutation } from "../../services/auth"
 import {useEffect} from "react"
-
+import {toast} from "react-toastify"
+import {BeatLoader} from "react-spinners"
 
 
 const SignIn = () => {
-
   const [loginUser, {isLoading, data, error, isError, isSuccess}] = useLoginMutation()
   const navigate = useNavigate()
+  
+  //custom useForm Hook
   const {formData, handleInputChange} = useForm(
     {
       email:'',
       password:'',
     }
   )
-
+  //Destrustured the formdata
   const {identifier, password} = formData
 
+  //Posting the formdata with async function from the redux toolkit query
   const handleSubmit = async (e) => {
     e.preventDefault()
     await loginUser(
@@ -33,9 +36,23 @@ const SignIn = () => {
     )
   }
 
+  //redirecting after successful login
   useEffect(() => {
     if(isSuccess){
-      navigate('/account/dashboard')
+      toast.success('Login successfully ...',{
+        position:"top-center",
+        autoClose: 1000,
+        closeButton:false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light"
+        })
+      setTimeout(() => {
+        navigate('/account/dashboard')
+      }, 2000);
     }
   },[isSuccess, navigate])
   return (
@@ -52,6 +69,7 @@ const SignIn = () => {
               placeholder="Type your email"
               value={identifier}
               onChange={handleInputChange}
+              required
               />
             </div>
 
@@ -62,10 +80,13 @@ const SignIn = () => {
               placeholder="Type your password"
               value={password}
               onChange={handleInputChange}
+              required
               />
             </div>
 
-            <LoginButton>Login</LoginButton>
+            <LoginButton>
+              {isLoading ? <span> <BeatLoader color='#ffffff' /></span> : 'Login'}
+            </LoginButton>
 
             <div>
               <span>Don't have an account? </span>
@@ -83,7 +104,7 @@ const SignIn = () => {
 
 
 const Section = styled.section`
-
+padding-bottom:4rem;
 
 h1{
   text-align:center;
@@ -104,6 +125,7 @@ form{
 
 .forgetPassword{
   font-weight:600;
+  margin-top:1rem;
 }
 `
 
@@ -131,6 +153,7 @@ color:${({theme}) => theme.colors.white};
 margin-top:2rem;
 margin-bottom:1rem;
 font-weight:600;
+cursor:pointer;
 @media all and ${devices.mobileM}{
   width:280px;
 }

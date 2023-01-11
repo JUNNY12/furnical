@@ -42,11 +42,14 @@ const AllProduct = () => {
      {
         isLoading && <div className="loader"> <CircleLoader color="#db9277" size={150} /></div>
       }
-     <div style={{textAlign:'center'}} >
+     {
+       isSuccess &&
+       <div style={{textAlign:'center'}} >
          <Link to={`/shop`}>
              <Button>View All</Button>
          </Link>
      </div>
+     }
    </Container>
   )
 }

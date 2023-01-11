@@ -36,9 +36,11 @@ const SignIn = () => {
     )
   }
 
+
   //redirecting after successful login
   useEffect(() => {
     if(isSuccess){
+      console.log(data)
       toast.success('Login successfully ...',{
         position:"top-center",
         autoClose: 1000,

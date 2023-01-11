@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components"
 import {IoMdArrowBack} from "react-icons/io"
+import { Link } from 'react-router-dom'
 
 
 const EmptyCart = () => {
@@ -9,10 +10,12 @@ const EmptyCart = () => {
         <div className='empty'>
             Your Cart is currently empty.
         </div>
-        <button className='return'>
-            <span><IoMdArrowBack /></span>
-            <span className='rt'>Return Back To Shop</span>
-        </button>
+        <Link to={`/shop`}>
+            <button className='return'>
+                <span><IoMdArrowBack /></span>
+                <span className='rt'>Return Back To Shop</span>
+            </button>
+        </Link>
     </Container>
   )
 }

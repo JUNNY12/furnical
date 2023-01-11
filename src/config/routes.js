@@ -33,7 +33,7 @@ export function Routes (){
       
         {
             path: '/auth',
-            element: <Auth isAuth={isAuth} />,
+            element: <Auth />,
             children:[
               {path:'login', element:<SignInPage />},
               {path: 'register', element: <SignUpPage />},

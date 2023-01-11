@@ -2,26 +2,32 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { SharedLayout } from '../../component'
 import styled from "styled-components"
-import { NavLink , Navigate} from 'react-router-dom'
+import { NavLink , useNavigate, Navigate} from 'react-router-dom'
 import { devices } from '../../config/mediaquery'
 import { logout } from '../../state/slice/authSlice'
 import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-const AccountLayout = ({isAuth}) => {
-
+const AccountLayout = () => {
+    const isAuth = useSelector((state) => state.auth.isAuthenticated)
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
+    console.log(isAuth)
     const redirect = () => {
-        <Navigate to={'/auth/login'} />
+        navigate('/auth/login')
     }
+
     const handleLogout = () => {
-        dispatch(logout())
+        dispatch(logout());
         redirect()
     } 
 
-    if (!isAuth){
-        return  <Navigate to={'/auth/login'} />
+    if(!isAuth){
+        return (
+            <Navigate to={`/auth/login`} />
+        )
     }
+
   
   return (
     <SharedLayout>

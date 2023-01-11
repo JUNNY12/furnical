@@ -11,7 +11,6 @@ const Products = () => {
        <Section>
        {
           data.map(({id, name, image, rate, price}) => {
-            console.log(name)
             return (
               <ProductCard
                 key={id}

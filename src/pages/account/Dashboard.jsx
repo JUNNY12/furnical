@@ -4,15 +4,13 @@ import { useSelector } from 'react-redux'
 
 const Dashboard = () => {
   const userIdentity = useSelector((state) => state.auth.user)
-  const jwt = useSelector((state) => state.auth.jwt)
-  console.log(jwt)
-  const {username} = userIdentity
+  
   
   return (
     <Div>
       <h3>
         <span> Welcome on board </span>
-        <span> {username || 'user'} </span>
+        <span> {userIdentity?.username} </span>
       </h3>
       <p>
         From your account dashboard you can view your recent orders, 

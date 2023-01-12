@@ -4,8 +4,24 @@ import {MdFavorite} from "react-icons/md"
 import {AiFillEye} from "react-icons/ai"
 import { Rate } from '../../component'
 import { useNavigate } from 'react-router-dom'
+import { addToCart } from '../../state/slice/cartSlice'
+import { useDispatch } from 'react-redux'
 
-const ProductCard = ({slug, productName, rating, purchased, description,price,url}) => {
+const ProductCard = ({slug,id, productName, rating, purchased,price,url}) => {
+  console.log(productName)
+
+  const dispatch = useDispatch()
+
+  const handleAddToCart = (id, url, price, productName) => {
+    dispatch(
+      addToCart({
+        id,
+        url,
+        price,
+        productName
+      })
+    )
+  }
 
   const navigate = useNavigate()
   return (
@@ -18,10 +34,13 @@ const ProductCard = ({slug, productName, rating, purchased, description,price,ur
                  <span>({purchased})</span>
             </div>
             <div className='price'>
-                <span>#</span>
+                <span>₦</span>
                 <span>{price}</span>
             </div>
-            <button className='addCart'>Add To Cart</button>
+            <button 
+            className='addCart'
+            onClick={() => handleAddToCart(id, url, price, productName)}
+            >Add To Cart</button>
         </div>
         
         <div className='preview'>

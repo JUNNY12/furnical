@@ -7,7 +7,7 @@ const Header = () => {
   )
 }
 
-const Div = styled.div`
+const Div = styled.h1`
 font-weight:600;
 `
 export default Header

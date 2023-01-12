@@ -5,6 +5,7 @@ import EmptyCart from './EmptyCart'
 import Header from './Header'
 import Items from './Items'
 import { devices } from '../../config/mediaquery'
+import Subtotal from './Subtotal'
 
 
 const Cart = () => {
@@ -15,6 +16,7 @@ const Cart = () => {
      </Section>
      <EmptyCart />
      <Items />
+     <Subtotal/>
    </SharedLayout>
   )
 }

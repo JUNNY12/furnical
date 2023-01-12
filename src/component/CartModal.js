@@ -1,10 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from "styled-components"
-import { img } from '../assets'
 import {ImCancelCircle} from "react-icons/im"
+import {useSelector, useDispatch} from "react-redux"
+import { getTotals } from '../state/slice/cartSlice'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 const CartModal = ({setShowCart}) => {
+    const cart = useSelector((state) => state.cart)
+    const {cartItems} = cart
+    const dispatch = useDispatch()
+
+    const {pathname} = useLocation()
+
+    useEffect(() => {
+        setShowCart(prev=> !prev)
+    },[pathname])
+
+    useEffect(() => {
+        getTotals()
+    },[cart, dispatch])
+    
   return (
     <Container>
         <div>
@@ -13,40 +30,32 @@ const CartModal = ({setShowCart}) => {
             onClick={() => setShowCart(false)}>
                 <ImCancelCircle />
             </div>
-            <div className='item'>
-                <div className='cartImage'>
-                    <img src={img}  alt="img"/>
-                </div>
-                <div>
-                    <div className='name'>
-                        Cameroon Chairs
-                    </div>
-                    <div className='qtyCart'> Qty : 3</div>
-                    <div className='price'>
-                        <span>#</span>
-                        <span>65,000</span>
-                    </div>
-                </div>
-            </div>
-             <div className='item'>
-                <div className='cartImage'>
-                    <img src={img} />
-                </div>
-                <div>
-                    <div className='name'>
-                        Cameroon Chairs
-                    </div>
-                    <div className='qtyCart'> Qty : 3</div>
-                    <div className='price'>
-                        <span>#</span>
-                        <span>65,000</span>
-                    </div>
-                </div>
-            </div>
+            {
+                cartItems?.map(({id, url , productName,price, cartQuantity}) =>{
+                    return(
+                        <div className='item'>
+                            <div className='cartImage'>
+                                <img src={url}  alt={productName}/>
+                            </div>
+                            <div>
+                                <div className='name'>
+                                    {productName}
+                                </div>
+                                <div className='qtyCart'> Qty : {cartQuantity}</div>
+                                <div className='price'>
+                                    <span>₦</span>
+                                    <span>{price * cartQuantity}</span>
+                                </div>
+                            </div>
+                      </div>
+                    )
+                })
+            }
+            
         </div>
         <div className='subtotal'>
             <div>Subtotal</div>
-            <div>#20,000</div>
+            <div>₦ {cart?.totalAmount}</div>
         </div>
         <div className='view'>
             <div>

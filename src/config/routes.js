@@ -13,6 +13,7 @@ import
     DashboardPage,
     DetailsPage,
     AddressPage,
+    CheckoutPage,
     OrdersPage,
     ShippingAddressPage,
     BillingAddressPage,
@@ -73,5 +74,9 @@ export function Routes (){
             path:'/cart',
             element:<CartPage />
         },
+        {
+            path:'/checkout',
+            element:<CheckoutPage />
+        }
     ])
 }

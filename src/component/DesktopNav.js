@@ -8,11 +8,22 @@ import CartModal from "./CartModal"
 import { useSelector } from "react-redux"
 import { logout } from "../state/slice/authSlice"
 import { useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { getTotals } from "../state/slice/cartSlice"
+
 
 const DesktopNav = ({showCart, setShowCart}) => {
   const userAuth = useSelector((state) => state.auth.user)
-  const dispatch= useDispatch()
-  
+  const cart = useSelector((state) => state.cart)
+ 
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+      dispatch(
+          getTotals()
+      )
+  },[cart, dispatch])
+
   const redirect = () => {
     <Navigate to={'/auth/login'} />
   }
@@ -57,10 +68,10 @@ const DesktopNav = ({showCart, setShowCart}) => {
           <span onClick={() => setShowCart(true)} style={{cursor:'pointer'}}>
             <span className="span">
               <AiOutlineShoppingCart />
-              <span className="notify">3</span>    
+              <span className="notify">{cart.totalQuantity}</span>    
             </span>
           </span>
-          <span className="span">Cart : #80,000 : 00</span>
+          <span className="span">Cart : ₦{cart.totalAmount}</span>
         </div>
       </div>
        {

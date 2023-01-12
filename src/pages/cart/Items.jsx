@@ -1,62 +1,85 @@
 import React from 'react'
 import styled from "styled-components"
-import { img } from '../../assets'
 import {BsFillTrashFill} from "react-icons/bs"
 import {AiOutlinePlus, AiOutlineMinus} from "react-icons/ai"
 import { devices } from '../../config/mediaquery'
+import { useSelector ,useDispatch} from 'react-redux'
+import { addToCart, decreaseCart,removeFromCart, getTotals } from '../../state/slice/cartSlice'
+import { useEffect } from 'react'
 
 
 const Items = () => {
+    const cart = useSelector((state) => state.cart)
+    const {cartItems} = cart
+
+    const dispatch = useDispatch()
+
+
+    useEffect(() => {
+        dispatch(
+            getTotals()
+        )
+    },[cart, dispatch])
+
+    const handleIncrease =(product) => {
+        dispatch(
+            addToCart(product)
+        )
+    }
+    const handleDecrease =(product) => {
+        dispatch(
+            decreaseCart(product)
+        )
+    }
+    const handleRemove =(product) => {
+        dispatch(
+            removeFromCart(product)
+        )
+    }
+    
+
   return (
     <Container>
-        <div className='cartHeader'>
-            <div className='col-1'>Image</div>
-            <div className='col-2'>Product</div>
-            <div className='col-3'>Quantity</div>
-            <div className='col-4'>Total</div>
-            <div className='col-5'>Remove</div>
-        </div>
-        <div className='cartItem'>
-            <div className='col-1'>
-               <div className='img'>
-                 <img src={img} alt='cart' />
-               </div>
+        {
+            !cartItems?.length == 0 &&
+            <div className='cartHeader'>
+                <div className='col-1'>Image</div>
+                <div className='col-2'>Product</div>
+                <div className='col-3'>Quantity</div>
+                <div className='col-4'>Total</div>
+                <div className='col-5'>Remove</div>
             </div>
-            <div className='name col-2'>Japanese free chair</div>
-            <div className='quantity col-3'>
-                <span className='decrease'><AiOutlinePlus /></span>
-                <span className='qty'>2</span>
-                <span className='decrease'><AiOutlineMinus /></span>
-            </div>
-            <div className='total col-4'>
-                <span>#</span>
-                <span>50,000</span>
-            </div>
-            <div className='remove col-5'>
-                <BsFillTrashFill />
-            </div>
-        </div>
+        }
+        {
+            cartItems?.map((product) => {
+                return (
+                    <div key={product.id} className='cartItem'>
+                        <div className='col-1'>
+                        <div className='img'>
+                            <img src={product?.url} alt={product?.productName} />
+                        </div>
+                        </div>
+                        <div className='name col-2'>{product?.productName}</div>
+                        <div className='quantity col-3'>
+                            <span className='increase' onClick={() => handleIncrease(product)}><AiOutlinePlus /></span>
+                            <span className='qty'>{product?.cartQuantity}</span>
+                            <span className='decrease' onClick={() => handleDecrease(product)}><AiOutlineMinus /></span>
+                        </div>
+                        <div className='total col-4'>
+                            <span>₦</span>
+                            <span>{product?.cartQuantity * product?.price}</span>
+                        </div>
+                        <div className='remove col-5'
+                        onClick={() => handleRemove(product)}
+                        >
+                            <BsFillTrashFill />
+                        </div>
+                    </div>
+                )
+            })
+        }
         
-        <div className='cartItem'>
-            <div className='col-1'>
-               <div className='img'>
-                 <img src={img} alt='cart' />
-               </div>
-            </div>
-            <div className='name col-2'>Japanese free chair</div>
-            <div className='quantity col-3'>
-                <span className='increase'><AiOutlinePlus /></span>
-                <span className='qty'>2</span>
-                <span className='decrease'><AiOutlineMinus /></span>
-            </div>
-            <div className='total col-4'>
-                <span>#</span>
-                <span>50,000</span>
-            </div>
-            <div className='remove col-5'>
-                <BsFillTrashFill />
-            </div>
-        </div>
+      
     </Container>
   )
 }
@@ -64,7 +87,7 @@ const Items = () => {
 export const Container = styled.div`
 background:${({theme}) => theme.colors.white};
 padding:${({theme}) => theme.padding.lg};
-margin:${({theme}) => theme.margin.lg};
+margin: 0 ${({theme}) => theme.margin.lg} 0 ${({theme}) => theme.margin.lg};
 
 @media all and ${devices.tablet}{
     padding:1rem;
@@ -149,6 +172,7 @@ margin:${({theme}) => theme.margin.lg};
 
 .remove{
     color:red;
+    cursor:pointer;
     @media all and ${devices.tablet}{
         position:absolute;
         right:0;

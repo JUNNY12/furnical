@@ -2,21 +2,29 @@ import React from 'react'
 import styled from "styled-components"
 import {IoMdArrowBack} from "react-icons/io"
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
 const EmptyCart = () => {
+    const cart = useSelector((state) => state.cart)
+    const {cartItems} = cart
   return (
-    <Container>
-        <div className='empty'>
-            Your Cart is currently empty.
-        </div>
-        <Link to={`/shop`}>
-            <button className='return'>
-                <span><IoMdArrowBack /></span>
-                <span className='rt'>Return Back To Shop</span>
-            </button>
-        </Link>
-    </Container>
+    <>
+        {
+            cartItems.length == 0 && 
+            <Container>
+                <div className='empty'>
+                    Your Cart is currently empty.
+                </div>
+                <Link to={`/shop`}>
+                    <button className='return'>
+                        <span><IoMdArrowBack /></span>
+                        <span className='rt'>Return Back To Shop</span>
+                    </button>
+                </Link>
+            </Container>
+        }
+    </>
   )
 }
 

@@ -42,6 +42,7 @@ padding:${({theme}) => theme.padding.lg};
 }
 .empty{
     font-size:1.3rem;
+    text-align:center;
 }
 .return{
 border:none;

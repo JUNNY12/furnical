@@ -3,13 +3,15 @@ import styled from "styled-components"
 
 const Header = () => {
   return (
-    <Div>SHOP</Div>
+    <Div>
+        <h2>CHECKOUT</h2>
+    </Div>
   )
 }
 
-const Div = styled.h2`
-font-weight:600;
-padding-bottom:0.5rem;
+const Div = styled.div`
 border-bottom:2px solid${({theme}) => theme.colors.primary} ;
+margin:2rem;
 `
+
 export default Header

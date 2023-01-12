@@ -23,7 +23,6 @@ const WishList = () => {
 
 const Section = styled.section`
 margin:0 ${({theme}) => theme.margin.lg} 0 ${({theme}) => theme.margin.lg};
-padding:${({theme}) => theme.padding.lg};
 `
 
 const Container= styled.div`

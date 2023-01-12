@@ -5,9 +5,13 @@ import { Input } from './Input'
 import { devices } from '../config/mediaquery'
 import {ImCancelCircle} from "react-icons/im"
 import Sidebar from './Sidebar'
+import { useSelector } from 'react-redux'
 
 
 const MobileNav = ({showSideBar, setShowSideBar}) => {
+    const cart = useSelector((state) => state.cart) 
+    const {cartItems} = cart
+   
   return (
       <>
       {showSideBar && <Sidebar />}
@@ -15,6 +19,10 @@ const MobileNav = ({showSideBar, setShowSideBar}) => {
            
              <div className='cartIcon'>
                 <AiOutlineShoppingCart />
+                {
+                    cartItems.length > 0 &&
+                    <span className='dot'></span>
+                }
             </div>
             {
                 !showSideBar &&  
@@ -57,11 +65,22 @@ align-items:center;
     display:flex;
 }
 
+.dot{
+    height:0.5em;
+    position:absolute;
+    top:0em;
+    right:-0.5em;
+    width:0.5em;
+    border-radius:50%;
+    background:${({theme}) => theme.colors.primary};
+
+}
 .cartIcon,
 .menuIcon
 {
     font-size:1.5rem;
     cursor:pointer;
+    position:relative;
 }
 `
 

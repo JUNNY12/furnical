@@ -23,7 +23,6 @@ const Cart = () => {
 
 
 const Section = styled.section`
-padding:${({theme}) => theme.padding.lg};
 margin:0 ${({theme}) => theme.margin.lg} 0 ${({theme}) => theme.margin.lg} ;
 
 `

@@ -7,7 +7,9 @@ const Header = () => {
   )
 }
 
-const Div = styled.h1`
+const Div = styled.h2`
+padding-bottom:0.5rem;
 font-weight:600;
+border-bottom:2px solid${({theme}) => theme.colors.primary} ;
 `
 export default Header

@@ -7,11 +7,14 @@ import Sidebar from './Sidebar'
 import CartModal from './CartModal'
 import SearchSection from './SearchSection'
 import { useState } from 'react'
-
+import { useSelector } from 'react-redux'
 
 const IpadNav = ({showSideBar, setShowSideBar, showCart, setShowCart}) => {
-
  const [showSearch, setShowSearch] = useState(false)
+ const cart = useSelector((state) => state.cart) 
+ const {cartItems} = cart
+
+
   return (
     <Nav>
         <div className='logo'>Furnical</div>
@@ -22,7 +25,13 @@ const IpadNav = ({showSideBar, setShowSideBar, showCart, setShowCart}) => {
             </div>
             <div className='icon'  onClick ={() => setShowSearch(true)}><AiOutlineSearch /></div>
             <div className='icon'><CgProfile /></div>
-            <div className='icon' onClick={() => setShowCart(true)}><AiOutlineShoppingCart/></div>
+            <div className='icon' onClick={() => setShowCart(true)}>
+                <AiOutlineShoppingCart/>
+                {
+                    cartItems.length > 0 &&
+                    <span className='dot'></span>
+                }
+            </div>
         </div>
         {
             showSideBar &&
@@ -57,6 +66,17 @@ const Nav = styled.nav`
 display:flex;
 align-items:center;
 justify-content:space-between;
+
+.dot{
+    height:0.5em;
+    position:absolute;
+    top:1.1em;
+    right:1em;
+    width:0.5em;
+    border-radius:50%;
+    background:${({theme}) => theme.colors.primary};
+
+}
 
 .remove{
     position:absolute;

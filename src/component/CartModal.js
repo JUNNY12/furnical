@@ -21,7 +21,7 @@ const CartModal = ({setShowCart}) => {
     useEffect(() => {
         getTotals()
     },[cart, dispatch])
-    
+
   return (
     <Container>
         <div>
@@ -33,7 +33,7 @@ const CartModal = ({setShowCart}) => {
             {
                 cartItems?.map(({id, url , productName,price, cartQuantity}) =>{
                     return(
-                        <div className='item'>
+                        <div className='item' key={id}>
                             <div className='cartImage'>
                                 <img src={url}  alt={productName}/>
                             </div>

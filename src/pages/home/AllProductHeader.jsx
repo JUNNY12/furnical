@@ -25,6 +25,7 @@ justify-content:space-between;
 align-items:center;
 margin:${({theme}) => theme.margin.lg};
 padding:0 ${({theme}) => theme.padding.lg} 0 ${({theme}) => theme.padding.lg};
+border-bottom:2px solid${({theme}) => theme.colors.primary} ;
 
 @media all and ${devices.tablet}{
   justify-content:center;

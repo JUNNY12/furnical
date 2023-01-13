@@ -1,26 +1,27 @@
 import React from 'react'
 import styled from "styled-components"
-import { img } from '../../assets'
 import { Rate } from '../../component'
 import {MdFavorite} from "react-icons/md"
 import {AiFillEye} from "react-icons/ai"
-import data from '../../component/Data'
 import useWidth from '../../hooks/useWidth'
+import { useGetProductsQuery } from '../../services/product'
+import { CircleLoader } from 'react-spinners'
 
 const ListProduct = () => {
     const width = useWidth()
+    const {data, isLoading, isSuccess} = useGetProductsQuery()
+
   return (
     <Container>
        {
-           data.map(({id, name, image, price, rate, description}) => {
-               const {purchased, rating} = rate
+           isSuccess && data?.data?.map(({slug,id, productName, rating, purchased,price,url, description}) => {
                return (
-                <div className='list'>
+                <div className='list' key={id}>
                     <div className='listImg'>
-                        <img src={image} />
+                        <img src={url} alt={productName} />
                     </div>
                     <div>
-                        <h4>{name} </h4>
+                        <h4>{productName} </h4>
                         <div className='rate'>
                             <Rate rating={rating}/>
                             <span>({purchased})</span>
@@ -32,6 +33,7 @@ const ListProduct = () => {
                         <div className='desc'>
                             {description}
                         </div>
+   
                         <div>
                             <button className='addCart'>Add to cart</button>
                         </div>
@@ -44,6 +46,9 @@ const ListProduct = () => {
                )
            })
        }
+       {
+            isLoading && <div className="loader"> <CircleLoader color="#db9277" size={150} /></div>
+       }
 
     </Container>
   )
@@ -52,6 +57,12 @@ const ListProduct = () => {
 const Container = styled.section`
 margin:${({theme}) => theme.margin.lg};
 padding:${({theme}) => theme.padding.lg};
+
+.loader{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
 
 .price{
     font-size:1.3rem;

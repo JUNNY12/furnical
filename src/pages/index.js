@@ -2,6 +2,7 @@ import React from "react"
 import ShopLayout from "./shop/ShopLayout";
 import AccountLayout from "./account/AccountLayout";
 import AddressLayout from "./account/AddressLayout";
+import Layout from "./categories/Layout";
 
 const HomePage = React.lazy(() => import('./home/Home'));
 const ShopPage = React.lazy(() => import('./shop/Shop'));
@@ -17,6 +18,10 @@ const AddressPage = React.lazy(() => import('./account/Address'));
 const BillingAddressPage = React.lazy(() => import('./account/BillingAddress'));
 const ShippingAddressPage = React.lazy(() => import('./account/ShippingAddress'));
 const CheckoutPage = React.lazy(() => import ('./checkout/Checkout'))
+const BedPage = React.lazy(() => import('./categories/Beds'))
+const ChairPage = React.lazy(() => import('./categories/Chair'))
+const TablePage = React.lazy(() => import('./categories/Table'))
+const KitchenPage = React.lazy(() => import('./categories/Kitchen'))
 
 export {
     HomePage,
@@ -35,5 +40,10 @@ export {
     AddressPage,
     BillingAddressPage,
     ShippingAddressPage,
-    AddressLayout
+    AddressLayout,
+    BedPage,
+    ChairPage,
+    TablePage,
+    Layout,
+    KitchenPage
 }

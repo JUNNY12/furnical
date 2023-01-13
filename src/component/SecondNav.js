@@ -25,11 +25,21 @@ const SecondNav = () => {
         show &&
         <div className="categoryList">
           <ul>
-            <li>Chairs</li>
-            <li>Tables</li>
-            <li>Beds</li>
-            <li>Kitchen</li>
-            <li>Boards</li>
+            <li>
+              <NavLink to={`/categories/chairs`} className={({isActive}) => isActive? 'activeCat' : undefined} end>Chairs</NavLink>
+            </li>
+            
+            <li>
+              <NavLink to={`/categories/beds`} className={({isActive}) => isActive? 'activeCat' : undefined} end>Beds</NavLink>
+            </li>
+
+            <li>
+              <NavLink to={`/categories/kitchens`} className={({isActive}) => isActive? 'activeCat' : undefined} end>Kitchen</NavLink>
+            </li>
+
+            <li>
+              <NavLink to={`/categories/tables`} className={({isActive}) => isActive? 'activeCat' : undefined} end>Tables</NavLink>
+            </li>
           </ul>
         </div>
       }
@@ -77,12 +87,7 @@ a{
   font-weight:600;
 }
 
-a:hover{
-  background-color:#db9277;
-  border-top-left-radius:8px ;
-  border-top-right-radius:8px ;
-  padding:${({theme}) => theme.padding.sm};
-}
+
 
 .active{
   background-color:#db9277;
@@ -91,6 +96,9 @@ a:hover{
   padding:${({theme}) => theme.padding.sm};
 }
 
+.activeCat{
+  color:#db9277;
+}
 .container{
   position:relative;
 }

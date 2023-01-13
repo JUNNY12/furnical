@@ -1,29 +1,42 @@
 import ProductCard from "./ProductCard"
 import styled from "styled-components"
 import { devices } from "../../config/mediaquery"
-import data from "../../component/Data"
-
+import { useGetProductsQuery } from "../../services/product"
+import { CircleLoader } from "react-spinners"
 
 
 const Products = () => {
+  const {isLoading, isSuccess, isError, data} = useGetProductsQuery()
+
     return (
      <Container>
        <Section>
        {
-          data.map(({id, name, image, rate, price}) => {
-            return (
-              <ProductCard
-                key={id}
-                id ={id}
-                name={name}
-                image={image}
-                rate={rate}
-                price={price}
-              />
-            )
-          })
+         isSuccess && data?.data?.map((product) => {
+          console.log(product)
+          console.log(product.attributes.image.data)
+          const {slug} = product.attributes
+          const {id} = product
+          const {productName ,rating, purchased, price, description} = product.attributes
+          const {url} = product.attributes.image.data.attributes
+          
+          return (
+            <ProductCard
+              key={id}
+              id={id}
+              productName={productName}
+              rating={rating}
+              purchased={purchased}
+              description={description}
+              price={price}
+              url={url}
+              slug={slug}
+            />
+          )
+        })
         }
        </Section>
+       { isLoading && <div className="loader"> <CircleLoader color="#db9277" size={150} /></div> }
      </Container>
     )
   }
@@ -31,6 +44,11 @@ const Products = () => {
   const Container = styled.section`
   padding-bottom:${({theme}) => theme.padding.lg};
   
+  .loader{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
   `
   const Button = styled.button`
   outline:none;

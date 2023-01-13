@@ -18,12 +18,16 @@ import
     ShippingAddressPage,
     BillingAddressPage,
     AddressLayout,
+    Layout,
+    BedPage,
+    TablePage,
+    KitchenPage,
+    ChairPage
 } from "../pages";
 import Auth from "../pages/authpage/Auth";
 import { useSelector } from 'react-redux'
 
 export function Routes (){
-    const isAuth = useSelector((state) => state.auth.isAuthenticated)
     const userAuth = useSelector((state) => state.auth.user)
 
     return useRoutes([
@@ -77,6 +81,28 @@ export function Routes (){
         {
             path:'/checkout',
             element:<CheckoutPage />
+        },
+        {
+            path:'/categories',
+            element:<Layout />,
+            children:[
+                {
+                    path:'tables',
+                    element:<TablePage/>
+                },
+                {
+                    path:'beds',
+                    element:<BedPage/>
+                },
+                {
+                    path:'kitchens',
+                    element:<KitchenPage/>
+                },
+                {
+                    path:'chairs',
+                    element:<ChairPage/>
+                },
+            ]
         }
     ])
 }

@@ -6,6 +6,9 @@ import {AiOutlinePlus, AiOutlineMinus} from "react-icons/ai"
 import { devices } from '../../config/mediaquery'
 import { useGetProductsQuery } from "../../services/product"
 import {CircleLoader} from "react-spinners"
+import { addToCart } from '../../state/slice/cartSlice'
+import { useDispatch } from 'react-redux'
+
 
 const Product = () => {
   const {slug} = useParams()
@@ -16,15 +19,27 @@ const Product = () => {
       product.attributes.slug === slug
     )
   })
-  const {productName ,rating, purchased, price, description} = products.attributes
+  const {id, productName ,rating, purchased, price, description} = products.attributes
   const {url} = products.attributes.image.data.attributes
+
+  const dispatch = useDispatch()
+  const handleAddToCart = (id, url, price, productName) => {
+    dispatch(
+      addToCart({
+        id,
+        url,
+        price,
+        productName
+      })
+    )
+  }
             
   return (
     <SharedLayout>
       <Container>
         <div className="flexProd">
           <div className="singleImg">
-            <img src={url} />
+            <img src={url} alt={id} />
           </div>
 
           <div>
@@ -44,7 +59,7 @@ const Product = () => {
                 <span className='decrease'><AiOutlineMinus /></span>
             </div>
             <div className="btnWrap">
-              <button className="add">Add to cart</button>
+              <button className="add"  onClick={() => handleAddToCart(id, url, price, productName)}>Add to cart</button>
               <button className="buy">Buy now</button>
             </div>
             

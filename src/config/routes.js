@@ -22,7 +22,8 @@ import
     BedPage,
     TablePage,
     KitchenPage,
-    ChairPage
+    ChairPage,
+    NotFoundPage
 } from "../pages";
 import Auth from "../pages/authpage/Auth";
 import { useSelector } from 'react-redux'
@@ -31,6 +32,10 @@ export function Routes (){
     const userAuth = useSelector((state) => state.auth.user)
 
     return useRoutes([
+        {
+            path:'*',
+            element:<NotFoundPage />
+        },
         {
             path:'/',
             element:<HomePage />

@@ -39,7 +39,7 @@ const Shop = () => {
   )
 }
 
-const Container= styled.div`
+export const Container= styled.div`
 background:${({theme}) => theme.colors.white};
 padding:${({theme}) => theme.padding.lg};
 padding-bottom:4rem;

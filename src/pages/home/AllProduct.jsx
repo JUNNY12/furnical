@@ -21,7 +21,7 @@ const AllProduct = () => {
             const {slug} = product.attributes
             const {id} = product
             const {productName ,rating, purchased, price, description} = product.attributes
-            const {url} = product.attributes.image.data.attributes
+            // const {url} = product.attributes.image.data.attributes
             
             return (
               <ProductCard
@@ -32,7 +32,7 @@ const AllProduct = () => {
                 purchased={purchased}
                 description={description}
                 price={price}
-                url={url}
+                // url={url}
                 slug={slug}
               />
             )

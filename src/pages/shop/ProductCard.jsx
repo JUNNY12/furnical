@@ -6,6 +6,9 @@ import { Rate } from '../../component'
 import { useNavigate } from 'react-router-dom'
 import { addToCart } from '../../state/slice/cartSlice'
 import { useDispatch } from 'react-redux'
+import { addFavorite } from '../../state/slice/favoriteSlice'
+import { useSelector } from 'react-redux'
+
 
 const ProductCard = ({slug,id, productName, rating, purchased,price,url}) => {
   const navigate = useNavigate()
@@ -21,6 +24,25 @@ const ProductCard = ({slug,id, productName, rating, purchased,price,url}) => {
       })
     )
   }
+
+  const handleAddfavorite = (id, url, price, productName) => {
+    dispatch(
+      addFavorite({
+        id,
+        url,
+        price,
+        productName
+      })
+    )
+  }
+
+  const {favoriteItems} = useSelector((state) => state.favorite)
+
+  favoriteItems.map(({isFavorite}) => {
+    return(
+      console.log(isFavorite)
+    )
+  })
 
   return (
     <Card>
@@ -40,7 +62,7 @@ const ProductCard = ({slug,id, productName, rating, purchased,price,url}) => {
         
         <div className='preview'>
             <div className='view' onClick={() => navigate(`/shop/item/${slug}`)}><AiFillEye /></div>
-            <div className='favorite'><MdFavorite /></div>
+            <div className='favorite' onClick={() => handleAddfavorite(id, url, price, productName)}><MdFavorite /></div>
         </div>
     
     </Card>

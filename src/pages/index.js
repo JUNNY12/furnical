@@ -18,10 +18,12 @@ const AddressPage = React.lazy(() => import('./account/Address'));
 const BillingAddressPage = React.lazy(() => import('./account/BillingAddress'));
 const ShippingAddressPage = React.lazy(() => import('./account/ShippingAddress'));
 const CheckoutPage = React.lazy(() => import ('./checkout/Checkout'))
-const BedPage = React.lazy(() => import('./categories/Beds'))
-const ChairPage = React.lazy(() => import('./categories/Chair'))
-const TablePage = React.lazy(() => import('./categories/Table'))
-const KitchenPage = React.lazy(() => import('./categories/Kitchen'))
+const BedPage = React.lazy(() => import('./categories/beds/Beds'))
+const ChairPage = React.lazy(() => import('./categories/chairs/Chair'))
+const TablePage = React.lazy(() => import('./categories/table/Table'))
+const KitchenPage = React.lazy(() => import('./categories/kitchen/Kitchen'))
+const NotFoundPage =React.lazy(() => import('./notfound/Notfound'))
+
 
 export {
     HomePage,
@@ -45,5 +47,6 @@ export {
     ChairPage,
     TablePage,
     Layout,
-    KitchenPage
+    KitchenPage,
+    NotFoundPage
 }

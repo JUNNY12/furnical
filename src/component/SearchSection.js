@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components"
 import { Input } from './Input'
 
+
 const SearchSection = () => {
   return (
     <Section>
@@ -32,6 +33,7 @@ const SearchSection = () => {
 const Section = styled.section`
 margin:${({theme}) => theme.margin.lg};
 padding:${({theme}) => theme.padding.lg};
+z-index:10;
 
 .flex{
     display:flex;

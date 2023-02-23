@@ -13,8 +13,6 @@ const Products = () => {
        <Section>
        {
          isSuccess && data?.data?.map((product) => {
-          console.log(product)
-          console.log(product.attributes.image.data)
           const {slug} = product.attributes
           const {id} = product
           const {productName ,rating, purchased, price, description} = product.attributes
@@ -41,7 +39,7 @@ const Products = () => {
     )
   }
   
-  const Container = styled.section`
+  export const Container = styled.section`
   padding-bottom:${({theme}) => theme.padding.lg};
   
   .loader{
@@ -60,7 +58,7 @@ const Products = () => {
   font-weight:600;
   cursor:pointer;
   `
-  const Section= styled.section`
+  export const Section= styled.section`
   display:grid;
   grid-template-columns:1fr 1fr 1fr 1fr;
   gap:2rem;

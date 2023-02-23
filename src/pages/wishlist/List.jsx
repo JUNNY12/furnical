@@ -5,8 +5,11 @@ import {BsFillTrashFill} from "react-icons/bs"
 import { devices } from '../../config/mediaquery'
 import {AiOutlineShoppingCart} from "react-icons/ai"
 import styled from "styled-components"
+import { useSelector } from 'react-redux'
 
 const List = () => {
+    const {favoriteItems} = useSelector((state) => state.favorite)
+    console.log(favoriteItems)
   return (
     <Section>
         <div className='cartHeader'>
@@ -16,46 +19,34 @@ const List = () => {
             <div className='col-4'>Add to Cart</div>
             <div className='col-5'>Remove</div>
         </div>
+
+        {
+            favoriteItems?.map(({id, url , productName}) => {
+                
+                return(
+                    <div className='cartItem' key={id}>
+                        <div className='col-1'>
+                        <div className='img'>
+                            <img src={url} alt={productName} />
+                        </div>
+                        </div>
+                        <div className='name col-2'>{productName}</div>
+                        <div className='quantity stock col-3'>
+                            In stock
+                        </div>
+                        <div className='total col-4'>
+                            <button className='add'>
+                                <span>Add to Cart</span>
+                            </button>
+                        </div>
+                        <div className='remove col-5'>
+                            <BsFillTrashFill />
+                        </div>
+                    </div>  
+                )
+            })
+        }
       
-        
-        <div className='cartItem'>
-            <div className='col-1'>
-            <div className='img'>
-                <img src={img} alt='cart' />
-            </div>
-            </div>
-            <div className='name col-2'>Japanese free chair</div>
-            <div className='quantity stock col-3'>
-                In stock
-            </div>
-            <div className='total col-4'>
-                <button className='add'>
-                    <span>Add to Cart</span>
-                </button>
-            </div>
-            <div className='remove col-5'>
-                <BsFillTrashFill />
-            </div>
-        </div>  
-        <div className='cartItem'>
-            <div className='col-1'>
-            <div className='img'>
-                <img src={img} alt='cart' />
-            </div>
-            </div>
-            <div className='name col-2'>Japanese free chair</div>
-            <div className='quantity stock col-3'>
-                In stock
-            </div>
-            <div className='total col-4'>
-                <button className='add'>
-                    <span>Add to Cart</span>
-                </button>
-            </div>
-            <div className='remove col-5'>
-                <BsFillTrashFill />
-            </div>
-        </div> 
     </Section>
   )
 }

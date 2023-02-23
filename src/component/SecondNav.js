@@ -1,13 +1,20 @@
 import styled from "styled-components"
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import {AiOutlineMenu} from "react-icons/ai"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+
 
 const SecondNav = () => {
   const userAuth = useSelector((state) => state.auth.user)
 
   const [show, setShow] = useState(false)
+
+  const {pathname} = useLocation()
+
+  useEffect(() => {
+    setShow(false)
+  },[pathname])
   const handleShow = () => {
     setShow(prev => !prev)
   }

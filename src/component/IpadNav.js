@@ -89,6 +89,7 @@ justify-content:space-between;
     position:absolute;
     top:30%;
     left:50%;
+    z-index:100;
     transform:translate(-50%, -50%);
     background:${({theme}) => theme.colors.white};
     box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);

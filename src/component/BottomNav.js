@@ -4,21 +4,14 @@ import {MdFavorite} from "react-icons/md"
 import {VscAccount} from "react-icons/vsc"
 import { devices } from "../config/mediaquery"
 import { Link } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { useEffect } from "react"
-import { getTotals } from "../state/slice/cartSlice"
+import { useSelector} from "react-redux"
+
 
 const BottomNav = () => {
 
     const userAuth = useSelector((state) => state.auth.user)
-    const cart = useSelector((state) => state.cart) 
-
-    const dispatch = useDispatch()
-
-    
-    useEffect(() => {
-        getTotals()
-    }, [cart, dispatch])
+    const {cartItems} = useSelector((state) => state.cart)
+    const {favoriteItems} = useSelector((state) => state.favorite)
    
   return (
     <Container>
@@ -30,13 +23,13 @@ const BottomNav = () => {
         <div className="btIcon btCart">
           <Link to={`/cart`}>
              <AiOutlineShoppingCart/>
-            <div className="btNotify">{cart?.totalQuantity}</div>
+            <div className="btNotify">{cartItems.length}</div>
           </Link>
         </div>
         <div className="btIcon btFav">
            <Link to={`/wishlist`}>
                 <MdFavorite />
-                <div className="btNotify">3</div>
+                <div className="btNotify">{favoriteItems.length}</div>
            </Link>
         </div>
         {

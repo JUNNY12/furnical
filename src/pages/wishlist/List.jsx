@@ -5,11 +5,19 @@ import {BsFillTrashFill} from "react-icons/bs"
 import { devices } from '../../config/mediaquery'
 import {AiOutlineShoppingCart} from "react-icons/ai"
 import styled from "styled-components"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { removeFavorite } from '../../state/slice/favoriteSlice'
 
 const List = () => {
+
     const {favoriteItems} = useSelector((state) => state.favorite)
-    console.log(favoriteItems)
+    const dispatch = useDispatch()
+
+    const handleRemoveFavorite = (id) => {
+        dispatch(removeFavorite({id}))
+        console.log(id)
+    }
+    
   return (
     <Section>
         <div className='cartHeader'>
@@ -22,7 +30,6 @@ const List = () => {
 
         {
             favoriteItems?.map(({id, url , productName}) => {
-                
                 return(
                     <div className='cartItem' key={id}>
                         <div className='col-1'>
@@ -39,7 +46,7 @@ const List = () => {
                                 <span>Add to Cart</span>
                             </button>
                         </div>
-                        <div className='remove col-5'>
+                        <div onClick={() => handleRemoveFavorite(id)} className='remove col-5'>
                             <BsFillTrashFill />
                         </div>
                     </div>  

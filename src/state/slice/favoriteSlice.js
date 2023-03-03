@@ -18,7 +18,6 @@ const favoriteSlice = createSlice({
             if (existingItem >= 0 ){
                 const removeFavorite = state.favoriteItems.filter((item) => item.id !== action.payload.id)
                 state.favoriteItems = removeFavorite
-                isFavorite:state.favoriteItems[existingItem].isFavorite = false
                 
                 toast.info("Unlisted from Wishlist",{
                     position: toast.POSITION.TOP_CENTER,
@@ -34,11 +33,30 @@ const favoriteSlice = createSlice({
             }
             else{
                 let tempFavorite ={
-                    ...action.payload,
-                    isFavorite:true,
+                    ...action.payload
                 }
                 state.favoriteItems.push(tempFavorite)
                 toast.info("Added to  Wishlist",{
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 3000,
+                    closeButton:false,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            localStorage.setItem('favoriteItems', JSON.stringify(state.favoriteItems))
+        },
+        removeFavorite(state, action){
+            const existingItem = state.favoriteItems.findIndex((item) => item.id === action.payload.id)
+            if (existingItem >= 0 ){
+                const removeFavorite = state.favoriteItems.filter((item) => item.id !== action.payload.id)
+                state.favoriteItems = removeFavorite
+
+                toast.info("Product Removed",{
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: 3000,
                     closeButton:false,
@@ -55,7 +73,7 @@ const favoriteSlice = createSlice({
     }
 })
 
-export const {addFavorite} =favoriteSlice.actions
+export const {addFavorite, removeFavorite} = favoriteSlice.actions
 export default favoriteSlice.reducer
 
 

@@ -1,18 +1,17 @@
 import ProductCard from "./ProductCard"
 import styled from "styled-components"
 import { devices } from "../../config/mediaquery"
-import { useGetProductsQuery } from "../../services/product"
 import { CircleLoader } from "react-spinners"
 
 
-const Products = () => {
-  const {isLoading, isSuccess, isError, data} = useGetProductsQuery()
+const Products = (props) => {
+  const {isLoading, isSuccess, isError, sortedData} = props
 
     return (
      <Container>
        <Section>
        {
-         isSuccess && data?.data?.map((product) => {
+         isSuccess && sortedData?.map((product) => {
           const {slug} = product.attributes
           const {id} = product
           const {productName ,rating, purchased, price, description} = product.attributes

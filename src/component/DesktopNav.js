@@ -15,6 +15,7 @@ import { getTotals } from "../state/slice/cartSlice"
 const DesktopNav = ({showCart, setShowCart}) => {
   const userAuth = useSelector((state) => state.auth.user)
   const cart = useSelector((state) => state.cart)
+  const {favoriteItems} = useSelector((state) => state.favorite)
  
   const dispatch = useDispatch()
 
@@ -62,7 +63,7 @@ const DesktopNav = ({showCart, setShowCart}) => {
           <Link to={`/wishlist`}>
             <span className="span">
               <MdFavorite />
-              <span className="notify">2</span>  
+              <span className="notify">{favoriteItems.length}</span>  
             </span>
           </Link>
           <span onClick={() => setShowCart(true)} style={{cursor:'pointer'}}>

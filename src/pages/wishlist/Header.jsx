@@ -13,5 +13,8 @@ font-weight:600;
 padding-bottom:0.5rem;
 border-bottom:2px solid${({theme}) => theme.colors.primary} ;
 
+@media all and (max-width:550px){
+  text-align:center;
+}
 `
 export default Header

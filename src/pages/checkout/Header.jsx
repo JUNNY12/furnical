@@ -12,6 +12,10 @@ const Header = () => {
 const Div = styled.div`
 border-bottom:2px solid${({theme}) => theme.colors.primary} ;
 margin:2rem;
+
+@media all and (max-width:550px){
+  text-align:center;
+}
 `
 
 export default Header

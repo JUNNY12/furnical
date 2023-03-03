@@ -6,16 +6,23 @@ import Header from './Header'
 import Items from './Items'
 import { devices } from '../../config/mediaquery'
 import Subtotal from './Subtotal'
+import { useSelector } from 'react-redux'
 
 
 const Cart = () => {
+
+  const {cartItems} = useSelector((state) => state.cart)
   return (
    <SharedLayout>
      <Section>
        <Header />
      </Section>
-     <EmptyCart />
-     <Items />
+     {
+      cartItems.length === 0 && <EmptyCart />
+     }
+    {
+      cartItems.length > 0 && <Items />
+    }
      <Subtotal/>
    </SharedLayout>
   )

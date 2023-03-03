@@ -4,17 +4,21 @@ import { Rate } from '../../component'
 import {MdFavorite} from "react-icons/md"
 import {AiFillEye} from "react-icons/ai"
 import useWidth from '../../hooks/useWidth'
-import { useGetProductsQuery } from '../../services/product'
 import { CircleLoader } from 'react-spinners'
 
-const ListProduct = () => {
+const ListProduct = (props) => {
     const width = useWidth()
-    const {data, isLoading, isSuccess} = useGetProductsQuery()
+     const {sortedData, isLoading, isSuccess} = props
+     console.log(props)
 
   return (
     <Container>
        {
-           isSuccess && data?.data?.map(({slug,id, productName, rating, purchased,price,url, description}) => {
+           isSuccess && sortedData?.map((product) => {
+            const {slug} = product.attributes
+            const {id} = product
+            const {productName ,rating, purchased, price, description} = product.attributes
+            const {url} = product.attributes.image.data.attributes
                return (
                 <div className='list' key={id}>
                     <div className='listImg'>

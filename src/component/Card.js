@@ -5,8 +5,8 @@ import { devices } from '../config/mediaquery'
 export const Card = styled.div`
 background-color:${({theme}) => theme.colors.white};
 object-fit:cover;
-height:350px;
-padding:${({theme}) => theme.padding.lg};
+height:400px;
+padding:${({theme}) => theme.padding.md};
 border-radius:8px;
 cursor:pointer;
 transition:0.3s linear;
@@ -25,6 +25,11 @@ box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
     width:100%;
     height:200px;
     padding
+}
+
+.isFavorite{
+    color:red;
+    font-size:2rem;
 }
 
 .cardBody{
@@ -76,7 +81,7 @@ box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 .preview{
     position:absolute;
     left:50%;
-    top:50%;
+    top:30%;
     gap:1rem;
     padding:${({theme}) => theme.padding.sm};
     transform:translate(-50% , -50%);

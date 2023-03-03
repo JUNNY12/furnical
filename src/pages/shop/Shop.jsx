@@ -8,6 +8,7 @@ import ListProduct from './ListProduct'
 import Sort from './Sort'
 import { useState } from 'react'
 import useWidth from '../../hooks/useWidth'
+import ProductDisplay from './ProductDisplay'
 
 const Shop = () => {
   const [list , setList] = useState(false)
@@ -19,20 +20,7 @@ const Shop = () => {
         <Header />
       </Section>
       <Container>
-        <Sort 
-        list={list}
-        setList={setList}
-        />
-        {
-          !list && 
-          <Products />
-        }
-        {
-          !width <= 990 ?
-          list && 
-          <ListProduct />
-          : <Products />
-        }
+        <ProductDisplay />        
       </Container>
 
     </SharedLayout>

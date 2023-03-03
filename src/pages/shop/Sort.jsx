@@ -1,34 +1,20 @@
 import React from 'react'
 import styled from "styled-components"
-import {CiBoxList} from "react-icons/ci"
-import {BsFillGrid3X3GapFill} from "react-icons/bs"
 import { devices } from '../../config/mediaquery'
-import useWidth from '../../hooks/useWidth'
 
-const Sort = ({list, setList}) => {
-  const width = useWidth()
-  const disabled = width >= 990
+const Sort = ({handleSort}) => {
+
   return (
     <Section>
-      <div>
-        <span
-        disabled={disabled}
-        className={!disabled ? "disabled" : ''}
-        onClick={() => setList(false)}><BsFillGrid3X3GapFill /></span>
-       {
-         width >= 990 
-         &&
-         <span onClick={() => setList(true)}><CiBoxList /></span>
-       }
-      </div>
        <div>
-        <select>
-              <option>sort by latest</option>
-              <option>sort by average rating</option>
-              <option>sort price: low to high</option>
-              <option>sort price: high to low</option>
-              <option>sort by popularity</option>
-          </select>
+       <select id="sort" onChange={handleSort}>
+        <option value="name">name</option>
+        <option value="rating">Average Rating</option>
+        <option value="priceLowToHigh">Price: Low to High</option>
+        <option value="priceHighToLow">Price: High to Low</option>
+        <option value="popularity">Popularity</option>
+        <option value="purchased">Purchased</option>
+      </select>
        </div>
     </Section>
   )

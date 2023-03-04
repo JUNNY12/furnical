@@ -77,6 +77,9 @@ const CartModal = ({setShowCart}) => {
 
 const Container = styled.div`
 position:absolute;
+width:400px;
+height:300px;
+overflow:auto;
 right:4em;
 top:7em;
 background:${({theme}) => theme.colors.white};
@@ -95,7 +98,7 @@ z-index:4;
 .cancel{
     position:absolute;
     right:0.5em;
-    top:0.1em;
+    top:0.3em;
     font-size:1.3rem;
     cursor:pointer;
 }

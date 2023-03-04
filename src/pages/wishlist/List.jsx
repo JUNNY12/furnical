@@ -1,12 +1,12 @@
 import React from 'react'
 import { Container } from '../cart/Items'
-import { img } from '../../assets'
 import {BsFillTrashFill} from "react-icons/bs"
-import { devices } from '../../config/mediaquery'
-import {AiOutlineShoppingCart} from "react-icons/ai"
 import styled from "styled-components"
 import { useSelector, useDispatch } from 'react-redux'
 import { removeFavorite } from '../../state/slice/favoriteSlice'
+import { addToCart } from '../../state/slice/cartSlice'
+
+
 
 const List = () => {
 
@@ -16,6 +16,17 @@ const List = () => {
     const handleRemoveFavorite = (id) => {
         dispatch(removeFavorite({id}))
         console.log(id)
+    }
+
+    const handleAddToCart = (id, url, price, productName) => {
+        dispatch(
+            addToCart({
+                id,
+                url,
+                price,
+                productName,
+            })
+        )
     }
     
   return (
@@ -29,7 +40,8 @@ const List = () => {
         </div>
 
         {
-            favoriteItems?.map(({id, url , productName}) => {
+            favoriteItems?.map(({id, url , productName, price}) => {
+                console.log(price)
                 return(
                     <div className='cartItem' key={id}>
                         <div className='col-1'>
@@ -42,7 +54,7 @@ const List = () => {
                             In stock
                         </div>
                         <div className='total col-4'>
-                            <button className='add'>
+                            <button className='add' onClick={() => handleAddToCart(id, url, productName, price)}>
                                 <span>Add to Cart</span>
                             </button>
                         </div>
@@ -64,6 +76,11 @@ const Section = styled(Container)`
 .add{
     font-weight:bold;
     padding:0.4rem;
+    border-radius:0.2rem;
+    border:1px solid ${({theme}) => theme.colors.primary};
+    background-color: ${({theme}) => theme.colors.white};
+    color:${({theme}) => theme.colors.primary};
+    cursor:pointer;
 }
 .stock{
     font-weight:500;

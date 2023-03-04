@@ -8,7 +8,7 @@ const Sort = ({handleSort}) => {
     <Section>
        <div>
        <select id="sort" onChange={handleSort}>
-        <option value="name">name</option>
+        <option value="name">Name</option>
         <option value="rating">Average Rating</option>
         <option value="priceLowToHigh">Price: Low to High</option>
         <option value="priceHighToLow">Price: High to Low</option>

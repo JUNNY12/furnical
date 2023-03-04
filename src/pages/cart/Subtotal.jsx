@@ -42,7 +42,7 @@ padding:2rem 1.5rem 4rem 1.5rem;
 margin-bottom:4rem;
 
 .header{
-    font-size:2rem;
+    font-size:1.5rem;
     margin-bottom:0.5rem;
 }
 .subtotal{

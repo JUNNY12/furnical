@@ -17,7 +17,7 @@ const ProductCard = ({
   price,
   url,
 }) => {
-  console.log(productName);
+
 
   const { favoriteItems } = useSelector((state) => state.favorite);
 

@@ -2,13 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { Input } from "./Input";
 import { useGetProductsQuery } from "../services/product";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchSection = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const { data, error, isLoading, isSuccess } = useGetProductsQuery();
+
+  const inputRef = useRef(null);
+  
+    useEffect(() => {
+      inputRef.current.focus();
+    }, []);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -24,6 +30,7 @@ const SearchSection = () => {
       <div className="flex">
         <div>
           <Search
+            ref={inputRef}
             type="search"
             placeholder="Enter your search"
             name="search"

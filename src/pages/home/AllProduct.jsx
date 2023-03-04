@@ -16,8 +16,7 @@ const AllProduct = () => {
      <Section>
         {
           isSuccess && data?.data?.map((product) => {
-            console.log(product)
-            console.log(product.attributes.image.data)
+            
             const {slug} = product.attributes
             const {id} = product
             const {productName ,rating, purchased, price, description} = product.attributes
@@ -44,7 +43,7 @@ const AllProduct = () => {
       }
      {
        isSuccess &&
-       <div style={{textAlign:'center'}} >
+       <div style={{textAlign:'center', marginBottom:'2rem'}} >
          <Link to={`/shop`}>
              <Button>View All</Button>
          </Link>

@@ -33,7 +33,7 @@ const Products = (props) => {
         })
         }
        </Section>
-       { isLoading && <div className="loader"> <CircleLoader color="#db9277" size={150} /></div> }
+      
      </Container>
     )
   }

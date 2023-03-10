@@ -8,6 +8,7 @@ import { useGetProductsQuery } from "../../services/product";
 import { CircleLoader } from "react-spinners";
 import { addToCart, decreaseCart } from "../../state/slice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Product = () => {
   const { slug } = useParams();
@@ -113,9 +114,14 @@ const Product = () => {
               </div>
 
               <div className="desc">{description}</div>
-              <div className="category">
+              {/* <div className="category">
                 <span> Category: </span>
                 <span> Chair </span>
+              </div> */}
+              <div>
+              <Link to='/shop'>
+                 <button className="back">Back To Shop</button>
+              </Link>
               </div>
             </div>
           </div>
@@ -131,8 +137,51 @@ const Product = () => {
 
 const Container = styled.div`
   padding: 2rem 2rem 4rem 2rem;
-  margin: 2rem 2rem 0 2rem;
+  margin: 1rem;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  background: ${({ theme }) => theme.colors.white};
 
+  .buy{
+    background: ${({ theme }) => theme.colors.primary};
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    width: 9rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+      background: ${({ theme }) => theme.colors.white};
+      color: black;
+      border: 1.5px solid ${({ theme }) => theme.colors.primary};
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  .back{
+    margin-top: 1.5rem;
+    background: ${({ theme }) => theme.colors.white};
+    color: black;
+    border: 1.5px solid ${({ theme }) => theme.colors.primary};
+    font-weight: bold;
+    padding: 0.5rem;
+    width: 9rem;
+    border-radius: 0.2rem;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    
+    &:hover{
+      background: ${({ theme }) => theme.colors.primary};
+      color: white;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  h2{
+    font-size: 1rem;
+  }
   .category {
     margin-bottom: 1rem;
     font-weight: 500;
@@ -155,28 +204,7 @@ const Container = styled.div`
     font-weight: 500;
   }
 
-  .add,
-  .buy {
-    border: 1.5px solid ${({ theme }) => theme.colors.primary};
-    outline: none;
-    padding: 0.5rem;
-    border-radius: 0.2rem;
-    margin-right: 2rem;
-    width: 9rem;
-    background: ${({ theme }) => theme.colors.primary};
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    @media all and (max-width: 960px) {
-      width: 7rem;
-    }
-  }
-
-  .buy {
-    background: white;
-    color: black;
-    border: 1.5px solid ${({ theme }) => theme.colors.primary};
-  }
+ 
   .btnWrap {
     margin-bottom: 1rem;
     display: inline-flex;

@@ -7,17 +7,11 @@ import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
 import { devices } from '../config/mediaquery'
 
-const Sidebar = ({showSideBar, setShowSideBar}) => {
+
+const Sidebar = () => {
     const [show, setShow] = useState(true)
   return (
     <Container>
-        <div>
-            <Search 
-            type='search'
-            name='search'
-            placeholder='Search in menu'
-            />
-        </div>
         <div className='header'>
             <div 
             className={show? "activeNav itemNav" : "itemNav"}
@@ -56,13 +50,23 @@ const Sidebar = ({showSideBar, setShowSideBar}) => {
        {
            !show && 
             <div className='catList'>
-             <ul>
-                <li>Chairs</li>
-                <li>Tables</li>
-                <li>Beds</li>
-                <li>Kitchen</li>
-                <li>Boards</li>
-              </ul>
+            <ul>
+                <li>
+                <NavLink to={`/categories/chairs`} className={({isActive}) => isActive? 'active' : undefined} end>Chairs</NavLink>
+                </li>
+                
+                <li>
+                <NavLink to={`/categories/beds`} className={({isActive}) => isActive? 'active' : undefined} end>Beds</NavLink>
+                </li>
+
+                <li>
+                <NavLink to={`/categories/kitchens`} className={({isActive}) => isActive? 'active' : undefined} end>Kitchen</NavLink>
+                </li>
+
+                <li>
+                <NavLink to={`/categories/tables`} className={({isActive}) => isActive? 'active' : undefined} end>Tables</NavLink>
+                </li>
+            </ul>
             </div>
        }
 

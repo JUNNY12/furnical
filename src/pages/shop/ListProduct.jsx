@@ -26,13 +26,14 @@ const ListProduct = (props) => {
                     </div>
                     <div>
                         <h4>{productName} </h4>
+                        
+                        <div className='price'>
+                            <span>₦</span>
+                            <span>{price}</span>
+                        </div>
                         <div className='rate'>
                             <Rate rating={rating}/>
                             <span>({purchased})</span>
-                        </div>
-                        <div className='price'>
-                            <span>#</span>
-                            <span>{price}</span>
                         </div>
                         <div className='desc'>
                             {description}
@@ -69,7 +70,7 @@ padding:${({theme}) => theme.padding.lg};
   }
 
 .price{
-    font-size:1.3rem;
+    font-size:1.2rem;
     margin:0.5rem 0 0.5rem 0
 }
 .viewFav{
@@ -78,7 +79,7 @@ padding:${({theme}) => theme.padding.lg};
     cursor:pointer;
 }
 h4{
-    font-size:1.5rem;
+    font-size:1.2rem;
     
 }
 .addCart{
@@ -97,20 +98,19 @@ h4{
     margin-right:1rem;
 }
 .list{
-    display:flex;
-    column-gap:4rem;
-    align-items:center;
+    display:grid;
+    grid-template-columns:1fr 2.4fr;
     margin-bottom:2rem;
 }
 .listImg{
-    width:300px;
-    height:300px;
+    width:250px;
+    height:250px;
     object-fit:cover;
 }
 
 .desc{
     margin:0.5rem 0 0.5rem 0;
-    font-weight:500;
+    font-size:12px;
 }
 
 .rate{

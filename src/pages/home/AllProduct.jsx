@@ -16,7 +16,6 @@ const AllProduct = () => {
      <Section>
         {
           isSuccess && data?.data?.map((product) => {
-            
             const {slug} = product.attributes
             const {id} = product
             const {productName ,rating, purchased, price, description} = product.attributes

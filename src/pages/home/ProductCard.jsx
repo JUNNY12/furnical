@@ -41,6 +41,7 @@ const ProductCard = ({
     );
     setIsFavorite(!isFavorite);
   };
+  
   const handleAddToCart = (id, url, price, productName) => {
     dispatch(
       addToCart({
@@ -65,7 +66,7 @@ const ProductCard = ({
           <span>({purchased})</span>
         </div>
         <div className="price">
-          <span>₦</span>
+          <span> ₦ </span>
           <span>{price}</span>
         </div>
         <button

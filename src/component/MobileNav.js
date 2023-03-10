@@ -4,17 +4,20 @@ import { Input } from "./Input";
 import { devices } from "../config/mediaquery";
 import { ImCancelCircle } from "react-icons/im";
 import Sidebar from "./Sidebar";
-import { useSelector } from "react-redux";
-import { useRef, useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useGetProductsQuery } from "../services/product";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation} from "react-router-dom";
 
 const MobileNav = ({ showSideBar, setShowSideBar }) => {
   const [search, setSearch] = useState("");
   const { data, error, isLoading, isSuccess } = useGetProductsQuery();
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const {pathname} = useLocation()
+
+  useEffect(() => {
+    setShowSideBar(false)
+  },[pathname])
 
   const handleSearch = (e) => {
     setSearch(e.target.value);

@@ -5,7 +5,7 @@ import { devices } from '../config/mediaquery'
 export const Card = styled.div`
 background-color:${({theme}) => theme.colors.white};
 object-fit:cover;
-height:400px;
+height:280px;
 padding:${({theme}) => theme.padding.md};
 border-radius:8px;
 cursor:pointer;
@@ -14,7 +14,7 @@ position:relative;
 box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 :hover .preview{
     display:flex;
-    transition:1s linear;
+    transition:5s ease-in-out;
 } 
 
 @media all and (max-width:520px){
@@ -23,7 +23,7 @@ box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 
 .img{
     width:100%;
-    height:200px;
+    height:150px;
     padding
 }
 
@@ -37,7 +37,7 @@ box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 }
 
 .name{
-    font-size:1.2rem;
+    font-size:12px;
     color:black;
     margin-top:${({theme}) => theme.margin.sm};
 }
@@ -46,11 +46,13 @@ box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
     display:inline-flex;
     align-items:center;
     column-gap:0.5rem;
+    font-size:12px;
 }
 
 .price{
     margin-top:${({theme}) => theme.margin.sm};
     font-weight:500;
+    font-size:14px;
     color:${({theme}) => theme.colors.primary};
 }
 

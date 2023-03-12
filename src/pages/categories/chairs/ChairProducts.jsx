@@ -3,16 +3,31 @@ import { Container, Section } from '../../shop/Products'
 import ChairCard from './ChairCard'
 import { useGetChairQuery } from '../../../services/category'
 import {CircleLoader} from "react-spinners"
+import Pagination from '../../../component/Pagination'
+import { usePagination } from '../../../hooks'
 
 const ChairProducts = () => {
   const {isLoading, isSuccess, data} = useGetChairQuery()
-  const item = data?.data[0].attributes?.products?.data
+  const dataItems = data?.data[0].attributes?.products?.data
+  let itemsPerPage = 4;
+  let visiblePages = 2;
+
+  const {
+    currentData, 
+    nextPage, 
+    prevPage, 
+    jumpPage,
+    currentPage,
+    hasMorePages,
+    visiblePageRange,
+    totalPage} = usePagination(dataItems, itemsPerPage, visiblePages)
+
 
   return (
     <Container>
         <Section>
            {
-            isSuccess && item?.map((product) => {
+            isSuccess && currentData()?.map((product) => {
               const {id} = product
               const {slug, productName, price, description, rating, purchased} = product.attributes
               const {url} = product.attributes.image.data.attributes
@@ -38,6 +53,15 @@ const ChairProducts = () => {
             <CircleLoader color="#db9277" size={150} />
           </div>
         }
+        <Pagination
+          prevPage={prevPage}
+          currentPage={currentPage}
+          nextPage={nextPage}
+          totalPage={totalPage}
+          jumpPage={jumpPage}
+          hasMorePages={hasMorePages}
+          visiblePageRange={visiblePageRange}
+        />
     </Container>
   )
 }

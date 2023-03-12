@@ -8,13 +8,32 @@ import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import useWidth from "../../hooks/useWidth";
 import Sort from "./Sort";
 import styled from "styled-components";
+import Pagination from "../../component/Pagination";
+import { usePagination } from "../../hooks";
 
 const ProductDisplay = () => {
+
   const width = useWidth();
   const [displayType, setDisplayType] = useState("grid");
   const { isLoading, isSuccess, isError, data } = useGetProductsQuery();
   const [sortOption, setSortOption] = useState("name");
 
+  let dataItems = data?.data;
+  let itemsPerPage = 8;
+  let visiblePages = 2;
+
+  const {
+    currentData, 
+    nextPage, 
+    prevPage, 
+    jumpPage,
+    currentPage,
+    hasMorePages,
+    visiblePageRange,
+    totalPage} = usePagination(dataItems, itemsPerPage, visiblePages)
+
+   
+    
   //toggle display type
   const toggleDisplayType = () => {
     setDisplayType(displayType === "grid" ? "list" : "grid");
@@ -28,41 +47,41 @@ const ProductDisplay = () => {
     setSortOption(e.target.value);
   };
 
-  // sorting logic
-  let sortedData = data?.data;
+console.log(currentData())
+let sortedData = currentData()
 
   switch (sortOption) {
     case "name":
       if (isSuccess) {
-        sortedData = [...sortedData].sort((a, b) =>
+       sortedData= [...sortedData].sort((a, b) =>
           a.attributes.productName.localeCompare(b.attributes.productName)
         );
       }
       break;
     case "priceLowToHigh":
       if (isSuccess) {
-        sortedData = [...sortedData].sort(
+        sortedData=[...sortedData].sort(
           (a, b) => a.attributes.price - b.attributes.price
         );
       }
       break;
     case "priceHighToLow":
       if (isSuccess) {
-        sortedData = [...sortedData].sort(
+        sortedData=[...sortedData].sort(
           (a, b) => b.attributes.price - a.attributes.price
         );
       }
       break;
     case "rating":
       if (isSuccess) {
-        sortedData = [...sortedData].sort(
+       sortedData=[...sortedData].sort(
           (a, b) => b.attributes.rating - a.attributes.rating
         );
       }
       break;
     case "purchased":
       if (isSuccess) {
-        sortedData = [...sortedData].sort(
+        sortedData =[...sortedData].sort(
           (a, b) => b.attributes.purchased - a.attributes.purchased
         );
       }
@@ -85,17 +104,26 @@ const ProductDisplay = () => {
       </Div>
       {isGrid ? (
         <Products
-          sortedData={sortedData}
+         sortedData={sortedData}
           isSuccess={isSuccess}
           isLoading={isLoading}
         />
       ) : (
         <ListProduct
-          sortedData={sortedData}
+         sortedData={sortedData}
           isSuccess={isSuccess}
           isLoading={isLoading}
         />
       )}
+      <Pagination
+      prevPage={prevPage}
+      currentPage={currentPage}
+      nextPage={nextPage}
+      totalPage={totalPage}
+      jumpPage={jumpPage}
+      hasMorePages={hasMorePages}
+      visiblePageRange={visiblePageRange}
+      />
     </>
   );
 };

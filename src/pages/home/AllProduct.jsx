@@ -3,19 +3,42 @@ import ProductCard from "./ProductCard"
 import { Link } from "react-router-dom"
 import AllProductHeader from "./AllProductHeader"
 import { devices } from "../../config/mediaquery"
-import { useGetProductsQuery } from "../../services/product"
 import {CircleLoader} from "react-spinners"
+import { useGetProductsQuery } from "../../services/product"
+import { usePagination } from "../../hooks"
+import Pagination from "../../component/Pagination"
+
+
 
 const AllProduct = () => {
+  const{data ,isSuccess, isLoading} = useGetProductsQuery()
+  const dataItems = data?.data
+  const itemsPerPage = 8
+  const visiblePages = 2
 
-  const {data ,isSuccess, isLoading} = useGetProductsQuery()
-  
+  const {
+    currentData, 
+    nextPage, 
+    prevPage, 
+    jumpPage,
+    currentPage,
+    hasMorePages,
+    visiblePageRange,
+    totalPage} = usePagination(dataItems, itemsPerPage, visiblePages)
+
+  console.log(currentData())
+
   return (
    <Container>
-       <AllProductHeader />
+       <AllProductHeader
+       prevPage={prevPage}
+       currentPage={currentPage}
+       nextPage={nextPage}
+       totalPage={totalPage}
+       />
      <Section>
         {
-          isSuccess && data?.data?.map((product) => {
+          isSuccess && currentData()?.map((product) => {
             const {slug} = product.attributes
             const {id} = product
             const {productName ,rating, purchased, price, description} = product.attributes
@@ -40,6 +63,19 @@ const AllProduct = () => {
      {
         isLoading && <div className="loader"> <CircleLoader color="#db9277" size={150} /></div>
       }
+       {
+        isSuccess &&
+          <Pagination 
+          prevPage={prevPage}
+          currentPage={currentPage}
+          nextPage={nextPage}
+          totalPage={totalPage}
+          jumpPage={jumpPage}
+          hasMorePages={hasMorePages}
+          visiblePageRange={visiblePageRange}
+          />
+
+       }
      {
        isSuccess &&
        <div style={{textAlign:'center', marginBottom:'2rem'}} >
@@ -48,6 +84,7 @@ const AllProduct = () => {
          </Link>
      </div>
      }
+    
    </Container>
   )
 }
@@ -59,6 +96,33 @@ padding-bottom:4rem;
   display:flex;
   justify-content:center;
   align-items:center;
+}
+
+
+.active{
+  background-color:${({theme}) => theme.colors.primary};
+  color:${({theme}) => theme.colors.white};
+}
+
+.num{
+  outline:none;
+  border:none;
+  cursor:pointer;
+  border:1.5px solid ${({theme}) => theme.colors.primary};
+}
+
+.pageNum{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-bottom:1.5rem;
+}
+.paginationContainer{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  border: 1px solid ${({theme}) => theme.colors.primary};
 }
 
 `

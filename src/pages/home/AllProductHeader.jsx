@@ -4,15 +4,24 @@ import {GrNext, GrPrevious} from "react-icons/gr"
 
 
 
-const AllProductHeader = () => {
+const AllProductHeader = ({prevPage, nextPage, currentPage, totalPage}) => {
   return (
     <Section>
         <h1>FEATURED PRODUCTS</h1>
         <h4>All Categories</h4>
 
         <div className="navigate">
-            <span className="span"><GrPrevious /></span>
-            <span className="span"><GrNext /></span>
+            <button className="span" 
+            onClick={prevPage} 
+            disabled={currentPage === 1}>
+              <GrPrevious />
+           </button>
+
+            <button className="span"
+             onClick={nextPage} 
+             disabled ={currentPage === totalPage}>
+              <GrNext />
+              </button>
         </div>
     </Section>
   )

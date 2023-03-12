@@ -1,11 +1,10 @@
 import ProductCard from "./ProductCard"
 import styled from "styled-components"
 import { devices } from "../../config/mediaquery"
-import { CircleLoader } from "react-spinners"
 
 
 const Products = (props) => {
-  const {isLoading, isSuccess, isError, sortedData} = props
+  const { isSuccess, sortedData} = props
 
     return (
      <Container>

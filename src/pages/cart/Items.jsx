@@ -125,7 +125,7 @@ margin: 0 ${({theme}) => theme.margin.lg} 0 ${({theme}) => theme.margin.lg};
     @media all and ${devices.tablet}{
         position:absolute;
         width:unset;
-        bottom:-1.5em;
+        bottom:-3em;
     }
 }
 .col-3{
@@ -176,7 +176,7 @@ margin: 0 ${({theme}) => theme.margin.lg} 0 ${({theme}) => theme.margin.lg};
     @media all and ${devices.tablet}{
         position:absolute;
         right:0;
-        bottom:-1.5em;
+        bottom:-3em;
     }
 }
 

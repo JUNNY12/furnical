@@ -13,6 +13,9 @@ const PaginationWrapper = styled.div`
     margin-left: 4px;
     margin-right: 4px;
   }
+  @media (max-width: 768px) {
+    margin-bottom: 30px;
+  }
 `;
 
 const PageNumberButton = styled.button`
@@ -23,6 +26,10 @@ const PageNumberButton = styled.button`
   padding: 8px;
   margin: 0 4px;
   border-radius: 4px;
+
+  @media (max-width: 768px) {
+    padding: 4px;
+  }
 `;
 
 const PageNumberInput = styled.input`
@@ -34,10 +41,14 @@ const PageNumberInput = styled.input`
   margin: 0 4px;
   border-radius: 4px;
   text-align: center;
-  width: 50px;
+  width: 45px;
 
   &:focus {
     outline: none;
+  }
+
+  @media (max-width: 768px) {
+    padding: 4px;
   }
 `;
 

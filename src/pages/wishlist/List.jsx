@@ -5,7 +5,7 @@ import styled from "styled-components"
 import { useSelector, useDispatch } from 'react-redux'
 import { removeFavorite } from '../../state/slice/favoriteSlice'
 import { addToCart } from '../../state/slice/cartSlice'
-
+import { devices } from '../../config/mediaquery'
 
 
 const List = () => {
@@ -25,7 +25,8 @@ const List = () => {
                 url,
                 price,
                 productName,
-            })
+            }),
+            console.log(typeof(price))
         )
     }
     
@@ -40,7 +41,7 @@ const List = () => {
         </div>
 
         {
-            favoriteItems?.map(({id, url , productName, price}) => {
+            favoriteItems?.map(({id, url , productName, price, inStock}) => {
                 console.log(price)
                 return(
                     <div className='cartItem' key={id}>
@@ -51,7 +52,9 @@ const List = () => {
                         </div>
                         <div className='name col-2'>{productName}</div>
                         <div className='quantity stock col-3'>
-                            In stock
+                            {
+                                inStock ? <span className='green'>In Stock</span> : <span className='red'>Out of Stock</span>
+                            }
                         </div>
                         <div className='total col-4'>
                             <button className='add' onClick={() => handleAddToCart(id, url, productName, price)}>
@@ -84,11 +87,24 @@ const Section = styled(Container)`
 }
 .stock{
     font-weight:500;
+    @media ${devices.mobileL}{
+        font-size:0.8rem;
+    }
+}
+
+.red{
+    color:red;
+}
+
+.green{
+    color:green;
 }
 
 .name{
-    
     font-weight:500;
+    @media ${devices.mobileL}{
+        font-size:0.8rem;
+    }
 }
 `
 

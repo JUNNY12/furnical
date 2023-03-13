@@ -3,19 +3,16 @@ import styled from "styled-components"
 import { Rate } from '../../component'
 import {MdFavorite} from "react-icons/md"
 import {AiFillEye} from "react-icons/ai"
-import useWidth from '../../hooks/useWidth'
 import { CircleLoader } from 'react-spinners'
 
 const ListProduct = (props) => {
-    const width = useWidth()
+
      const {sortedData, isLoading, isSuccess} = props
-     console.log(props)
 
   return (
     <Container>
        {
            isSuccess && sortedData?.map((product) => {
-            const {slug} = product.attributes
             const {id} = product
             const {productName ,rating, purchased, price, description} = product.attributes
             const {url} = product.attributes.image.data.attributes

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useGetProductsQuery } from "../../services/product";
 import ListProduct from "./ListProduct";
 import Products from "./Products";
@@ -15,7 +15,7 @@ const ProductDisplay = () => {
 
   const width = useWidth();
   const [displayType, setDisplayType] = useState("grid");
-  const { isLoading, isSuccess, isError, data } = useGetProductsQuery();
+  const { isLoading, isSuccess, data } = useGetProductsQuery();
   const [sortOption, setSortOption] = useState("name");
 
   let dataItems = data?.data;
@@ -115,15 +115,20 @@ let sortedData = currentData()
           isLoading={isLoading}
         />
       )}
-      <Pagination
-      prevPage={prevPage}
-      currentPage={currentPage}
-      nextPage={nextPage}
-      totalPage={totalPage}
-      jumpPage={jumpPage}
-      hasMorePages={hasMorePages}
-      visiblePageRange={visiblePageRange}
+      {
+        isSuccess &&
+        (
+          <Pagination
+          prevPage={prevPage}
+          currentPage={currentPage}
+          nextPage={nextPage}
+          totalPage={totalPage}
+          jumpPage={jumpPage}
+          hasMorePages={hasMorePages}
+          visiblePageRange={visiblePageRange}
       />
+        )
+      }
     </>
   );
 };

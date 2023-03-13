@@ -16,6 +16,7 @@ const ProductCard = ({
   purchased,
   price,
   url,
+  inStock
 }) => {
 
 
@@ -30,13 +31,14 @@ const ProductCard = ({
 
   const dispatch = useDispatch();
 
-  const handleAddfavorite = (id, url, price, productName) => {
+  const handleAddfavorite = (id, url, price, productName, inStock) => {
     dispatch(
       addFavorite({
         id,
         url,
         price,
         productName,
+        inStock
       })
     );
     setIsFavorite(!isFavorite);
@@ -49,7 +51,8 @@ const ProductCard = ({
         url,
         price,
         productName,
-      })
+      }),
+      console.log(typeof(price))
     );
   };
 
@@ -82,7 +85,7 @@ const ProductCard = ({
           <AiFillEye />
         </div>
         <div
-        onClick={() => handleAddfavorite(id, url, price, productName)}
+        onClick={() => handleAddfavorite(id, url, price, productName, inStock)}
         className={isFavorite ? "isFavorite" : "favorite"}>
           <MdFavorite />
         </div>

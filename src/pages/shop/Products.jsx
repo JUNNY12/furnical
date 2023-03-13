@@ -1,10 +1,10 @@
 import ProductCard from "./ProductCard"
 import styled from "styled-components"
 import { devices } from "../../config/mediaquery"
-
+import { CircleLoader } from 'react-spinners'
 
 const Products = (props) => {
-  const { isSuccess, sortedData} = props
+  const { isSuccess, isLoading,sortedData} = props
 
     return (
      <Container>
@@ -32,13 +32,20 @@ const Products = (props) => {
         })
         }
        </Section>
-      
+      {
+        isLoading 
+        && (
+        <div className="loader"> 
+          <CircleLoader color="#db9277" size={150} />
+        </div>
+        )
+      }
      </Container>
     )
   }
   
   export const Container = styled.section`
-  padding-bottom:${({theme}) => theme.padding.lg};
+  padding-bottom:${({theme}) => theme.padding.sm};
   
   .loader{
     display:flex;
@@ -46,16 +53,7 @@ const Products = (props) => {
     align-items:center;
   }
   `
-  const Button = styled.button`
-  outline:none;
-  border:none;
-  background-color:${({theme}) => theme.colors.primary};
-  padding:${({theme}) => theme.padding.sm};
-  width:11rem;
-  color:${({theme}) => theme.colors.white};
-  font-weight:600;
-  cursor:pointer;
-  `
+  
   export const Section= styled.section`
   display:grid;
   grid-template-columns:1fr 1fr 1fr 1fr;

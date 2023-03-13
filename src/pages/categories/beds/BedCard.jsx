@@ -4,18 +4,14 @@ import { MdFavorite } from "react-icons/md"
 import { AiFillEye } from "react-icons/ai"
 import { Rate } from '../../../component'
 import { useNavigate } from 'react-router-dom'
-import { useGetBedQuery } from '../../../services/category'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFavorite } from '../../../state/slice/favoriteSlice'
 import { addToCart } from '../../../state/slice/cartSlice'
 
 
-
 const BedCard = ({ id, url, slug, productName, rating, purchased, price }) => {
-    const { data, isSuccess } = useGetBedQuery()
-    const item = data?.data[0].attributes?.products?.data
-
+    
     const { favoriteItems } = useSelector((state) => state.favorite)
     const [isFavorite, setIsFavorite] = useState(false)
     const navigate = useNavigate()
@@ -23,7 +19,7 @@ const BedCard = ({ id, url, slug, productName, rating, purchased, price }) => {
     useEffect(() => {
         const existingItem = favoriteItems.find((item) => item.id === id);
         setIsFavorite(existingItem ? true : false);
-    }, [favoriteItems])
+    }, [favoriteItems, id])
 
 
     const dispatch = useDispatch();

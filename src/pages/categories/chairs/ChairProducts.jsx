@@ -53,15 +53,19 @@ const ChairProducts = () => {
             <CircleLoader color="#db9277" size={150} />
           </div>
         }
-        <Pagination
-          prevPage={prevPage}
-          currentPage={currentPage}
-          nextPage={nextPage}
-          totalPage={totalPage}
-          jumpPage={jumpPage}
-          hasMorePages={hasMorePages}
-          visiblePageRange={visiblePageRange}
-        />
+        {
+          isSuccess && (
+            <Pagination
+            prevPage={prevPage}
+            currentPage={currentPage}
+            nextPage={nextPage}
+            totalPage={totalPage}
+            jumpPage={jumpPage}
+            hasMorePages={hasMorePages}
+            visiblePageRange={visiblePageRange}
+           />
+          )
+        }
     </Container>
   )
 }

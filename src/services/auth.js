@@ -13,8 +13,8 @@ export const auth = api.injectEndpoints({
             query:(body) => ({
                 url:'api/auth/local/register',
                 method:"POST",
-                body
-            })
+                body,
+            }),
         })
     })
 })

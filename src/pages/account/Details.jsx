@@ -2,26 +2,84 @@ import React from 'react'
 import { Input } from '../../component'
 import styled from "styled-components"
 import { useSelector } from 'react-redux'
-import { useForm } from '../../hooks'
+import { useState , useEffect} from 'react'
+import { useUpdateUserMutation, useUserQuery } from '../../services/user'
+import { toast } from "react-toastify";
+
+
+
 
 const Details = () => {
 
   const userIdentity = useSelector((state) => state.auth.user)
-  const {username, email} = userIdentity
+  const {id} = userIdentity
+  const {isSuccess, data} = useUserQuery(id)
+  const [update] = useUpdateUserMutation()
+
   
-  const {formData, handleInputChange} = useForm(
+  const [formData, setFormData] = useState(
     {
       firstName:'',
       lastName:'',
-      displayName:'' || username,
-      emailText:'' || email
+      displayName:'',
+      email:'',
     }
   )
-  const {firstName, lastName, displayName, emailText} = formData
 
+  const handleInputChange = (e) => {
+    const {name, value} = e.target
+    setFormData((prevData) => {
+      return {
+        ...prevData,
+        [name]: value
+      }
+    })
+  }
+
+  useEffect(() => {
+    if(isSuccess){
+      setFormData({
+        firstName: data?.firstName || '',
+        lastName: data?.lastName || '',
+        displayName: data?.username || '',
+        email: data?.email || '',
+      })
+    }
+  }, [isSuccess, data])
+
+const {firstName, lastName, displayName, email} = formData
+
+
+const handleUpdate = async (e) => {
+ e.preventDefault()
+ try {
+  const updateUser = await update({
+    id,
+    body: {
+      firstName,
+      lastName,
+      username: displayName,
+      email
+    }
+  }).unwrap()
+  toast.success('Saved successfully',{
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 2000,
+    closeButton: false,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+})
+ } catch (error) {
+  console.log(error)
+ }
+}
   return (
     <Container>
-      <form>
+      <form onSubmit={handleUpdate}>
         <div className='groupInput'>
           <div>
             <label>First name</label> <br/>
@@ -57,7 +115,7 @@ const Details = () => {
           <Inputs 
           name='email'
           onChange={handleInputChange}
-          value={emailText}
+          value={email}
           type="email"
           />
         </div> 

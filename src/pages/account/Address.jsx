@@ -2,6 +2,8 @@ import React from 'react'
 import styled from "styled-components"
 import {AiFillEdit} from "react-icons/ai"
 import { Link } from 'react-router-dom'
+import { devices } from '../../config/mediaquery'
+
 
 const Address = () => {
   return (
@@ -43,6 +45,9 @@ const Address = () => {
 
 const Container = styled.div`
 
+@media ${devices.tablet} {
+  margin-bottom:3rem;
+}
 
 .wrapper{
   display:flex;

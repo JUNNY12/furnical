@@ -78,14 +78,28 @@ padding-bottom:4rem;
     margin-bottom:1rem;
     font-weight:550;
 }
+.head{
+    border-bottom:2px solid gray;
+    padding:1rem;
+}
 
 .total{
-    border-top:1.5px solid gray;
+    padding:1rem;
+}
+.product{
+    margin-bottom:1.5rem;
+    padding:0 1rem 0.5rem 1rem;
+}
+
+
+
+.total{
+    border-top:2px solid gray;
 }
 
 .wrapper{
-    border:1px solid gray;
-    padding:1rem;
+    border:2px solid gray;
+    margin:1rem;
     margin-top:2.5rem;
     @media all and (max-width:930px){
         margin-top:0;

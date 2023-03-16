@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components"
 import { useSelector } from 'react-redux'
+import { devices } from "../../config/mediaquery"
 
 const Dashboard = () => {
   const userIdentity = useSelector((state) => state.auth.user)
@@ -23,6 +24,9 @@ const Dashboard = () => {
 
 const Div = styled.div`
 
+@media ${devices.tablet} {
+  margin-bottom:4rem;
+}
 h3{
   text-align:center;
   font-size:1.5rem;

@@ -1,15 +1,28 @@
 import React from 'react'
 import styled from "styled-components"
-import { Input } from './Input'
 import {AiOutlineMenu ,AiFillTwitterSquare, AiFillInstagram, AiFillFacebook} from "react-icons/ai"
 import {BsFillGridFill} from "react-icons/bs"
-import { NavLink } from 'react-router-dom'
+import { NavLink , useNavigate} from 'react-router-dom'
 import { useState } from 'react'
 import { devices } from '../config/mediaquery'
+import { useSelector , useDispatch} from "react-redux"
+import { logout } from "../state/slice/authSlice"
 
 
 const Sidebar = () => {
     const [show, setShow] = useState(true)
+    const userAuth = useSelector((state) => state.auth.user)
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const redirect = () => {
+        navigate('/auth/login')
+    }
+
+    const handleLogout = () => {
+        dispatch(logout());
+        redirect()
+    } 
   return (
     <Container>
         <div className='header'>
@@ -44,6 +57,14 @@ const Sidebar = () => {
                 <li className="navLink">
                     <NavLink to='/wishlist'  className={({isActive}) => isActive? 'active' : undefined} end >WishList</NavLink>
                 </li>
+                {
+                    userAuth &&
+                    (
+                <li>
+                    <button className='logBtn' onClick={() => handleLogout()}>Logout</button>
+                </li>
+                    )
+                }
             </ul>
         </div>
      }
@@ -91,6 +112,15 @@ width:300px;
 padding:${({theme}) => theme.padding.lg};
 transition: transform 6s ease,-webkit-transform 4s ease;
 
+.logBtn{
+    background:${({theme}) => theme.colors.primary};
+    padding:${({theme}) => theme.padding.sm};
+    width:6rem;
+    border-radius:3px;
+    border:none;
+    cursor:pointer;
+    font-weight:600;
+}
 @media all and ${devices.mobileL}{
     width:200px;
 }
@@ -172,12 +202,4 @@ a{
 
 `
 
-const Search = styled(Input)`
-width:100%;
-height:35px;
-border-radius:8px;
-text-indent:10px;
-margin-bottom:${({theme}) => theme.margin.md};
-
-`
 export default Sidebar

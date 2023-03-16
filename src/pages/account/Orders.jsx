@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components"
 import { Link } from 'react-router-dom'
-
+import { devices } from '../../config/mediaquery'
 
 const Orders = () => {
   return (
@@ -15,6 +15,9 @@ const Orders = () => {
 }
 
 const Container = styled.div`
+@media ${devices.tablet} {
+  margin-bottom:3rem;
+}
 
 .browse{
   outline:none;
@@ -22,6 +25,7 @@ const Container = styled.div`
   padding:0.5rem;
   font-weight:500;
   border-radius:2px;
+  background: ${({theme})=> theme.colors.white};
   cursor:pointer;
 }
 h3{

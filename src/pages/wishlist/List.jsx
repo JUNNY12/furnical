@@ -26,7 +26,6 @@ const List = () => {
                 price,
                 productName,
             }),
-            console.log(typeof(price))
         )
     }
     
@@ -57,7 +56,7 @@ const List = () => {
                             }
                         </div>
                         <div className='total col-4'>
-                            <button className='add' onClick={() => handleAddToCart(id, url, productName, price)}>
+                            <button className='add' disabled={!inStock} onClick={() => handleAddToCart(id, url, price, productName)}>
                                 <span>Add to Cart</span>
                             </button>
                         </div>
@@ -76,6 +75,9 @@ const List = () => {
 
 const Section = styled(Container)`
 
+@media ${devices.tablet}{
+margin-bottom:6rem;
+}
 .add{
     font-weight:bold;
     padding:0.4rem;

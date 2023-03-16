@@ -26,8 +26,6 @@ const AllProduct = () => {
     visiblePageRange,
     totalPage} = usePagination(dataItems, itemsPerPage, visiblePages)
 
-  console.log(currentData())
-
   return (
    <Container>
        <AllProductHeader

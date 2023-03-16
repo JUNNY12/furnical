@@ -1,121 +1,181 @@
 import React from 'react'
 import styled from "styled-components"
 import { Input } from '../../component'
-import { useSelector } from 'react-redux'
-import { useForm } from '../../hooks'
+import { useSelector, useDispatch } from 'react-redux'
+import { useUserQuery, useUpdateUserMutation } from '../../services/user'
+import { useState, useEffect } from 'react'
+import { toast } from "react-toastify";
+
+
+
 
 const BillingAddress = () => {
 
     const userIdentity = useSelector((state) => state.auth.user)
-    const {email} = userIdentity
-    
-    const {formData, handleInputChange} = useForm(
-      {
-        firstName:'',
-        lastName:'',
-        companyName:'',
-        emailText:'' || email,
-        streetAddress:'',
-        city:'',
-        state:'',
-      }
+    const { id } = userIdentity
+    const { isSuccess, data } = useUserQuery(id)
+    const [update] = useUpdateUserMutation()
+
+    console.log(data)
+
+    const dispatch = useDispatch()
+
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        companyName: '',
+        streetAddress: '',
+        city: '',
+        state: '',
+        phoneNumber: '',
+        email: '',
+    })
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        setFormData((prevData) => {
+            return {
+                ...prevData,
+                [name]: value
+            }
+        })
+    }
+
+    useEffect(() => {
+        if (isSuccess) {
+            setFormData({
+                firstName: data?.firstName || '',
+                lastName: data?.lastName || '',
+                email: data?.email || '',
+                phoneNumber: data?.phoneNumber || '',
+                streetAddress: data?.streetAddress || '',
+                companyName: data?.companyName || '',
+                city: data?.city || '',
+                state: data?.state || ''
+            })
+        }
+    }, [isSuccess, data])
+
+    const { firstName, lastName, companyName, streetAddress, city, state, phoneNumber, email} = formData
+
+    const handleUpdate = async (e) => {
+        e.preventDefault()
+        try{
+          await update({
+                id,
+                body: { 
+                    firstName,
+                    lastName,
+                    companyName,
+                    streetAddress,
+                    city,
+                    state,
+                    phoneNumber,
+                    email
+                }
+            }).unwrap()
+                toast.success('Saved successfully',{
+                    position: toast.POSITION.TOP_CENTER,
+                    autoClose: 2000,
+                    closeButton: false,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }catch(err){
+                console.log(err)
+            }
+    }
+
+    console.log(firstName, lastName)
+    return (
+        <Container>
+            <h2>Billing Address</h2>
+            <form onSubmit={handleUpdate}>
+                <div className='groupInput'>
+                    <div>
+                        <label>First name</label> <br />
+                        <GroupInput
+                            name='firstName'
+                            onChange={handleInputChange}
+                            value={firstName}
+                            type="text" />
+                    </div>
+
+                    <div>
+                        <label>Last name</label> <br />
+                        <GroupInput
+                            name='lastName'
+                            onChange={handleInputChange}
+                            value={lastName}
+                            type="text" />
+                    </div>
+
+                </div>
+                <div>
+                    <label>Comapny name (optional)</label> <br />
+                    <Inputs
+                        name='companyName'
+                        onChange={handleInputChange}
+                        value={companyName}
+                        type="text"
+                    />
+                </div>
+                <div>
+                    <label>Street address</label> <br />
+                    <Inputs
+                        name='streetAddress'
+                        onChange={handleInputChange}
+                        value={streetAddress}
+                        type="text" />
+                </div>
+                <div>
+                    <label>City / Town</label> <br />
+                    <Inputs
+                        name='city'
+                        onChange={handleInputChange}
+                        value={city}
+                        type="text"
+                    />
+                </div>
+                <div>
+                    <label>State</label> <br />
+                    <select
+                        name='state'
+                        onChange={handleInputChange}
+                        value={state}
+                        type="text"
+                    >
+                        <option>Choose</option>
+                        <option>Lagos</option>
+                        <option>Fct</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Phone</label> <br />
+                    <Inputs
+                        name='phoneNumber'
+                        onChange={handleInputChange}
+                        value={phoneNumber}
+                        type="text"
+                    />
+                </div>
+                <div>
+                    <label>Email Address</label> <br />
+                    <Inputs
+                        name='emailText'
+                        onChange={handleInputChange}
+                        value={email}
+                        type="email"
+                    />
+                </div>
+                <button className='saveBtn'>Save Address</button>
+            </form>
+        </Container>
     )
-    const {
-        firstName,
-        lastName,
-        displayName,
-        emailText, 
-        companyName,
-        city,
-        state,
-        streetAddress,
-        phone,
-     } = formData
-  return (
-    <Container>
-        <h2>Billing Address</h2>
-        <form>
-            <div className='groupInput'>
-                <div>
-                    <label>First name</label> <br/>
-                    <GroupInput
-                    name='firstName'
-                    onChange={handleInputChange}
-                    value={firstName}
-                    type="text" />
-                </div>
-
-                <div>
-                    <label>Last name</label> <br/>
-                    <GroupInput 
-                    name='lastName'
-                    onChange={handleInputChange}
-                    value={lastName}
-                    type="text"/>
-                </div>
-
-            </div>
-            <div>
-                <label>Comapny name (optional)</label> <br/>
-               <Inputs 
-               name='companyName'
-               onChange={handleInputChange}
-               value={companyName}
-               type="text"
-               />
-            </div>
-            <div>
-                <label>Street address</label> <br/>
-               <Inputs
-               name='streetAddress'
-               onChange={handleInputChange}
-               value={streetAddress}
-               type="text" />
-            </div>
-            <div>
-                <label>City / Town</label> <br/>
-               <Inputs
-               name='city'
-               onChange={handleInputChange}
-               value={city}
-               type="text"
-               />
-            </div>
-            <div>
-                <label>State</label> <br/>
-                <select
-                name='state'
-                onChange={handleInputChange}
-                value={state}
-                type="text"
-                >
-                    <option>Choose</option>
-                    <option>Lagos</option>
-                    <option>Fct</option>
-                </select>
-            </div>
-            <div>
-                <label>Phone</label> <br/>
-               <Inputs
-               name='phone'
-               onChange={handleInputChange}
-               value={phone}
-               type="tel"
-               />
-            </div>
-            <div>
-                <label>Email Address</label> <br/>
-               <Inputs
-               name='emailText'
-               onChange={handleInputChange}
-               value={emailText}
-               type="email"
-               />
-            </div>
-            <button className='saveBtn'>Save Address</button>
-        </form>
-    </Container>
-  )
 }
 
 export const Container = styled.section`
@@ -149,12 +209,12 @@ select{
 }
 .saveBtn{
     outline:none;
-    background:${({theme}) => theme.colors.primary};
-    color:${({theme}) => theme.colors.white};
+    background:${({ theme }) => theme.colors.primary};
+    color:${({ theme }) => theme.colors.white};
     border:none;
     font-weight:550;
-    padding:${({theme}) => theme.padding.md};
-    margin-top:${({theme}) => theme.padding.sm};
+    padding:${({ theme }) => theme.padding.md};
+    margin-top:${({ theme }) => theme.padding.sm};
     cursor:pointer;
   }
 

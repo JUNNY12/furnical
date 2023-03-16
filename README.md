@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# FURNICAL (Ecommerce Furniture Web App)
+This is an ecommerce web application built with Strapi, Redux, and styled components. The application allows users to browse and purchase furniture products online.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+- User authentication and authorization
+- Product browsing and filtering
+- Shopping cart functionality
+- Checkout process
+- Strapi Admin dashboard for managing products 
 
-## Available Scripts
 
-In the project directory, you can run:
+## Requirements
+- Node.js (v14.17.6 or higher)
+- Yarn (v1.22.11 or higher)
+- Strapi (v3.6.8 or higher)
+- React (v17.0.2 or higher)
+- Redux (v4.1.1 or higher)
+- styled-components (v5.3.0 or higher)
 
-### `yarn start`
+## Installation
+1. Clone the repository
+```
+git clone https://github.com/JUNNY12/furnical.git
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+2. Install dependencies
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+cd furnical
+yarn install
 
-### `yarn test`
+```
+3. Start the React App
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+cd ecommerce-furniture-app
+yarn install
 
-### `yarn build`
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6. Open the app in your browser at
+ ``` 
+ http://localhost:3000
+ 
+ ```
+# Usage
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Authentication
+- To create an account, click the "Register" button on the navbar and provide your details.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- To log in, click the "Login" button and enter your email and password.
 
-### `yarn eject`
+- To log out, click the "Log out" button.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Product browsing
+- Use the navigation bar to browse products by category.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Use the search bar to search for products by name.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Click on the eye icon on the product card to view the product details.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Shopping Cart
+- Click the "Add to cart" button on a product card to add the product to your cart.
 
-## Learn More
+- Use the cart icon on the navbar to view your cart and make changes to the cart items.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Click the "Checkout" button to proceed to the checkout process.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Checkout 
+- Update your shipping address and billing address on your account dashboard.
 
-### Code Splitting
+- Review your order summary and click the "Place order" button to complete the order
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Contributing
 
-### Analyzing the Bundle Size
+Contributions are welcome! Please open an issue or pull request for any bug fixes or feature requests.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License 
+This project is licensed under the MIT License - see the [MIT LICENSE](LICENSE) for details.

@@ -33,8 +33,7 @@ yarn install
 3. Start the React App
 
 ```
-cd ecommerce-furniture-app
-yarn install
+yarn start
 
 ```
 

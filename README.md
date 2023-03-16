@@ -75,4 +75,4 @@ yarn start
 Contributions are welcome! Please open an issue or pull request for any bug fixes or feature requests.
 
 ## License 
-This project is licensed under the MIT License - see the [MIT LICENSE](LICENSE) for details.
+This project is licensed under the MIT License - see the [MIT LICENSE](LICENSE.md) for details.

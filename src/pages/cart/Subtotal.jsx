@@ -46,14 +46,26 @@ margin-bottom:4rem;
 .header{
     font-size:1.5rem;
     margin-bottom:0.5rem;
+    @media all and (max-width:560px){
+        font-size:1.2rem;
+        font-weight:600;
+    }
 }
 .subtotal{
     font-size:1.5rem;
     margin-right:1rem;
+    @media all and (max-width:560px){
+        font-size:1rem;
+        font-weight:600;
+    }
 }
 
 .price{
     font-size:1.5rem;
+    @media all and (max-width:560px){  
+        font-size:1rem;
+        font-weight:600;
+    } 
 }
 
 .btnContainer{
@@ -69,8 +81,19 @@ margin-bottom:4rem;
     border:none;
     font-weight:600;
     cursor:pointer;
+
+    @media all and (max-width:560px){
+        font-size:0.8rem;
+        padding:0.8rem;
+    }
 }
 
+.checkout:hover{
+    background:${({theme}) => theme.colors.white};
+    color:${({theme}) => theme.colors.primary};
+    border:1px solid ${({theme}) => theme.colors.primary};
+    transition:all 0.3s ease-in-out;
+}
 .wrapper{
     border:1px solid ${({theme})=> theme.colors.primary};
     width:400px;

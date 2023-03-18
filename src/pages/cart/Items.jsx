@@ -178,6 +178,10 @@ margin: 0 ${({theme}) => theme.margin.lg} 0 ${({theme}) => theme.margin.lg};
         right:0;
         bottom:-3em;
     }
+
+    @media all and ${devices.mobileL}{
+        font-size:12px;
+    }
 }
 
 .img{
@@ -193,6 +197,11 @@ margin: 0 ${({theme}) => theme.margin.lg} 0 ${({theme}) => theme.margin.lg};
 .img>img{
     width:100%;
     height:100%;
+}
+
+.name{
+    @media all and ${devices.mobileL}{
+        font-size:12px;
 }
 `
 

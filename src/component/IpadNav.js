@@ -8,6 +8,7 @@ import CartModal from './CartModal'
 import SearchSection from './SearchSection'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const IpadNav = ({showSideBar, setShowSideBar, showCart, setShowCart}) => {
  const [showSearch, setShowSearch] = useState(false)
@@ -17,7 +18,18 @@ const IpadNav = ({showSideBar, setShowSideBar, showCart, setShowCart}) => {
 
   return (
     <Nav>
-        <div className='logo'>Furnical</div>
+        <Link to={`/`}>
+            <div className='logo'>
+                <span>F</span>
+                <span>U</span>
+                <span>R</span>
+                <span>N</span>
+                <span>I</span>
+                <span>C</span>
+                <span>A</span>
+                <span>L</span>
+            </div>
+        </Link>
         <div className='icons'>
             <div className='menu'>
                 {!showSideBar && <span onClick={() => setShowSideBar(true)}><AiOutlineMenu /></span> }
@@ -67,6 +79,9 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 
+a{
+    text-decoration:none;
+}
 .dot{
     height:0.5em;
     position:absolute;
@@ -97,11 +112,33 @@ justify-content:space-between;
 }
 
 .logo{
-    color:${({theme}) => theme.colors.primary};
     font-weight:bold;
     font-size:1.5rem;
     cursor:pointer;
+    font-family: Arial, sans-serif;
+    background-color:${({theme}) => theme.colors.primary};
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #888888;
 }
+
+.logo span {
+    display: inline-flex;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin: 0 2px;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    color:${({theme}) => theme.colors.primary};
+    padding: 5px;
+    border-radius: 150px;
+    border-radius: 50%;
+    box-shadow:  5px 5px 5px rgba(0,0,0,0.6),-1px 0px 10px rgba(0,0,0,0.3);
+  }
+
 .icons{
 display:flex;
 align-items:center;

@@ -66,14 +66,17 @@ const Products = (props) => {
     padding:${({theme}) => theme.padding.md};
     gap:1rem;
   
-  @media all and ${devices.tablet}{
-    grid-template-columns:1fr 1fr;
-  }
-  @media all and (max-width:550px){
-    grid-template-columns:1fr;
-    margin:${({theme}) => theme.margin.md};
-    padding:${({theme}) => theme.padding.md};
-  }
+    @media all and ${devices.tablet}{
+      grid-template-columns:1fr 1fr;
+      margin:${({theme}) => theme.margin.md};
+      padding:${({theme}) => theme.padding.md};
+      gap:0.8rem;
+    }
+    
+    @media all and ${devices.mobileL}{
+      margin:${({theme}) => theme.margin.sm};
+      padding:${({theme}) => theme.padding.sm};
+    }
   `
   
   export default Products

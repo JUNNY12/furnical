@@ -57,7 +57,7 @@ const List = () => {
                         </div>
                         <div className='total col-4'>
                             <button className='add' disabled={!inStock} onClick={() => handleAddToCart(id, url, price, productName)}>
-                                <span>Add to Cart</span>
+                                <span className={inStock?"" : "lineThrough"}>Add to Cart</span>
                             </button>
                         </div>
                         <div onClick={() => handleRemoveFavorite(id)} className='remove col-5'>
@@ -74,6 +74,10 @@ const List = () => {
 
 
 const Section = styled(Container)`
+
+.lineThrough{
+    text-decoration:line-through;
+}
 
 @media ${devices.tablet}{
 margin-bottom:6rem;

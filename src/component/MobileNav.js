@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import { useState, useEffect, useRef } from "react";
 import { useGetProductsQuery } from "../services/product";
 import { useNavigate , useLocation} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const MobileNav = ({ showSideBar, setShowSideBar }) => {
   const [search, setSearch] = useState("");
@@ -36,6 +37,11 @@ const MobileNav = ({ showSideBar, setShowSideBar }) => {
     <>
       {showSideBar && <Sidebar />}
       <Nav>
+        <Link to={`/`}>
+          <div className="furnical">
+            <span>F</span>
+          </div>
+        </Link>
         {!showSideBar && (
           <div>
             <Search
@@ -93,6 +99,43 @@ const MobileNav = ({ showSideBar, setShowSideBar }) => {
 };
 
 const Nav = styled.nav`
+.furnical{
+  font-family: 'Lobster', cursive;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.primary};
+  padding: 10px;
+  border-radius: 5px;
+  height: 40px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  cursor: pointer;
+  position:absolute;
+  top: 0;
+  left: -0.4em;
+}
+
+.furnical span{
+  display: inline-block;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 5px;
+  height: 20px;
+  width: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+
   display: none;
   justify-content: center;
   align-items: center;

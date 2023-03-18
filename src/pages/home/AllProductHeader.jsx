@@ -68,5 +68,17 @@ h4{
     display:none;
   }
 }
+
+button{
+  border:none;
+  outline:none;
+  background-color:transparent;
+  cursor:pointer;
+}
+
+button:hover{
+  background-color:${({theme}) => theme.colors.primary};
+  color:${({theme}) => theme.colors.white};
+}
 `
 export default AllProductHeader

@@ -63,7 +63,7 @@ display:flex;
 column-gap:2.5rem;
 padding:${({ theme }) => theme.padding.lg};
 background:${({ theme }) => theme.colors.white};
-@media all and ${devices.tablet}{
+@media all and (max-width: 980px){
     flex-direction:column;
 }
 

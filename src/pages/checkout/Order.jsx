@@ -3,63 +3,184 @@ import styled from "styled-components"
 import { useSelector, useDispatch } from 'react-redux'
 import { getTotals } from '../../state/slice/cartSlice'
 import { useEffect } from 'react'
+import PaystackPop from "@paystack/inline-js"
+import { toast } from "react-toastify";
+import { clearCart } from '../../state/slice/cartSlice'
+import { addToOrder, setOrderItemFailed} from '../../state/slice/orderSlice'
+import { generateId } from '../../constants/generateId'
+
 
 const Order = () => {
-    const cart = useSelector((state) => state.cart)
-    const {cartItems} = cart
-
     const dispatch = useDispatch()
+    const cart = useSelector((state) => state.cart)
+
+    const userIdentity = useSelector((state) => state.auth.user)
+    const id = userIdentity?.id
+    const email = userIdentity?.email
+    const username = userIdentity?.username
+
+    console.log(cart)
+
+    const handleClearCart = () => {
+        dispatch(clearCart())
+    }
 
     useEffect(() => {
         getTotals()
-    },[cart ,dispatch])
-  return (
-    <Container>
-        <h2>Your Order</h2>
-        <div className='wrapper'>
-            <div className='head'>
-                <div>Product</div>
-                <div>Subtotal ( ₦ )</div>
-            </div>
+    }, [cart, dispatch])
+
+    const config = require('../../config/paystack')
+
+    console.log(config.publicKey)
+
+    const amount = cart.totalAmount
+
+    const handleAddToOrder = () => {
+        dispatch(addToOrder(
+            { 
+                cart:cart.cartItems,
+                id: generateId(),
+             }
+            ))
+    }
+
+    const handlePaymentDecline = () => {
+        dispatch(setOrderItemFailed({
+            id: generateId(),
+            cart: cart.cartItems,
+        }))
+      }
+
+    const redirect = () => {
+        setTimeout(() => {
+            window.location.href = '/account/orders'
+        }, 8000)
+    }
+    const handlePaymentClick = () => {
+
+        const { publicKey } = config
+
+        const paystack = new PaystackPop()
+        const amount = cart.totalAmount
+        console.log(amount)
+
+        paystack.newTransaction({
+            key: publicKey,
+            amount: 20 * 100,
+            email: email,
+            firstName: username,
+
+            onSuccess(transaction) {
+                let message = `Payment Completed Refefrence ${transaction.reference}. You will be redirected in 8s`
+                toast.success(` ${message} `, {
+                    position: 'top-center',
+                    autoClose: 8000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    closeButton: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+                handleAddToOrder()
+                handleClearCart()
+                redirect()
+            },
+
+            onCancel() {
+                toast.info("You canceled the transaction", {
+                    position: 'top-center',
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    closeButton: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+
+                handlePaymentDecline();
+            },
+        })
+    }
+
+
+    return (
+        <Container>
+
             {
-                cartItems?.map(({productName, price, cartQuantity}) => {
-                    return(
-                        <div className='product'>
-                            <div>
-                                <span> {productName} </span>
-                                <span> X  {cartQuantity}</span>
+                cart.cartItems.length > 0 ? (
+
+                    <div>
+                        <h2>Order Summary</h2>
+                        <div className='wrapper'>
+
+                            <div className='head'>
+                                <div>Product</div>
+                                <div>Subtotal ( ₦ )</div>
                             </div>
-                            <div>{price * cartQuantity} </div>
+                            {
+                                cart?.cartItems?.map(({ id, productName, price, cartQuantity }) => {
+                                    return (
+                                        <div className='product' key={id}>
+                                            <div>
+                                                <span> {productName} </span>
+                                                <span> X  {cartQuantity}</span>
+                                            </div>
+                                            <div>{price * cartQuantity} </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                            <div className='total'>
+                                <div>Total</div>
+                                <div>{cart.totalAmount}</div>
+                            </div>
+
+                            {
+                                id ? (
+                                    <div className='placeOrder'>
+                                        <button onClick={() => handlePaymentClick()}>Place Order</button>
+                                    </div>
+                                )
+                                    :
+                                    (
+                                        <div className='register'>
+                                            <button>Register</button>
+                                        </div>
+                                    )
+                            }
+                        </div>
+                    </div>
+                )
+                    :
+                    (
+                        <div className='empty'>
+                            <h3>No order in Cart</h3>
                         </div>
                     )
-                })
             }
-            <div className='total'>
-                <div>Total</div>
-                <div>{cart?.totalAmount}</div>
-            </div>
-        </div>
 
-        <div className='placeOrder'>
-            <button>Place Order</button>
-        </div>
-
-    </Container>
-  )
+        </Container>
+    )
 }
 
 const Container = styled.div`
 padding-bottom:4rem;
 
-.placeOrder{
+.placeOrder,
+.register{
     margin-top:2rem;
     display:flex;
     justify-content:flex-end;
- 
+    margin:1rem;
 }
 
-.placeOrder button{
-    background:${({theme}) => theme.colors.primary};
+.placeOrder button,
+.register button{
+    background:${({ theme }) => theme.colors.primary};
     outline:none;
     border:none;
     color:white;
@@ -68,6 +189,10 @@ padding-bottom:4rem;
     width:150px;
     cursor:pointer;
     font-weight:bold;
+}
+
+h2{
+    text-align:center;
 }
 
 .head,
@@ -91,7 +216,9 @@ padding-bottom:4rem;
     padding:0 1rem 0.5rem 1rem;
 }
 
-
+.empty{
+    text-align:center;
+}
 
 .total{
     border-top:2px solid gray;

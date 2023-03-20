@@ -6,6 +6,7 @@ import { devices } from '../../config/mediaquery'
 import { useSelector ,useDispatch} from 'react-redux'
 import { addToCart, decreaseCart,removeFromCart, getTotals } from '../../state/slice/cartSlice'
 import { useEffect } from 'react'
+import { formatPrice } from '../../constants/formatPrice'
 
 
 const Items = () => {
@@ -66,8 +67,7 @@ const Items = () => {
                             <span className='decrease' onClick={() => handleDecrease(product)}><AiOutlineMinus /></span>
                         </div>
                         <div className='total col-4'>
-                            <span>₦</span>
-                            <span>{product?.cartQuantity * product?.price}</span>
+                            <span>{formatPrice(product?.cartQuantity * product?.price)}</span>
                         </div>
                         <div className='remove col-5'
                         onClick={() => handleRemove(product)}

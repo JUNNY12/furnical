@@ -13,7 +13,7 @@ const Products = (props) => {
          isSuccess && sortedData?.map((product) => {
           const {slug} = product.attributes
           const {id} = product
-          const {productName ,rating, purchased, price, description} = product.attributes
+          const {productName ,rating, purchased, price, description, inStock} = product.attributes
           const {url} = product.attributes.image.data.attributes
           
           return (
@@ -27,6 +27,7 @@ const Products = (props) => {
               price={price}
               url={url}
               slug={slug}
+              inStock={inStock}
             />
           )
         })

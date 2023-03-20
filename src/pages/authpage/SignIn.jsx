@@ -23,14 +23,14 @@ const SignIn = () => {
     }
   )
   //Destrustured the formdata
-  const {identifier, password} = formData
+  const {email, password} = formData
 
   //Posting the formdata with async function from the redux toolkit query
   const handleSubmit = async (e) => {
     e.preventDefault()
     await loginUser(
       {
-      identifier,
+      identifier:email,
       password
      }
     )
@@ -66,10 +66,10 @@ const SignIn = () => {
           <form onSubmit={handleSubmit}>
             <div>
               <LoginInput 
-              name='identifier'
+              name='email'
               type='email'
               placeholder="Type your email"
-              value={identifier}
+              value={email}
               onChange={handleInputChange}
               required
               />

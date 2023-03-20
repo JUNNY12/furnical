@@ -6,6 +6,7 @@ import {useSelector, useDispatch} from "react-redux"
 import { getTotals } from '../state/slice/cartSlice'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { formatPrice } from '../constants/formatPrice'
 
 const CartModal = ({setShowCart}) => {
     const cart = useSelector((state) => state.cart)
@@ -43,8 +44,7 @@ const CartModal = ({setShowCart}) => {
                                 </div>
                                 <div className='qtyCart'> Qty : {cartQuantity}</div>
                                 <div className='price'>
-                                    <span>₦</span>
-                                    <span>{price * cartQuantity}</span>
+                                    <span>{formatPrice(price * cartQuantity)}</span>
                                 </div>
                             </div>
                       </div>
@@ -55,7 +55,7 @@ const CartModal = ({setShowCart}) => {
         </div>
         <div className='subtotal'>
             <div>Subtotal</div>
-            <div>₦ {cart?.totalAmount}</div>
+            <div>{formatPrice(cart?.totalAmount)}</div>
         </div>
         <div className='view'>
             <div>

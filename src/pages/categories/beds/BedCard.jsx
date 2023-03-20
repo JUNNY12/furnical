@@ -8,10 +8,11 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFavorite } from '../../../state/slice/favoriteSlice'
 import { addToCart } from '../../../state/slice/cartSlice'
+import { formatPrice } from '../../../constants/formatPrice'
 
 
-const BedCard = ({ id, url, slug, productName, rating, purchased, price }) => {
-    
+const BedCard = ({ id, url, slug, productName, rating, purchased, price, inStock }) => {
+
     const { favoriteItems } = useSelector((state) => state.favorite)
     const [isFavorite, setIsFavorite] = useState(false)
     const navigate = useNavigate()
@@ -47,6 +48,11 @@ const BedCard = ({ id, url, slug, productName, rating, purchased, price }) => {
         );
     };
 
+
+    const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
+    const buttonText = productItem ? "In cart" : "Add To Cart";
+
+
     return (
 
         <Card>
@@ -58,13 +64,15 @@ const BedCard = ({ id, url, slug, productName, rating, purchased, price }) => {
                     <span>({purchased})</span>
                 </div>
                 <div className='price'>
-                    <span>₦</span>
-                    <span>{price}</span>
+                    <span>{formatPrice(price)}</span>
                 </div>
                 <button
-                    className='addCart'
+                    disabled={!inStock}
+                    className={inStock ? "addCart" : "notAllowed"}
                     onClick={() => handleAddToCart(id, url, price, productName)}
-                >Add To Cart</button>
+                >
+                    {inStock ? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
+                </button>
             </div>
 
             <div className='preview'>

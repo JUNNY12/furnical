@@ -8,9 +8,10 @@ import { addToCart } from "../../../state/slice/cartSlice";
 import { addFavorite } from "../../../state/slice/favoriteSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import { formatPrice } from "../../../constants/formatPrice";
 
 
-const TableCard = ({ id, url, slug, productName, price, rating, purchased }) => {
+const TableCard = ({ id, url, slug, productName, price, rating, purchased, inStock }) => {
 const { favoriteItems } = useSelector((state) => state.favorite);
 const [isFavorite, setIsFavorite] = useState(false);
 
@@ -45,6 +46,11 @@ const handleAddToCart = (id, url, price, productName) => {
     );
 };
 
+
+const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
+const buttonText = productItem ? "In cart" : "Add To Cart";
+
+
     return (
         <Card>
             <img src={url} alt={productName} className="img" />
@@ -57,14 +63,14 @@ const handleAddToCart = (id, url, price, productName) => {
                     <span>({purchased})</span>
                 </div>
                 <div className="price">
-                    <span>₦</span>
-                    <span>{price}</span>
+                    <span>{formatPrice(price)}</span>
                 </div>
                 <button
-                    className="addCart"
+                disabled={!inStock}
+                className={inStock ? "addCart" : "notAllowed"}
                 onClick={() => handleAddToCart(id, url, price, productName)}
-                >
-                    Add To Cart
+                 >
+                {inStock? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
                 </button>
             </div>
 

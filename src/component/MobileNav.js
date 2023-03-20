@@ -80,6 +80,7 @@ const MobileNav = ({ showSideBar, setShowSideBar }) => {
 
               return (
                 <div
+                  key={slug}
                   onClick={() => navigate(`/shop/item/${slug}`)}
                   className="searchItem"
                 >

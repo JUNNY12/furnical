@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { clearCart } from '../../state/slice/cartSlice'
 import { addToOrder, setOrderItemFailed} from '../../state/slice/orderSlice'
 import { generateId } from '../../constants/generateId'
+import { formatPrice } from '../../constants/formatPrice'
 
 
 const Order = () => {
@@ -129,14 +130,14 @@ const Order = () => {
                                                 <span> {productName} </span>
                                                 <span> X  {cartQuantity}</span>
                                             </div>
-                                            <div>{price * cartQuantity} </div>
+                                            <div>{formatPrice(price * cartQuantity)} </div>
                                         </div>
                                     )
                                 })
                             }
                             <div className='total'>
                                 <div>Total</div>
-                                <div>{cart.totalAmount}</div>
+                                <div>{formatPrice(cart.totalAmount)}</div>
                             </div>
 
                             {

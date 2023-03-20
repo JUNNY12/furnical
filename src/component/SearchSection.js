@@ -55,6 +55,7 @@ const SearchSection = () => {
 
               return (
                 <div 
+                  key={slug}
                   onClick={() => navigate(`/shop/item/${slug}`)}
                   className="searchItem">
                   <div className="col-1">

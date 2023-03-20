@@ -29,7 +29,7 @@ const Products = () => {
             {
               isSuccess && currentData()?.map((product) => {
                 const {id} = product
-                const {slug, productName, price, description, rating, purchased} = product.attributes
+                const {slug, productName, price, description, rating, purchased, inStock} = product.attributes
                 const {url} = product.attributes.image.data.attributes
                 return(
                   <BedCard 
@@ -42,6 +42,7 @@ const Products = () => {
                   description={description}
                   rating={rating}
                   purchased={purchased}
+                  inStock={inStock}
                   />
                 )
               })

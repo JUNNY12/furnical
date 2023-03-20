@@ -22,6 +22,7 @@ const ListProduct = (props) => {
                     return (
                         <ListCard
                             id={id}
+                            inStock={inStock}
                             productName={productName}
                             rating={rating}
                             purchased={purchased}
@@ -86,6 +87,23 @@ h4{
     background:${({ theme }) => theme.colors.primary};
     font-weight:bold;
     cursor:pointer;
+}
+
+.notAllowed{
+    margin-top:${({ theme }) => theme.margin.sm};
+    outline:none;
+    border:none;
+    width:100%;
+    color:${({ theme }) => theme.colors.white};
+    padding:${({ theme }) => theme.padding.sm};
+    background:${({ theme }) => theme.colors.primary};
+    font-weight:bold;
+    cursor:notAllowed;
+}
+
+.outOfStock{
+    color:red;
+    text-decoration:line-through;
 }
 
 .isFavorite{

@@ -10,6 +10,7 @@ import { logout } from "../state/slice/authSlice"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { getTotals } from "../state/slice/cartSlice"
+import { formatPrice } from "../constants/formatPrice"
 
 
 const DesktopNav = ({showCart, setShowCart}) => {
@@ -72,7 +73,7 @@ const DesktopNav = ({showCart, setShowCart}) => {
               <span className="notify">{cart.totalQuantity}</span>    
             </span>
           </span>
-          <span className="span">Cart : ₦{cart.totalAmount}</span>
+          <span className="span">Cart :{formatPrice(cart.totalAmount)}</span>
         </div>
       </div>
        {

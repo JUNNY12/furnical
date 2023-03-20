@@ -11,7 +11,7 @@ border-radius:8px;
 box-sizing:border-box;
 cursor:pointer;
 position:relative;
-box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.5);
+box-shadow: 0px 10px 15px -10px rgba(0,0,0,0.5);
 :hover .preview{
     display:flex;
     transition:.3s ease-in-out;
@@ -39,6 +39,34 @@ box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.5);
     @media all and (max-width:520px){
         font-size:1.5rem;
      }
+}
+
+.outOfStock{
+    color:red;
+    text-decoration:line-through;
+}
+
+.notAllowed{
+    cursor:not-allowed;
+    margin-top:${({theme}) => theme.margin.sm};
+    outline:none;
+    border:none;
+    width:90%;
+    color:${({theme}) => theme.colors.white};
+    padding:${({theme}) => theme.padding.sm};
+    background:${({theme}) => theme.colors.primary};
+    font-weight:bold;
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translate(-50%,-50%);
+
+    @media all and (max-width:520px){
+        padding:0.3rem;
+        margin-top:0.3rem;
+        font-weight:normal;
+        border-radius:4px;
+    }
 }
 
 .cardBody{

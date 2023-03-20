@@ -7,6 +7,7 @@ import { addToCart } from "../../state/slice/cartSlice";
 import { addFavorite } from "../../state/slice/favoriteSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import { formatPrice } from "../../constants/formatPrice";
 
 const ProductCard = ({
   slug,
@@ -16,6 +17,7 @@ const ProductCard = ({
   purchased,
   price,
   url,
+  inStock,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -53,6 +55,8 @@ const ProductCard = ({
     setIsFavorite(!isFavorite);
   };
 
+  const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
+  const buttonText = productItem ? "In cart" : "Add To Cart";
   return (
     <Card>
       <img src={url} alt={id} className="img" />
@@ -65,14 +69,14 @@ const ProductCard = ({
           <span>({purchased})</span>
         </div>
         <div className="price">
-          <span>₦</span>
-          <span>{price}</span>
+          <span>{formatPrice(price)}</span>
         </div>
         <button
-          className="addCart"
+          disabled={!inStock}
+          className={inStock ? "addCart" : "notAllowed"}
           onClick={() => handleAddToCart(id, url, price, productName)}
         >
-          Add To Cart
+          {inStock? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
         </button>
       </div>
 

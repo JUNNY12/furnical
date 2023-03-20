@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { devices } from '../../config/mediaquery'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearOrder } from '../../state/slice/orderSlice'
-
+import { formatPrice } from '../../constants/formatPrice'
 
 
 const Orders = () => {
@@ -84,14 +84,14 @@ const Orders = () => {
                                       return (
                                         <div key={item.id} className='prod'>
                                           <p className='qty'>X {item.cartQuantity}</p>
-                                          <p className='price'>₦ {item.price}</p>
+                                          <p className='price'>{formatPrice(item.price)}</p>
                                           <img className='img' src={item.url} alt={item.productName} />
                                         </div>
                                       )
                                     })
                                   }
                                 </td>
-                                <td>₦ {totalAmount}</td>
+                                <td>{formatPrice(totalAmount)}</td>
                                 <td>{success ? <span className='success'>Sucesss</span> : <span className='failed'>Failed</span>} </td>
                               </tr>
                             )

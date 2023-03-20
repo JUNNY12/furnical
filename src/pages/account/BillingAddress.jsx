@@ -89,8 +89,6 @@ const BillingAddress = () => {
                 console.log(err)
             }
     }
-
-    console.log(firstName, lastName)
     return (
         <Container>
             <h2>Billing Address</h2>

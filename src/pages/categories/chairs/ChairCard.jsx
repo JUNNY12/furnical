@@ -4,16 +4,17 @@ import { MdFavorite } from "react-icons/md";
 import { AiFillEye } from "react-icons/ai";
 import { Rate } from "../../../component";
 import { useNavigate } from "react-router-dom";
-import { useGetChairQuery } from "../../../services/category";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../state/slice/cartSlice";
 import { addFavorite } from "../../../state/slice/favoriteSlice";
 import { useState, useEffect } from "react";
+import { formatPrice } from "../../../constants/formatPrice";
 
-const ChairCard = ({ id, slug, url, productName, price, description, rating, purchased }) => {
+const ChairCard = ({ id, slug, url, productName, price, inStock, rating, purchased }) => {
 
   const [isFavorite, setIsFavorite] = useState(false);
   const { favoriteItems } = useSelector((state) => state.favorite)
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -45,6 +46,8 @@ const ChairCard = ({ id, slug, url, productName, price, description, rating, pur
       })
     )
   }
+  const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
+  const buttonText = productItem ? "In cart" : "Add To Cart";
 
   return (
     <Card>
@@ -58,14 +61,14 @@ const ChairCard = ({ id, slug, url, productName, price, description, rating, pur
           <span>({purchased})</span>
         </div>
         <div className="price">
-          <span>₦</span>
-          <span>{price}</span>
+          <span>{formatPrice(price)}</span>
         </div>
         <button
-          className="addCart"
+          disabled={!inStock}
+          className={inStock ? "addCart" : "notAllowed"}
           onClick={() => handleAddToCart(id, price, productName, url)}
         >
-          Add To Cart
+          {inStock? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
         </button>
       </div>
 

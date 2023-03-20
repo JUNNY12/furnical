@@ -9,6 +9,7 @@ import { CircleLoader } from "react-spinners";
 import { addToCart, decreaseCart } from "../../state/slice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { formatPrice } from "../../constants/formatPrice";
 
 const Product = () => {
   const { slug } = useParams();
@@ -18,13 +19,15 @@ const Product = () => {
     return product.attributes.slug === slug;
   });
 
+  console.log(products)
+
   if (products) {
     var {
       attributes: {
         id,
         productName,
         rating,
-        purchased,
+        inStock,
         price,
         description,
         image: {
@@ -32,9 +35,13 @@ const Product = () => {
             attributes: { url },
           },
         },
+        category,
       },
     } = products;
   }
+
+
+  var Name = category?.data?.attributes?.Name
 
   //increase cart quantity
   const dispatch = useDispatch();
@@ -84,44 +91,50 @@ const Product = () => {
               </div>
 
               <div className="price">
-                <span>#</span>
-                <span>{price}</span>
+                <span>{formatPrice(price)}</span>
               </div>
 
-              <div className="status">In stock</div>
+              <div className="status">
+                {inStock ? <span className='instock'>In Stock</span> : <span className='outOfStock'>Out of Stock</span>}
+              </div>
 
               <div className="quantity">
-                <span
+                <button
+                  disabled={!inStock}
                   onClick={() => handleAddToCart(id, url, price, productName)}
                   className="increase"
                 >
                   <AiOutlinePlus />
-                </span>
+                </button>
                 <span className="qty">
                   {filterId(id).length > 0 ? filterId(id)[0].cartQuantity : 0}
                 </span>
-                <span
+                <button
+                  disabled={!inStock}
                   onClick={() =>
                     handleDecreaseCart(id, url, price, productName)
                   }
                   className="decrease"
                 >
                   <AiOutlineMinus />
-                </span>
+                </button>
               </div>
               <div className="btnWrap">
-                <button className="buy">Buy now</button>
+                <button
+                  className={inStock ? 'buy' : "buy lineThrough"}
+                  disabled={!inStock}
+                >Buy now</button>
               </div>
 
               <div className="desc">{description}</div>
-              {/* <div className="category">
+              <div className="category">
                 <span> Category: </span>
-                <span> Chair </span>
-              </div> */}
+                <span>{Name ? `${Name}` : "...."}</span>
+              </div>
               <div>
-              <Link to='/shop'>
-                 <button className="back">Back To Shop</button>
-              </Link>
+                <Link to='/shop'>
+                  <button className="back">Back To Shop</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -141,6 +154,15 @@ const Container = styled.div`
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
   background: ${({ theme }) => theme.colors.white};
 
+  .instock{
+    color:green;
+  }
+  .outOfStock{
+    color:red;
+  }
+  .lineThrough{
+    text-decoration: line-through;
+  }
   .buy{
     background: ${({ theme }) => theme.colors.primary};
     color: white;
@@ -184,7 +206,7 @@ const Container = styled.div`
   }
   .category {
     margin-bottom: 1rem;
-    font-weight: 500;
+    font-weight: 700;
   }
   .rating {
     display: flex;

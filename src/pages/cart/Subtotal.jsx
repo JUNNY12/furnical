@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getTotals } from "../../state/slice/cartSlice"
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
+import {formatPrice} from "../../constants/formatPrice"
 
 const Subtotal = () => {
     const dispatch = useDispatch()
@@ -21,7 +22,7 @@ const Subtotal = () => {
             <div>
                 <div>
                     <span className="subtotal">subtotal:</span>   
-                    <span className="price">₦ {cart.totalAmount}</span> 
+                    <span className="price">{formatPrice(cart.totalAmount)}</span> 
                  </div>
             </div>
 

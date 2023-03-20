@@ -7,8 +7,10 @@ import { addToCart } from '../../state/slice/cartSlice'
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatPrice } from "../../constants/formatPrice";
 
-const ListCard = ({id, url, price, productName, rating, slug, purchased, description, inStock}) => {
+
+const ListCard = ({ id, url, price, productName, rating, slug, purchased, description, inStock }) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -44,20 +46,23 @@ const ListCard = ({id, url, price, productName, rating, slug, purchased, descrip
         setIsFavorite(!isFavorite);
     };
 
+    const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
+    const buttonText = productItem ? "In cart" : "Add To Cart";
+
 
     return (
         <div className="list" key={id}>
             <div className="listImg">
                 <img className="img" src={url} alt={productName} />
                 <div className="viewFav">
-                    <span 
-                    onClick={() => navigate(`/shop/item/${slug}`)}
-                    className="span">
+                    <span
+                        onClick={() => navigate(`/shop/item/${slug}`)}
+                        className="span">
                         <AiFillEye />
                     </span>
-                    <span 
-                    onClick={() => handleAddfavorite(id, url, price, productName)}
-                    className={isFavorite ? "isFavorite " : "span"}>
+                    <span
+                        onClick={() => handleAddfavorite(id, url, price, productName)}
+                        className={isFavorite ? "isFavorite " : "span"}>
                         <MdFavorite />
                     </span>
                 </div>
@@ -66,8 +71,7 @@ const ListCard = ({id, url, price, productName, rating, slug, purchased, descrip
                 <h4>{productName} </h4>
 
                 <div className="price">
-                    <span>₦</span>
-                    <span>{price}</span>
+                    <span>{formatPrice(price)}</span>
                 </div>
                 <div className="rate">
                     <Rate rating={rating} />
@@ -77,10 +81,11 @@ const ListCard = ({id, url, price, productName, rating, slug, purchased, descrip
 
                 <div>
                     <button
-                        className="addCart"
+                        disabled={!inStock}
+                        className={inStock ? "addCart" : "notAllowed"}
                         onClick={() => handleAddToCart({ id, price, url, productName })}
                     >
-                        Add to cart
+                     {inStock ? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
                     </button>
                 </div>
             </div>

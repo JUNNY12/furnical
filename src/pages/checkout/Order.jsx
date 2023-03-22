@@ -9,6 +9,7 @@ import { clearCart } from '../../state/slice/cartSlice'
 import { addToOrder, setOrderItemFailed} from '../../state/slice/orderSlice'
 import { generateId } from '../../constants/generateId'
 import { formatPrice } from '../../constants/formatPrice'
+import { Link } from 'react-router-dom'
 
 
 const Order = () => {
@@ -148,9 +149,11 @@ const Order = () => {
                                 )
                                     :
                                     (
-                                        <div className='register'>
-                                            <button>Register</button>
-                                        </div>
+                                       <Link to={`/auth/login`}>
+                                             <div className='login'>
+                                                 <button>Login</button>
+                                            </div>
+                                       </Link>
                                     )
                             }
                         </div>
@@ -170,17 +173,20 @@ const Order = () => {
 
 const Container = styled.div`
 padding-bottom:4rem;
-
+a{
+    text-decoration:none;
+}
 .placeOrder,
-.register{
+.login{
     margin-top:2rem;
     display:flex;
     justify-content:flex-end;
     margin:1rem;
 }
 
+
 .placeOrder button,
-.register button{
+.login button{
     background:${({ theme }) => theme.colors.primary};
     outline:none;
     border:none;

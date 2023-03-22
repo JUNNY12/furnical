@@ -3,8 +3,9 @@ import {AiFillHome, AiOutlineShoppingCart} from "react-icons/ai"
 import {MdFavorite} from "react-icons/md"
 import {VscAccount} from "react-icons/vsc"
 import { devices } from "../config/mediaquery"
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { useSelector} from "react-redux"
+
 
 
 const BottomNav = () => {
@@ -16,35 +17,35 @@ const BottomNav = () => {
   return (
     <Container>
         <div className="btIcon">
-           <Link to={`/`}>
+           <NavLink className={({isActive})=> isActive? "active" : undefined} end to={`/`}>
                 <AiFillHome />
-           </Link>
+           </NavLink>
         </div>
         <div className="btIcon btCart">
-          <Link to={`/cart`}>
+          <NavLink className={({isActive})=> isActive? "active" : undefined} end to={`/cart`}>
              <AiOutlineShoppingCart/>
             <div className="btNotify">{cartItems.length}</div>
-          </Link>
+          </NavLink>
         </div>
         <div className="btIcon btFav">
-           <Link to={`/wishlist`}>
+           <NavLink className={({isActive})=> isActive? "active" : undefined} end to={`/wishlist`}>
                 <MdFavorite />
                 <div className="btNotify">{favoriteItems.length}</div>
-           </Link>
+           </NavLink>
         </div>
         {
             !userAuth?
-            <Link to={`/auth/login`}>
+            <NavLink className={({isActive})=> isActive? "active" : undefined} end to={`/auth/login`}>
                 <div className="btIcon">
                     <VscAccount />
                 </div>
-            </Link>
+            </NavLink>
             :
-            <Link to={`/account/dashboard`}>
+            <NavLink to={`/account/dashboard`} className={({isActive})=> isActive? "active" : undefined} >
                 <div className="btIcon">
                     <VscAccount />
                 </div>
-            </Link>
+            </NavLink>
         }
         
     </Container>
@@ -58,9 +59,9 @@ bottom:0;
 display:flex;
 justify-content:center;
 align-items:center;
-background:${({theme}) => theme.colors.white};
+background:${({theme}) => theme.colors.gray};
 z-index:1;
-border:1px solid ${({theme}) => theme.colors.gray};
+border-top:1.5px solid rgba(0,0,0,0.2);
 width:100%;
 left:0;
 padding:${({theme}) => theme.padding.md};
@@ -73,6 +74,10 @@ margin-right:3rem;
 
 @media all and ${devices.tablet}{
     margin-right:6rem; 
+}
+
+.active{
+    border-bottom:3px solid ${({theme}) => theme.colors.primary};
 }
 
 @media all and (max-width:600px){

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getTotals } from "../../state/slice/cartSlice"
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
-import {formatPrice} from "../../constants/formatPrice"
+import { formatPrice } from "../../constants/formatPrice"
 
 const Subtotal = () => {
     const dispatch = useDispatch()
@@ -15,26 +15,31 @@ const Subtotal = () => {
         getTotals()
     }, [cart, dispatch])
 
-  return (
-    <Container>
-        <div className="wrapper">
-            <div className="header">Cart Total</div>
-            <div>
-                <div>
-                    <span className="subtotal">subtotal:</span>   
-                    <span className="price">{formatPrice(cart.totalAmount)}</span> 
-                 </div>
-            </div>
+    return (
+        <>
+            {
+                cart?.cartItems.length > 0 && (
+                    <Container>
+                        <div className="wrapper">
+                            <div className="header">Cart Total</div>
+                            <div>
+                                <div>
+                                    <span className="subtotal">subtotal:</span>
+                                    <span className="price">{formatPrice(cart.totalAmount)}</span>
+                                </div>
+                            </div>
 
-        </div>
+                        </div>
 
-        <div className="btnContainer">
-           <Link to={`/checkout`}>
-                <button className="checkout">Proceed to Checkout</button>
-           </Link>
-        </div>
-    </Container>
-  )
+                        <div className="btnContainer">
+                            <Link to={`/checkout`}>
+                                <button className="checkout">Proceed to Checkout</button>
+                            </Link>
+                        </div>
+                    </Container>
+                )}
+        </>
+    )
 }
 
 
@@ -75,7 +80,7 @@ margin-bottom:4rem;
 }
 
 .checkout{
-    background:${({theme}) => theme.colors.primary};
+    background:${({ theme }) => theme.colors.primary};
     color:white;
     padding:1rem;
     font-size:1rem;
@@ -90,13 +95,13 @@ margin-bottom:4rem;
 }
 
 .checkout:hover{
-    background:${({theme}) => theme.colors.white};
-    color:${({theme}) => theme.colors.primary};
-    border:1px solid ${({theme}) => theme.colors.primary};
+    background:${({ theme }) => theme.colors.white};
+    color:${({ theme }) => theme.colors.primary};
+    border:1px solid ${({ theme }) => theme.colors.primary};
     transition:all 0.3s ease-in-out;
 }
 .wrapper{
-    border:1px solid ${({theme})=> theme.colors.primary};
+    border:1px solid ${({ theme }) => theme.colors.primary};
     width:400px;
     padding:1rem;
     

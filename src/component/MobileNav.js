@@ -1,24 +1,24 @@
 import styled from "styled-components";
-import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 import { Input } from "./Input";
 import { devices } from "../config/mediaquery";
 import { ImCancelCircle } from "react-icons/im";
 import Sidebar from "./Sidebar";
 import { useState, useEffect, useRef } from "react";
 import { useGetProductsQuery } from "../services/product";
-import { useNavigate , useLocation} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const MobileNav = ({ showSideBar, setShowSideBar }) => {
   const [search, setSearch] = useState("");
-  const { data, error, isLoading, isSuccess } = useGetProductsQuery();
+  const { data, isLoading, isSuccess } = useGetProductsQuery();
   const inputRef = useRef(null);
   const navigate = useNavigate();
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     setShowSideBar(false)
-  },[pathname])
+  }, [pathname, setShowSideBar])
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -75,7 +75,7 @@ const MobileNav = ({ showSideBar, setShowSideBar }) => {
           {isSuccess &&
             searchProduct.map((product) => {
               const { slug } = product.attributes;
-              const { productName, price } = product.attributes;
+              const { productName } = product.attributes;
               const { url } = product.attributes.image.data.attributes;
 
               return (
@@ -100,45 +100,8 @@ const MobileNav = ({ showSideBar, setShowSideBar }) => {
 };
 
 const Nav = styled.nav`
-.furnical{
-  font-family: 'Lobster', cursive;
-  font-size: 14px;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: ${({ theme }) => theme.colors.primary};
-  padding: 10px;
-  border-radius: 5px;
-  height: 40px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  cursor: pointer;
-  position:absolute;
-  top: 0;
-  left: -0.4em;
-}
-
-.furnical span{
-  display: inline-block;
-  background-color: #ffffff;
-  color: #000000;
-  padding: 5px;
-  height: 20px;
-  width: 20px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-}
-
-
   display: none;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 40px;
   position: relative;
@@ -158,10 +121,42 @@ const Nav = styled.nav`
   .menuIcon {
     font-size: 1.5rem;
     cursor: pointer;
-    position: absolute;
-    right: -1em;
-    top: 50%;
-    transform: translate(-50%, -50%);
+   
+  }
+  .furnical{
+    font-family: 'Lobster', cursive;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: ${({ theme }) => theme.colors.primary};
+    padding: 10px;
+    border-radius: 5px;
+    height: 40px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+  
+  }
+  
+  .furnical span{
+    display: inline-block;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 5px;
+    height: 20px;
+    width: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  }
+  a{
+    text-decoration: none;
   }
 `;
 

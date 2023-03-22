@@ -1,77 +1,88 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from "styled-components"
-import {ImCancelCircle} from "react-icons/im"
-import {useSelector, useDispatch} from "react-redux"
+import { ImCancelCircle } from "react-icons/im"
+import { useSelector, useDispatch } from "react-redux"
 import { getTotals } from '../state/slice/cartSlice'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { formatPrice } from '../constants/formatPrice'
 
-const CartModal = ({setShowCart}) => {
+const CartModal = ({ setShowCart }) => {
     const cart = useSelector((state) => state.cart)
-    const {cartItems} = cart
+    const { cartItems } = cart
     const dispatch = useDispatch()
 
-    const {pathname} = useLocation()
+    const { pathname } = useLocation()
 
     useEffect(() => {
-        setShowCart(prev=> !prev)
-    },[pathname])
+        setShowCart(prev => !prev)
+    }, [pathname])
 
     useEffect(() => {
         getTotals()
-    },[cart, dispatch])
+    }, [cart, dispatch])
 
-  return (
-    <Container>
-        <div>
-            <div 
-            className='cancel'
-            onClick={() => setShowCart(false)}>
-                <ImCancelCircle />
+    return (
+        <Container>
+            <div>
+                <div
+                    className='cancel'
+                    onClick={() => setShowCart(false)}>
+                    <ImCancelCircle />
+                </div>
+                {
+                    cartItems?.map(({ id, url, productName, price, cartQuantity }) => {
+                        return (
+                            <div className='item' key={id}>
+                                <div className='cartImage'>
+                                    <img src={url} alt={productName} />
+                                </div>
+                                <div>
+                                    <div className='name'>
+                                        {productName}
+                                    </div>
+                                    <div className='qtyCart'> Qty : {cartQuantity}</div>
+                                    <div className='price'>
+                                        <span>{formatPrice(price * cartQuantity)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+
             </div>
             {
-                cartItems?.map(({id, url , productName,price, cartQuantity}) =>{
-                    return(
-                        <div className='item' key={id}>
-                            <div className='cartImage'>
-                                <img src={url}  alt={productName}/>
+                cartItems?.length > 0 ?(
+                    <div>
+                        <div className='subtotal'>
+                            <div>Subtotal</div>
+                            <div>{formatPrice(cart?.totalAmount)}</div>
+                        </div>
+                        <div className='view'>
+                            <div>
+                                <Link to={`/cart`}>
+                                    <button className='btn'>View Cart</button>
+                                </Link>
                             </div>
                             <div>
-                                <div className='name'>
-                                    {productName}
-                                </div>
-                                <div className='qtyCart'> Qty : {cartQuantity}</div>
-                                <div className='price'>
-                                    <span>{formatPrice(price * cartQuantity)}</span>
-                                </div>
+                                <Link to={`/checkout`}>
+                                    <button className='btn'>Checkout</button>
+                                </Link>
                             </div>
-                      </div>
-                    )
-                })
+                        </div>
+                    </div>
+                ):
+                (
+                    <div className='empty'>
+                        <span>Cart is empty</span>
+                    </div>
+                )
             }
-            
-        </div>
-        <div className='subtotal'>
-            <div>Subtotal</div>
-            <div>{formatPrice(cart?.totalAmount)}</div>
-        </div>
-        <div className='view'>
-            <div>
-               <Link to={`/cart`}>
-                <button className='btn'>View Cart</button>
-               </Link>
-            </div>
-            <div>
-               <Link to={`/checkout`}>
-                <button className='btn'>Checkout</button>
-               </Link>
-            </div>
-        </div>
 
-    </Container>
-  )
+        </Container>
+    )
 }
 
 
@@ -82,10 +93,10 @@ height:300px;
 overflow:auto;
 right:4em;
 top:7em;
-background:${({theme}) => theme.colors.white};
-border:1.5px solid ${({theme}) => theme.colors.gray};
+background:${({ theme }) => theme.colors.white};
+border:1.5px solid ${({ theme }) => theme.colors.gray};
 color:black;
-padding:${({theme}) => theme.padding.xmd};
+padding:${({ theme }) => theme.padding.xmd};
 box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 border-radius:4px;
 z-index:4;
@@ -95,6 +106,13 @@ z-index:4;
     object-fit:cover;
 }
 
+.empty{
+   position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:1.3rem;
+}
 .cancel{
     position:absolute;
     right:0.5em;
@@ -120,9 +138,9 @@ z-index:4;
 }
 .btn{
 outline:none;
-border:1.5px solid ${({theme}) => theme.colors.gray};
-background:${({theme}) => theme.colors.white};
-padding:${({theme}) => theme.padding.sm};
+border:1.5px solid ${({ theme }) => theme.colors.gray};
+background:${({ theme }) => theme.colors.white};
+padding:${({ theme }) => theme.padding.sm};
 width:9rem;
 cursor:pointer;
 font-weight:bold;
@@ -135,9 +153,9 @@ font-weight:bold;
     margin-bottom:2rem;
 }
 .view{
-    background:${({theme}) => theme.colors.primary}; 
-    padding:${({theme}) => theme.padding.xmd};
-    margin-top:${({theme}) => theme.padding.xmd};
+    background:${({ theme }) => theme.colors.primary}; 
+    padding:${({ theme }) => theme.padding.xmd};
+    margin-top:${({ theme }) => theme.padding.xmd};
     display:flex;
     flex-direction:column;
     justify-content:center;

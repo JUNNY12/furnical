@@ -55,22 +55,15 @@ const ShippingAddress = () => {
 
     const { firstName, lastName, companyName, streetAddress, city, state, phoneNumber, email } = formData
 
+    let shipping_address=formData
+    
     const handleUpdate = async (e) => {
         e.preventDefault()
         try {
             await update({
                 id,
                 body: {
-                    shippingAddress: {
-                        firstName,
-                        lastName,
-                        companyName,
-                        streetAddress,
-                        city,
-                        state,
-                        phoneNumber,
-                        email
-                    }
+                    shipping_address
                 }
             }).unwrap()
             toast.success('Saved successfully', {

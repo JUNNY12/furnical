@@ -74,6 +74,7 @@ margin-bottom:6rem;
 
 .name{
     font-weight:500;
+    font-size:12px;
     @media ${devices.mobileL}{
         font-size:0.8rem;
     }

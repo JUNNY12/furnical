@@ -17,7 +17,7 @@ const CartModal = ({ setShowCart }) => {
 
     useEffect(() => {
         setShowCart(prev => !prev)
-    }, [pathname, setShowCart])
+    }, [pathname])
 
     useEffect(() => {
         getTotals()

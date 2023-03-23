@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addFavorite } from "../../state/slice/favoriteSlice";
 import { formatPrice } from "../../constants/formatPrice";
+import {memo, useMemo} from 'react'
 
 
 
@@ -32,34 +33,37 @@ const buttonText = productItem ? "In cart" : "Add To Cart";
   useEffect(() => {
     const existingItem = favoriteItems.find((item) => item.id === id);
     setIsFavorite(existingItem ? true : false);
-  });
+  },[favoriteItems, id]);
 
   const dispatch = useDispatch();
 
-  const handleAddfavorite = (id, url, price, productName, inStock) => {
-    dispatch(
-      addFavorite({
-        id,
-        url,
-        price,
-        productName,
-        inStock
-      })
-    );
-    setIsFavorite(!isFavorite);
-  };
+  const handleAddfavorite = useMemo(() => {
+    return (id, url, price, productName, inStock) => {
+      dispatch(
+        addFavorite({
+          id,
+          url,
+          price,
+          productName,
+          inStock
+        })
+      );
+      setIsFavorite(!isFavorite);
+    };
+  },[dispatch, isFavorite]);
   
-  const handleAddToCart = (id, url, price, productName) => {
-    dispatch(
-      addToCart({
-        id,
-        url,
-        price,
-        productName,
-      }),
-      console.log(typeof(price))
-    );
-  };
+  const handleAddToCart = useMemo(() => {
+    return (id, url, price, productName) => {
+      dispatch(
+        addToCart({
+          id,
+          url,
+          price,
+          productName,
+        })
+      );
+    };
+  }, [dispatch]);
 
   const navigate = useNavigate();
   return (
@@ -99,4 +103,12 @@ const buttonText = productItem ? "In cart" : "Add To Cart";
   );
 };
 
-export default ProductCard;
+function areEqual(prevProps, nextProps) {
+  return (
+    prevProps.id === nextProps.id && prevProps.inStock === nextProps.inStock
+  )
+}
+
+const memoizedProductCard = memo(ProductCard, areEqual)
+
+export default memoizedProductCard;

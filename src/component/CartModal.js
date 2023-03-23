@@ -17,7 +17,7 @@ const CartModal = ({ setShowCart }) => {
 
     useEffect(() => {
         setShowCart(prev => !prev)
-    }, [pathname])
+    }, [pathname, setShowCart])
 
     useEffect(() => {
         getTotals()
@@ -88,7 +88,7 @@ const CartModal = ({ setShowCart }) => {
 
 const Container = styled.div`
 position:absolute;
-width:400px;
+width:300px;
 height:300px;
 overflow:auto;
 right:4em;
@@ -101,8 +101,8 @@ box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
 border-radius:4px;
 z-index:4;
 .cartImage{
-    width:60px;
-    height:60px;
+    width:40px;
+    height:40px;
     object-fit:cover;
 }
 
@@ -111,7 +111,7 @@ z-index:4;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    font-size:1.3rem;
+    font-size:1rem;
 }
 .cancel{
     position:absolute;
@@ -133,8 +133,13 @@ z-index:4;
 
 .name,
 .price{
-    font-weight:550;
+    font-weight:500;
     margin:0.3rem 0 0.3rem 0;
+    font-size:12px;
+}
+
+.price{
+    font-weight:600;
 }
 .btn{
 outline:none;

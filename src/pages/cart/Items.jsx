@@ -6,7 +6,8 @@ import { devices } from '../../config/mediaquery'
 import { useSelector ,useDispatch} from 'react-redux'
 import { addToCart, decreaseCart,removeFromCart, getTotals } from '../../state/slice/cartSlice'
 import { useEffect } from 'react'
-import { formatPrice } from '../../constants/formatPrice'
+import { formatPrice } from '../../constants/formatPrice' 
+import { useMemo , memo} from 'react'
 
 
 const Items = () => {
@@ -22,27 +23,36 @@ const Items = () => {
         )
     },[cart, dispatch])
 
-    const handleIncrease =(product) => {
-        dispatch(
-            addToCart(product)
-        )
-    }
-    const handleDecrease =(product) => {
-        dispatch(
-            decreaseCart(product)
-        )
-    }
-    const handleRemove =(product) => {
-        dispatch(
-            removeFromCart(product)
-        )
-    }
+    const handleIncrease = useMemo(() => {
+        return (product) => {
+            dispatch(
+                addToCart(product)
+            )
+        }
+    },[dispatch])
+
+
+    const handleDecrease =useMemo(() => {
+        return (product) => {
+            dispatch(
+                decreaseCart(product)
+            )
+        }
+    },[dispatch])
+
+    const handleRemove = useMemo(() => {
+        return (product) => {
+            dispatch(
+                removeFromCart(product)
+            )
+        }
+    }, [dispatch])
     
 
   return (
     <Container>
         {
-            !cartItems?.length == 0 &&
+            !cartItems?.length === 0 &&
             <div className='cartHeader'>
                 <div className='col-1'>Image</div>
                 <div className='col-2'>Product</div>
@@ -204,5 +214,10 @@ margin: 0 ${({theme}) => theme.margin.lg} 0 ${({theme}) => theme.margin.lg};
         font-size:12px;
 }
 `
-
-export default Items
+function areEqual(prevProps, nextProps) {
+    return (
+        Object.keys(prevProps).every((key) => prevProps[key] === nextProps[key])
+    )
+  }
+const memoizedItems = memo(Items, areEqual)
+export default memoizedItems

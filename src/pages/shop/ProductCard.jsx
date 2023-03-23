@@ -8,6 +8,7 @@ import { addFavorite } from "../../state/slice/favoriteSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { formatPrice } from "../../constants/formatPrice";
+import { memo, useMemo } from "react";
 
 const ProductCard = ({
   slug,
@@ -21,8 +22,8 @@ const ProductCard = ({
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isFavorite, setIsFavorite] = useState(false);
 
+  const [isFavorite, setIsFavorite] = useState(false);
   const { favoriteItems } = useSelector((state) => state.favorite);
 
   // check if the current product is already in favorites
@@ -30,30 +31,35 @@ const ProductCard = ({
     const existingItem = favoriteItems.find((item) => item.id === id);
 
     setIsFavorite(existingItem ? true : false);
-  }, [favoriteItems]);
+  }, [favoriteItems, id]);
 
-  const handleAddToCart = (id, url, price, productName) => {
-    dispatch(
-      addToCart({
-        id,
-        url,
-        price,
-        productName,
-      })
-    );
-  };
+  const handleAddToCart = useMemo(() => {
+    return (id, url, price, productName) => {
+      dispatch(
+        addToCart({
+          id,
+          url,
+          price,
+          productName,
+        })
+      );
+    };
+  }, [dispatch]);
 
-  const handleAddfavorite = (id, url, price, productName) => {
-    dispatch(
-      addFavorite({
-        id,
-        url,
-        price,
-        productName,
-      })
-    );
-    setIsFavorite(!isFavorite);
-  };
+
+  const handleAddfavorite = useMemo(() => {
+    return (id, url, price, productName) => {
+      dispatch(
+        addFavorite({
+          id,
+          url,
+          price,
+          productName,
+        })
+      );
+      setIsFavorite(!isFavorite);
+    };
+  }, [dispatch, isFavorite]);
 
   const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
   const buttonText = productItem ? "In cart" : "Add To Cart";
@@ -76,7 +82,7 @@ const ProductCard = ({
           className={inStock ? "addCart" : "notAllowed"}
           onClick={() => handleAddToCart(id, url, price, productName)}
         >
-          {inStock? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
+          {inStock ? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
         </button>
       </div>
 
@@ -95,4 +101,12 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+function areEqual(prevProps, nextProps) {
+  return (
+    prevProps.id === nextProps.id && prevProps.inStock === nextProps.inStock
+  )
+}
+
+const memoizedProductCard = memo(ProductCard, areEqual);
+
+export default memoizedProductCard;

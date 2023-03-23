@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from "styled-components"
-import { Rate } from '../../component'
 
 import { CircleLoader } from 'react-spinners'
 
@@ -10,17 +9,18 @@ const ListProduct = (props) => {
 
     const { sortedData, isLoading, isSuccess } = props
 
-  
+
     return (
         <Container>
             {
                 isSuccess && sortedData?.map((product) => {
                     const { id } = product
-                    const {slug} = product.attributes
-                    const { productName, rating, purchased, price, description , inStock} = product.attributes
+                    const { slug } = product.attributes
+                    const { productName, rating, purchased, price, description, inStock } = product.attributes
                     const { url } = product.attributes.image.data.attributes
                     return (
                         <ListCard
+                            key={id}
                             id={id}
                             inStock={inStock}
                             productName={productName}
@@ -121,6 +121,7 @@ h4{
     display:grid;
     grid-template-columns:1fr 2.4fr;
     margin-bottom:2rem;
+    gap:3rem;
 }
 .listImg{
     width:250px;

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../../state/slice/cartSlice";
 import { addFavorite } from "../../../state/slice/favoriteSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { formatPrice } from "../../../constants/formatPrice";
 
 
@@ -18,33 +18,37 @@ const [isFavorite, setIsFavorite] = useState(false);
 useEffect(() => {
     const existingItem = favoriteItems.find((item) => item.id === id);
     setIsFavorite(existingItem ? true : false);
-}, [favoriteItems]);
+}, [favoriteItems,id]);
 
 const dispatch = useDispatch();
 const navigate = useNavigate();
 
-const handleAddfavorite = (id, url, price, productName) => {
-    dispatch(
-        addFavorite({
-            id,
-            url,
-            price,
-            productName,
-        })
-    );
-    setIsFavorite(!isFavorite);
-};
+const handleAddfavorite = useMemo(() => {
+    return (id, url, price, productName) => {
+        dispatch(
+            addFavorite({
+                id,
+                url,
+                price,
+                productName,
+            })
+        );
+        setIsFavorite(!isFavorite);
+    };
+}, [dispatch, isFavorite])
 
-const handleAddToCart = (id, url, price, productName) => {
-    dispatch(
-        addToCart({
-            id,
-            url,
-            price,
-            productName,
-        })
-    );
-};
+const handleAddToCart = useMemo(() => {
+    return (id, url, price, productName) => {
+        dispatch(
+            addToCart({
+                id,
+                url,
+                price,
+                productName,
+            })
+        );
+    };
+}, [dispatch]);
 
 
 const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
@@ -92,4 +96,11 @@ const buttonText = productItem ? "In cart" : "Add To Cart";
     );
 };
 
-export default TableCard;
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.id === nextProps.id && prevProps.inStock === nextProps.inStock
+    )
+}
+const memoizedProduct = React.memo(TableCard, areEqual);
+
+export default memoizedProduct;

@@ -26,7 +26,7 @@ const cartSlice = createSlice({
         };
         toast.info("Increased Product quantity", {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
+          autoClose: 100,
           closeButton: false,
           hideProgressBar: true,
           closeOnClick: true,
@@ -43,7 +43,7 @@ const cartSlice = createSlice({
         state.cartItems.push(tempProductItem);
         toast.success("Product added to cart", {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
+          autoClose: 100,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: false,
@@ -65,7 +65,7 @@ const cartSlice = createSlice({
         state.cartItems[itemIndex].cartQuantity -= 1;
         toast.error("Decrease product quantity", {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
+          autoClose: 100,
           closeButton: false,
           hideProgressBar: true,
           closeOnClick: true,
@@ -81,7 +81,7 @@ const cartSlice = createSlice({
         state.cartItems = deleteItem;
         toast.error("Product removed from cart", {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
+          autoClose: 100,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: false,
@@ -103,7 +103,7 @@ const cartSlice = createSlice({
           state.cartItems = newItem;
           toast.error("Product removed from cart", {
             position: toast.POSITION.TOP_CENTER,
-            autoClose: 3000,
+            autoClose: 100,
             hideProgressBar: true,
             closeOnClick: true,
             closeButton: false,
@@ -148,4 +148,5 @@ const cartSlice = createSlice({
 });
 
 export const { addToCart, decreaseCart, removeFromCart, getTotals, clearCart } =cartSlice.actions;
+
 export default cartSlice.reducer;

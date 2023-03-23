@@ -54,4 +54,12 @@ const ListItem = (props) => {
     )
 }
 
-export default ListItem
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.id === nextProps.id && prevProps.inStock === nextProps.inStock
+    )
+}
+
+const memoizedList = React.memo(ListItem, areEqual)
+
+export default memoizedList

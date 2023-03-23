@@ -6,7 +6,7 @@ import { Rate } from '../../../component'
 import { useNavigate } from 'react-router-dom'
 import { addToCart } from '../../../state/slice/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { addFavorite } from '../../../state/slice/favoriteSlice'
 import { formatPrice } from '../../../constants/formatPrice'
 
@@ -20,26 +20,30 @@ const KitchenCard = ({ id, url, slug, productName, rating, purchased, price, inS
     useEffect(() => {
         const existingItem = favoriteItems.find(item => item.id === id)
         setIsFavorite(existingItem ? true : false)
-    }, [favoriteItems])
+    }, [favoriteItems, id])
 
-    const handleAddToCart = () => {
-        dispatch(addToCart({
-            id,
-            url,
-            price,
-            productName
-        }))
-    }
+    const handleAddToCart = useMemo(() => {
+        return (id, url, price, productName) => {
+            dispatch(addToCart({
+                id,
+                url,
+                price,
+                productName
+            }))
+        }
+    }, [dispatch])
 
-    const handleAddfavorite = () => {
-        dispatch(addFavorite({
-            id,
-            url,
-            price,
-            productName
-        }))
-        setIsFavorite(!isFavorite)
-    }
+    const handleAddfavorite = useMemo(() => {
+        return  (id, url, price, productName) => {
+            dispatch(addFavorite({
+                id,
+                url,
+                price,
+                productName
+            }))
+            setIsFavorite(!isFavorite)
+        }
+    }, [dispatch, isFavorite])
 
 
     const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
@@ -80,4 +84,12 @@ const KitchenCard = ({ id, url, slug, productName, rating, purchased, price, inS
     )
 }
 
-export default KitchenCard
+
+function areEqual(prevProps, nextProps) {
+    return(
+      prevProps.id === nextProps.id && prevProps.inStock === nextProps.inStock
+    )
+  }
+const memoKitchenCard = React.memo(KitchenCard, areEqual)
+
+export default memoKitchenCard

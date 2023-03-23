@@ -1,5 +1,5 @@
 import React from "react";
-import { useState} from "react";
+import { useState } from "react";
 import { useGetProductsQuery } from "../../services/product";
 import ListProduct from "./ListProduct";
 import Products from "./Products";
@@ -23,17 +23,17 @@ const ProductDisplay = () => {
   let visiblePages = 2;
 
   const {
-    currentData, 
-    nextPage, 
-    prevPage, 
+    currentData,
+    nextPage,
+    prevPage,
     jumpPage,
     currentPage,
     hasMorePages,
     visiblePageRange,
-    totalPage} = usePagination(dataItems, itemsPerPage, visiblePages)
+    totalPage } = usePagination(dataItems, itemsPerPage, visiblePages)
 
-   
-    
+
+
   //toggle display type
   const toggleDisplayType = () => {
     setDisplayType(displayType === "grid" ? "list" : "grid");
@@ -47,41 +47,40 @@ const ProductDisplay = () => {
     setSortOption(e.target.value);
   };
 
-console.log(currentData())
-let sortedData = currentData()
+  let sortedData = currentData()
 
   switch (sortOption) {
     case "name":
       if (isSuccess) {
-       sortedData= [...sortedData].sort((a, b) =>
+        sortedData = [...sortedData].sort((a, b) =>
           a.attributes.productName.localeCompare(b.attributes.productName)
         );
       }
       break;
     case "priceLowToHigh":
       if (isSuccess) {
-        sortedData=[...sortedData].sort(
+        sortedData = [...sortedData].sort(
           (a, b) => a.attributes.price - b.attributes.price
         );
       }
       break;
     case "priceHighToLow":
       if (isSuccess) {
-        sortedData=[...sortedData].sort(
+        sortedData = [...sortedData].sort(
           (a, b) => b.attributes.price - a.attributes.price
         );
       }
       break;
     case "rating":
       if (isSuccess) {
-       sortedData=[...sortedData].sort(
+        sortedData = [...sortedData].sort(
           (a, b) => b.attributes.rating - a.attributes.rating
         );
       }
       break;
     case "purchased":
       if (isSuccess) {
-        sortedData =[...sortedData].sort(
+        sortedData = [...sortedData].sort(
           (a, b) => b.attributes.purchased - a.attributes.purchased
         );
       }
@@ -104,13 +103,13 @@ let sortedData = currentData()
       </Div>
       {isGrid ? (
         <Products
-         sortedData={sortedData}
+          sortedData={sortedData}
           isSuccess={isSuccess}
           isLoading={isLoading}
         />
       ) : (
         <ListProduct
-         sortedData={sortedData}
+          sortedData={sortedData}
           isSuccess={isSuccess}
           isLoading={isLoading}
         />
@@ -119,14 +118,14 @@ let sortedData = currentData()
         isSuccess &&
         (
           <Pagination
-          prevPage={prevPage}
-          currentPage={currentPage}
-          nextPage={nextPage}
-          totalPage={totalPage}
-          jumpPage={jumpPage}
-          hasMorePages={hasMorePages}
-          visiblePageRange={visiblePageRange}
-      />
+            prevPage={prevPage}
+            currentPage={currentPage}
+            nextPage={nextPage}
+            totalPage={totalPage}
+            jumpPage={jumpPage}
+            hasMorePages={hasMorePages}
+            visiblePageRange={visiblePageRange}
+          />
         )
       }
     </>

@@ -1,90 +1,106 @@
-import React from 'react'
-import { Card } from "../../../component"
-import { MdFavorite } from "react-icons/md"
-import { AiFillEye } from "react-icons/ai"
-import { Rate } from '../../../component'
-import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addFavorite } from '../../../state/slice/favoriteSlice'
-import { addToCart } from '../../../state/slice/cartSlice'
-import { formatPrice } from '../../../constants/formatPrice'
+import React from "react";
+import { Card } from "../../../component";
+import { MdFavorite } from "react-icons/md";
+import { AiFillEye } from "react-icons/ai";
+import { Rate } from "../../../component";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../../state/slice/cartSlice";
+import { addFavorite } from "../../../state/slice/favoriteSlice";
+import { useState, useEffect, useMemo } from "react";
+import { formatPrice } from "../../../constants/formatPrice";
 
+const BedCard = ({ id, slug, url, productName, price, inStock, rating, purchased }) => {
 
-const BedCard = ({ id, url, slug, productName, rating, purchased, price, inStock }) => {
-
+    const [isFavorite, setIsFavorite] = useState(false);
     const { favoriteItems } = useSelector((state) => state.favorite)
-    const [isFavorite, setIsFavorite] = useState(false)
-    const navigate = useNavigate()
+    const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         const existingItem = favoriteItems.find((item) => item.id === id);
         setIsFavorite(existingItem ? true : false);
-    }, [favoriteItems, id])
+    }, [favoriteItems, id]);
 
+    const handleAddToCart = useMemo(() => {
+        return (id, price, productName, url) => {
+            dispatch(
+                addToCart({
+                    id,
+                    price,
+                    productName,
+                    url,
+                })
+            )
+        }
+    }, [dispatch])
 
-    const dispatch = useDispatch();
+    const handleAddFavorite = useMemo(() => {
+        return ((id, price, productName, url) => {
+            dispatch(
+                addFavorite({
+                    id,
+                    price,
+                    productName,
+                    url,
+                })
+            )
+            setIsFavorite(!isFavorite)
+        })
+    }, [dispatch, isFavorite])
 
-    const handleAddfavorite = (id, url, price, productName) => {
-        dispatch(
-            addFavorite({
-                id,
-                url,
-                price,
-                productName,
-            })
-        );
-        setIsFavorite(!isFavorite);
-    };
-
-    const handleAddToCart = (id, url, price, productName) => {
-        dispatch(
-            addToCart({
-                id,
-                url,
-                price,
-                productName,
-            })
-        );
-    };
-
-
-    const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
     const buttonText = productItem ? "In cart" : "Add To Cart";
 
-
     return (
-
         <Card>
-            <img src={url} alt={productName} className='img' />
-            <div className='cardBody'>
-                <div className='name'>{productName}</div>
-                <div className='rate'>
-                    <span className='rating'><Rate rating={rating} /></span>
+            <img src={url} alt="img" className="img" />
+            <div className="cardBody">
+                <div className="name">{productName}</div>
+                <div className="rate">
+                    <span className="rating">
+                        <Rate rating={rating} />
+                    </span>
                     <span>({purchased})</span>
                 </div>
-                <div className='price'>
+                <div className="price">
                     <span>{formatPrice(price)}</span>
                 </div>
                 <button
                     disabled={!inStock}
                     className={inStock ? "addCart" : "notAllowed"}
-                    onClick={() => handleAddToCart(id, url, price, productName)}
+                    onClick={() => handleAddToCart(id, price, productName, url)}
                 >
                     {inStock ? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
                 </button>
             </div>
 
-            <div className='preview'>
-                <div className='view' onClick={() => navigate(`/shop/item/${slug}`)}><AiFillEye /></div>
-                <div className={isFavorite ? 'isFavorite' : "favorite"}
-                    onClick={() => handleAddfavorite(id, url, price, productName)}
-                ><MdFavorite /></div>
+            <div className="preview">
+                <div
+                    className="view"
+                    onClick={() => navigate(`/shop/item/${slug}`)}
+                >
+                    <AiFillEye />
+                </div>
+                <div
+                    className={isFavorite ? "isFavorite" : "favorite"}
+                    onClick={() => handleAddFavorite(id, url, price, productName)}>
+                    <MdFavorite />
+                </div>
             </div>
-
         </Card>
+    );
+};
 
+
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.id === nextProps.id && prevProps.inStock === nextProps.inStock
     )
 }
 
-export default BedCard
+const memoBedCard = React.memo(BedCard, areEqual);
+
+export default memoBedCard;

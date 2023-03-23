@@ -21,7 +21,7 @@ const favoriteSlice = createSlice({
                 
                 toast.info("Unlisted from Wishlist",{
                     position: toast.POSITION.TOP_CENTER,
-                    autoClose: 3000,
+                    autoClose: 100,
                     closeButton:false,
                     hideProgressBar: true,
                     closeOnClick: true,
@@ -38,7 +38,7 @@ const favoriteSlice = createSlice({
                 state.favoriteItems.push(tempFavorite)
                 toast.info("Added to  Wishlist",{
                     position: toast.POSITION.TOP_CENTER,
-                    autoClose: 3000,
+                    autoClose: 100,
                     closeButton:false,
                     hideProgressBar: true,
                     closeOnClick: true,
@@ -58,7 +58,7 @@ const favoriteSlice = createSlice({
 
                 toast.info("Product Removed",{
                     position: toast.POSITION.TOP_CENTER,
-                    autoClose: 3000,
+                    autoClose: 100,
                     closeButton:false,
                     hideProgressBar: true,
                     closeOnClick: true,

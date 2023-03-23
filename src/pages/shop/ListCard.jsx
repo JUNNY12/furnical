@@ -8,43 +8,47 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatPrice } from "../../constants/formatPrice";
-
+import { useMemo } from "react";
 
 const ListCard = ({ id, url, price, productName, rating, slug, purchased, description, inStock }) => {
+    const [isFavorite, setIsFavorite] = useState(false);
+    const { favoriteItems } = useSelector((state) => state.favorite);
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const handleAddToCart = ({ id, price, url, productName }) => {
-        dispatch(addToCart({
-            id,
-            price,
-            url,
-            productName
-        }))
-    }
-    const [isFavorite, setIsFavorite] = useState(false);
+    const handleAddToCart = useMemo(() => {
+        return ({ id, price, url, productName }) => {
+            dispatch(addToCart({
+                id,
+                price,
+                url,
+                productName
+            }))
+        }
+    }, [dispatch]);
 
-    const { favoriteItems } = useSelector((state) => state.favorite);
 
     // check if the current product is already in favorites
     useEffect(() => {
         const existingItem = favoriteItems.find((item) => item.id === id);
 
         setIsFavorite(existingItem ? true : false);
-    }, [favoriteItems]);
+    }, [favoriteItems, id]);
 
-    const handleAddfavorite = (id, url, price, productName) => {
-        dispatch(
-            addFavorite({
-                id,
-                url,
-                price,
-                productName,
-            })
-        );
-        setIsFavorite(!isFavorite);
-    };
+    const handleAddfavorite = useMemo(() => {
+       return (id, url, price, productName) => {
+            dispatch(
+                addFavorite({
+                    id,
+                    url,
+                    price,
+                    productName,
+                })
+            );
+            setIsFavorite(!isFavorite);
+        };
+    }, [dispatch, isFavorite]);
 
     const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
     const buttonText = productItem ? "In cart" : "Add To Cart";
@@ -85,7 +89,7 @@ const ListCard = ({ id, url, price, productName, rating, slug, purchased, descri
                         className={inStock ? "addCart" : "notAllowed"}
                         onClick={() => handleAddToCart({ id, price, url, productName })}
                     >
-                     {inStock ? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
+                        {inStock ? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
                     </button>
                 </div>
             </div>
@@ -93,4 +97,13 @@ const ListCard = ({ id, url, price, productName, rating, slug, purchased, descri
     );
 };
 
-export default ListCard;
+function areEqual(prevProps, nextProps) {
+    return (
+        prevProps.id === nextProps.id && prevProps.inStock === nextProps.inStock
+    );
+}
+
+const memoizedProduct = React.memo(ListCard, areEqual);
+
+
+export default memoizedProduct;

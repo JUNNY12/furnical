@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../state/slice/cartSlice";
 import { addFavorite } from "../../../state/slice/favoriteSlice";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { formatPrice } from "../../../constants/formatPrice";
 
 const ChairCard = ({ id, slug, url, productName, price, inStock, rating, purchased }) => {
 
   const [isFavorite, setIsFavorite] = useState(false);
   const { favoriteItems } = useSelector((state) => state.favorite)
+  const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
 
 
   const navigate = useNavigate();
@@ -23,30 +24,37 @@ const ChairCard = ({ id, slug, url, productName, price, inStock, rating, purchas
   useEffect(() => {
     const existingItem = favoriteItems.find((item) => item.id === id);
     setIsFavorite(existingItem ? true : false);
-  });
+  }, [favoriteItems, id]);
 
-  const handleAddToCart = (id, price, productName, url) => {
-    dispatch(
-      addToCart({
-        id,
-        price,
-        productName,
-        url,
-      })
-    )
-  }
+  const handleAddToCart = useMemo(() => {
+    return (id, price, productName, url) => {
+      dispatch(
+        addToCart({
+          id,
+          price,
+          productName,
+          url,
+        })
+      )
+    }
+  }, [dispatch])
 
-  const handleAddFavorite = (id, price, productName, url) => {
-    dispatch(
-      addFavorite({
-        id,
-        price,
-        productName,
-        url,
-      })
-    )
-  }
-  const productItem = useSelector((state) => state.cart.cartItems.find((item) => item.id === id));
+  const handleAddFavorite = useMemo(() => {
+    return (id, price, productName, url) => {
+      dispatch(
+        addFavorite({
+          id,
+          price,
+          productName,
+          url,
+        })
+      )
+      setIsFavorite(!isFavorite)
+    }
+  }, [dispatch, isFavorite])
+
+
+
   const buttonText = productItem ? "In cart" : "Add To Cart";
 
   return (
@@ -68,7 +76,7 @@ const ChairCard = ({ id, slug, url, productName, price, inStock, rating, purchas
           className={inStock ? "addCart" : "notAllowed"}
           onClick={() => handleAddToCart(id, price, productName, url)}
         >
-          {inStock? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
+          {inStock ? `${buttonText}` : <span className="outOfStock">Out of Stock</span>}
         </button>
       </div>
 
@@ -89,4 +97,13 @@ const ChairCard = ({ id, slug, url, productName, price, inStock, rating, purchas
   );
 };
 
-export default ChairCard;
+
+function areEqual(prevProps, nextProps) {
+  return (
+    prevProps.id === nextProps.id && prevProps.inStock === nextProps.inStock
+  )
+}
+
+const memoChairCard = React.memo(ChairCard, areEqual);
+
+export default memoChairCard;

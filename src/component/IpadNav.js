@@ -102,7 +102,7 @@ a{
 }
 .search{
     position:absolute;
-    top:30%;
+    top:9.5em;
     left:50%;
     z-index:100;
     transform:translate(-50%, -50%);

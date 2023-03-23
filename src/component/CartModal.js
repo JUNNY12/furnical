@@ -13,11 +13,11 @@ const CartModal = ({ setShowCart }) => {
     const { cartItems } = cart
     const dispatch = useDispatch()
 
-    const { pathname } = useLocation()
+    // const { pathname } = useLocation()
 
-    useEffect(() => {
-        setShowCart(prev => !prev)
-    }, [pathname])
+    // useEffect(() => {
+    //     setShowCart(prev => !prev)
+    // }, [pathname])
 
     useEffect(() => {
         getTotals()

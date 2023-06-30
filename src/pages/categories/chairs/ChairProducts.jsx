@@ -2,9 +2,9 @@ import React from 'react'
 import { Container, Section } from '../../shop/Products'
 import ChairCard from './ChairCard'
 import { useGetChairQuery } from '../../../services/category'
-import {CircleLoader} from "react-spinners"
 import Pagination from '../../../component/Pagination'
 import { usePagination } from '../../../hooks'
+import LoadingCard from "../../../component/loadingCard"
 
 const ChairProducts = () => {
   const {isLoading, isSuccess, data} = useGetChairQuery()
@@ -47,13 +47,15 @@ const ChairProducts = () => {
               )
             })
            }
-        </Section>
         {
-          isLoading && 
-          <div className='loader'>
-            <CircleLoader color="#db9277" size={150} />
-          </div>
+          isLoading && [...Array(8)].map((_, index) => {
+            return (
+              <LoadingCard key={index} />
+            )
+          }
+          )
         }
+        </Section>
         {
           isSuccess && (
             <Pagination

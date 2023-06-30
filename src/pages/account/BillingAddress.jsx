@@ -28,7 +28,7 @@ const BillingAddress = () => {
         city: '',
         state: '',
         phoneNumber: '',
-        email: '',
+        emailText: '',
     })
 
     const handleInputChange = (e) => {
@@ -46,7 +46,7 @@ const BillingAddress = () => {
             setFormData({
                 firstName: data?.firstName || '',
                 lastName: data?.lastName || '',
-                email: data?.email || '',
+                emailText: data?.email || '',
                 phoneNumber: data?.phoneNumber || '',
                 streetAddress: data?.streetAddress || '',
                 companyName: data?.companyName || '',
@@ -56,7 +56,7 @@ const BillingAddress = () => {
         }
     }, [isSuccess, data])
 
-    const { firstName, lastName, companyName, streetAddress, city, state, phoneNumber, email} = formData
+    const { firstName, lastName, companyName, streetAddress, city, state, phoneNumber, emailText} = formData
 
     const handleUpdate = async (e) => {
         e.preventDefault()
@@ -71,7 +71,7 @@ const BillingAddress = () => {
                     city,
                     state,
                     phoneNumber,
-                    email
+                    emailText
                 }
             }).unwrap()
                 toast.success('Saved successfully',{
@@ -166,7 +166,7 @@ const BillingAddress = () => {
                     <Inputs
                         name='emailText'
                         onChange={handleInputChange}
-                        value={email}
+                        value={emailText}
                         type="email"
                     />
                 </div>

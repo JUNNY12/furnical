@@ -2,9 +2,9 @@ import React from 'react'
 import { Container, Section } from '../../shop/Products'
 import BedCard from './BedCard'
 import { useGetBedQuery } from '../../../services/category'
-import {CircleLoader} from "react-spinners"
 import { usePagination } from '../../../hooks'
 import Pagination from '../../../component/Pagination'
+import LoadingCard from "../../../component/loadingCard"
 
 const Products = () => {
   const {isLoading, isSuccess, data} = useGetBedQuery()
@@ -47,13 +47,15 @@ const Products = () => {
                 )
               })
             }
-        </Section>
         {
-          isLoading &&
-          <div className="loader">
-            <CircleLoader color="#db9277" size={150} />
-          </div>
+          isLoading && [...Array(8)].map((_, index) => {
+            return (
+              <LoadingCard key={index} />
+            )
+          }
+          )
         }
+        </Section>
         {
           isSuccess && (
             <Pagination

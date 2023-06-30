@@ -2,9 +2,9 @@ import React from 'react'
 import { Container, Section } from '../../shop/Products'
 import TableCard from './TableCard'
 import { useGetTableQuery } from '../../../services/category'
-import {CircleLoader} from "react-spinners"
 import { usePagination } from '../../../hooks'
 import Pagination from '../../../component/Pagination'
+import LoadingCard from "../../../component/loadingCard"
 
 const TableProducts = () => {
   const {isLoading, isSuccess, data} = useGetTableQuery()
@@ -47,13 +47,16 @@ const TableProducts = () => {
                 )
               })
             }
-        </Section>
         {
-          isLoading && 
-          <div className="loader">
-            <CircleLoader color="#db9277" size={150} />
-          </div>
+          isLoading && [...Array(8)].map((_, index) => {
+            return (
+              <LoadingCard key={index} />
+            )
+          }
+          )
         }
+        </Section>
+
         {
           isSuccess && (
             <Pagination

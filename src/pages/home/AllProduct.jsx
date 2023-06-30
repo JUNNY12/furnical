@@ -3,11 +3,10 @@ import ProductCard from "./ProductCard"
 import { Link } from "react-router-dom"
 import AllProductHeader from "./AllProductHeader"
 import { devices } from "../../config/mediaquery"
-import {CircleLoader} from "react-spinners"
 import { useGetProductsQuery } from "../../services/product"
 import { usePagination } from "../../hooks"
 import Pagination from "../../component/Pagination"
-
+import LoadingCard from "../../component/loadingCard"
 
 
 const AllProduct = () => {
@@ -58,10 +57,16 @@ const AllProduct = () => {
             )
           })
         }
+        {
+          isLoading && [...Array(8)].map((_, index) => {
+            return (
+              <LoadingCard key={index} />
+            )
+          }
+          )
+        }
      </Section>
-     {
-        isLoading && <div className="loader"> <CircleLoader color="#db9277" size={150} /></div>
-      }
+     
        {
         isSuccess &&
           <Pagination 

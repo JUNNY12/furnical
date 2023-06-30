@@ -12,9 +12,9 @@ const SearchSection = () => {
 
   const inputRef = useRef(null);
   
-    useEffect(() => {
-      inputRef.current.focus();
-    }, []);
+    // useEffect(() => {
+    //   inputRef.current.focus();
+    // }, []);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
